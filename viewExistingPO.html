@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+ 
+<html>
+<head>
+<title>Fraunhofer CCD</title>
+<link href='css/bootstrap.min.css' rel='stylesheet'>
+<link href='css/main.css' rel='stylesheet'>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+<script type="text/javascript" src='js/passScript.js'></script>
+
+
+</head>
+<body>
+<div class='navbar navbar-default navbar-static-top'>
+    <div class='container'>
+        <a href='index.php' class='navbar-brand'>Home Page</a>
+        <ul class='nav navbar-nav navbar-right'>
+          <li><a href='adminView.html'>Admins</a></li>
+          <li><a href='addOrEdit.html'>Add/edit info</a></li>
+        </ul>
+    </div>
+</div>
+
+    <div class='container'>
+     <div class='row well well-lg'>
+    <div class='col-md-3'>
+    <p >Input the PO number</p>
+     <input type="text" name="search" id="search_box_PO" class='search_box'/>
+      <button  type='button'  class='btn btn-primary' onclick='searchPO()'>
+          <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+      </button>
+    </div>
+    <div class='col-md-3'>
+    <p >Input the Company Name</p>
+    <input type="text" name="search" id="search_box_company" class='search_box'/>
+      <button type='button'  class='btn btn-primary' onclick='searchPOCompany()'>
+          <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+      </button>
+    </div>
+    <div class='col-md-3'>
+    <p >Input employee name</p>
+        <input type="text" name="search" id="search_box_employee" class='search_box'/>
+        <button type='button'  class='btn btn-primary' onclick='searchPOEmployee()'>
+          <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+      </button>
+    </div>
+</div>  
+</div>    
+<ul id="results" class="update">
+</ul>
+ 
+</div>
+   
+</body>
+</html>

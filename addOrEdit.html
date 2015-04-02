@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Fraunhofer CCD</title>
+		<link href='css/bootstrap.min.css' rel='stylesheet'>
+    	<link href='css/main.css' rel='stylesheet'>
+	</head>
+	<body>
+		<div class='navbar navbar-default navbar-static-top'>
+      		<div class='container'>
+        		<a href='index.php' class='navbar-brand'>Home Page</a>
+		        <ul class='nav navbar-nav navbar-right'>
+		          <li><a href='adminView.html'>Admins</a></li>
+		          <li><a href='addOrEdit.html'>Add/edit info</a></li>
+		        </ul>
+      		</div>
+  		</div>
+
+<div class='container'>
+      <div class='row well well-lg'>
+        <div class='col-md-12'>
+          <h2>Add/edit Customer</h2>
+          <p class='lead'>Customer menu</p>
+          <div class='btn-group'>
+            <a href='addNewCustomer.html' class='btn btn-primary btn-lg' >
+              Add new Customer
+            </a>
+          <div class='btn-group'>
+            <a href='viewAllCustomers.php' class='btn btn-success btn-lg' >
+              View All Customers
+            </a>
+          </div>
+        </div>
+        </div>
+      </div>
+      <div class='row well well-lg'>
+        <div class='col-md-12'>
+          <h2>Add/edit Employee</h2>
+          <p class='lead'>Employee menu</p>
+          <div class='btn-group'>
+            <a href='addNewEmployee.html' class='btn btn-primary btn-lg' >
+              Add new Employee
+            </a>
+            <a href='viewAllEmployees.php' class='btn btn-success btn-lg' >
+              View All Employees
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class='row well well-lg'>
+        <div class='col-md-12'>
+          <h2>Add/edit Machine</h2>
+          <p class='lead'>Machine Menu</p>
+          <div class='btn-group'>
+            <a href='addNewMachine.html' class='btn btn-primary btn-lg' >
+              Add new Machine
+            </a>
+            <a href='viewAllMachines.php' class='btn btn-success btn-lg' >
+              View All Machines
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class='row well well-lg'>
+        <div class='col-md-12'>
+          <h2>Add/edit coating</h2>
+          <p class='lead'>Coating Menu</p>
+          <div class='btn-group'>
+            <a href='addNewCoating.html' class='btn btn-primary btn-lg' >
+              Add new Coating
+            </a>
+            <a href='viewAllCoatings.php' class='btn btn-success btn-lg' >
+              View All Coatings
+            </a>
+          </div>
+        </div>
+      </div>
+</div>
+
+
+
+
+
+
+
+
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+    <script src='js/bootstrap.min.js'></script>
+    <script>
+      $(function() {
+        $('.nav-tabs a').click(function (e) {
+          e.preventDefault();
+          $(this).tab('show');
+        });
+      });
+    </script>
+	</body>
+</html>
