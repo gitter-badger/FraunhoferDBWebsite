@@ -69,7 +69,7 @@ function addPO(){
 
      success: function(data,status, xhr)
      {
-        alert("PO was addedd successfully");
+        //alert("PO was addedd successfully");
         $("#status_text").html(data);
         $('#POID').val('');
         $('#CID').val('');
@@ -949,8 +949,8 @@ function addShipDateToPO (line){
     url : "insertShipDateToPO.php",
     type: "POST",
     data : {POID     : POID,
-        fInspect : fInspect,
-        date     : date},
+            fInspect : fInspect,
+            date     : date},
 
         success: function(data,status, xhr)
         {
@@ -963,5 +963,19 @@ function addShipDateToPO (line){
             //if fail show error and server status
             $("#runTools").html('there was an error ' + errorThrown + ' with status ' + textStatus);
         }
+    })
+}
+function authenticate(){
+    var username   = $('#user').val();
+    var password   = $('#password').val();
+    console.log(username);
+    console.log(password);
+  $.ajax({
+    url : "logincheck.php",
+    type: "POST",
+    data : {username : username,
+            password : password}
+    }).done(function(result){
+        $("#txtadd").html(result);
     })
 }
