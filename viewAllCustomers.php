@@ -13,6 +13,7 @@ $secResult = mysqli_query($link, $secsql);
 while($row = mysqli_fetch_array($secResult)){
   $user_sec_lvl = $row[0];
 }
+#add comment for github test
 ?>
 <html>
 <head>
