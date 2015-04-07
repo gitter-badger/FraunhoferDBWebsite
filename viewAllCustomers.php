@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <?php
 include 'connection.php';
+session_start();
+//find the current user
+$user = $_SESSION["username"];
+//find his level of security 
+$secsql = "SELECT sec_lvl
+           FROM Employees
+           WHERE ename = '$user'";
+$secResult = mysqli_query($link, $secsql);
+
+while($row = mysqli_fetch_array($secResult)){
+  $user_sec_lvl = $row[0];
+}
 ?>
 <html>
 <head>
@@ -13,12 +25,12 @@ include 'connection.php';
 <body>
   <div class='navbar navbar-default navbar-static-top'>
     <div class='container'>
-      <a href='index.php' class='navbar-brand'>Home Page</a>
+      <a href='selection.php' class='navbar-brand'>Selection Page</a>
       <ul class='nav navbar-nav navbar-right'>
-        <li><a href='adminView.html'>Admins</a></li>
-        <li><a href='addOrEdit.html'>Add/edit info</a></li>
-      </ul>
-    </div>
+        <li><a href='login.php'>Log in or change user</a></li>
+        <li style='margin-top:15px'><strong><?php echo $_SESSION["username"];?></strong></li>
+        <li><button onclick='logout()' class='btn btn-danger' style='margin-top:10px'>Logout</button></li>      </ul>
+      </div>
   </div>
   <div class='container'>
     <div class='row well well-lg'>
@@ -61,71 +73,59 @@ include 'connection.php';
       </table>
     </div>
   </div>
-  <div class='row well well-lg'>
-    <div class='col-md-12'>
-      <h2>Edit Customer ID to change the value in some field of the Customer. The customer ID can not be changed!</h2>
-      <div class='col-md-3'>
-        <h3 >Enter the Customer ID Number</h3>
-        <input type="text" id="input_CID" /></br>
-      </div>
-      <div class='col-md-3'>
-        <p >Change customers address to:</p>
-        <input type="text" id="input_address"/>
-        <input type="submit" value='Submit' onclick='changeCustomerAddress()' class="btn btn-primary"/>
-      </div>
-      <div class='col-md-3'>
-        <p >Change customers Email:</p>
-        <input type="text" id="input_email"/>
-        <input type="submit" value='Submit' onclick='changeCustomerEmail()' class="btn btn-primary"/>
-      </div>
-      <div class='col-md-3'>
-        <p >Change customers phonenumber to:</p>
-        <input type="text" id="input_phonenumber"/>
-        <input type="submit" value='Submit' onclick='changeCustomerPhoneNumber()' class="btn btn-primary"/>
-      </div>
+<?php
+if($user_sec_lvl >=3)
+{
+  echo"
+    <div class='row well well-lg'>
+      <div class='col-md-12'>
+        <h2>Edit Customer ID to change the value in some field of the Customer. The customer ID can not be changed!</h2>
+        <div class='col-md-3'>
+          <h3 >Enter the Customer ID Number</h3>
+          <input type='text' id='input_CID' /></br>
+        </div>
+        <div class='col-md-3'>
+          <p >Change customers address to:</p>
+          <input type='text' id='input_address'/>
+          <input type='submit' value='Submit' onclick='changeCustomerAddress()' class='btn btn-primary'/>
+        </div>
+        <div class='col-md-3'>
+          <p >Change customers Email:</p>
+          <input type='text' id='input_email'/>
+          <input type='submit' value='Submit' onclick='changeCustomerEmail()' class='btn btn-primary'/>
+        </div>
+        <div class='col-md-3'>
+          <p >Change customers phonenumber to:</p>
+          <input type='text' id='input_phonenumber'/>
+          <input type='submit' value='Submit' onclick='changeCustomerPhoneNumber()' class='btn btn-primary'/>
+        </div>
 
-      <div class='col-md-3'>
-        <p >Change customers faxnumber:</p>
-        <input type="text" id="input_faxnumber"/>
-        <input type="submit" value='Submit' onclick='changeCustomerFax()' class="btn btn-primary"/>
+        <div class='col-md-3'>
+          <p >Change customers faxnumber:</p>
+          <input type='text' id='input_faxnumber'/>
+          <input type='submit' value='Submit' onclick='changeCustomerFax()' class='btn btn-primary'/>
+        </div>
+        <div class='col-md-3'>
+          <p >Change customers contact name:</p>
+          <input type='text' id='input_contact'/>
+          <input type='submit' value='Submit' onclick='changeCustomerContact()' class='btn btn-primary'/>
+        </div>
+        <div class='col-md-3'>
+          <p >Change customers notes:</p>
+          <textarea id='input_notes'></textarea>
+          <input type='submit' value='Submit' onclick='changeCustomerNotes()' class='btn btn-primary'/>
+        </div>
+        <div class='col-md-3'>
+          <p >Delete Customer:
+            <button type='button'  class='btn btn-default' onclick='deleteCustomer()'>
+              <span class='glyphicon glyphicon-trash' aria-hidden='true'></span>
+            </button>
+          </p>
+        </div>
       </div>
-      <div class='col-md-3'>
-        <p >Change customers contact name:</p>
-        <input type="text" id="input_contact"/>
-        <input type="submit" value='Submit' onclick='changeCustomerContact()' class="btn btn-primary"/>
-      </div>
-      <div class='col-md-3'>
-        <p >Change customers notes:</p>
-        <textarea id="input_notes"></textarea>
-        <input type="submit" value='Submit' onclick='changeCustomerNotes()' class="btn btn-primary"/>
-      </div>
-      <div class='col-md-3'>
-        <p >Delete Customer:
-          <button type='button'  class='btn btn-default' onclick='deleteCustomer()'>
-            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-          </button>
-        </p>
-      </div>
-    </div>
-  </div>
-  <div class='row well well-lg'>
-    <div class='col-md-12'>
-      <h2>  <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-        The edit menu should be hidden from everyone except admin
-      </h2>
-      <h2>  <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-        You have to refresh the page after you make some changes.
-      </h2>
-      <h2>  <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-        If you try to delete a customer that has POS in the DB nothing will happen.
-      </h2>
-      <h2><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-        If you want to keep old notes for customers just copy/paste it inside the edit field and add to it. I will fix this later!
-      </h2>
-    </div>
-  </div>
-
+    </div>";
+  }
+  ?>
   <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
-  <script src='js/bootstrap.min.js'></script>
 </body>
 </html>

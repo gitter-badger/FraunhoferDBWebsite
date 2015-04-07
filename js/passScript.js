@@ -425,18 +425,20 @@ function addEmployee(){
      var eEmail       = $('#eEmail').val(); 
      var ePass        = $('#ePass').val();
      var ePassAgain   = $('#ePassAgain').val();
+     var sec_lvl      = $('#sec_lvl').val();
      //make the postdata
-
+     console.log(sec_lvl);
      //call your input.php script in the background, when it returns it will call the success function if the request was successful or the error one if there was an issue (like a 404, 500 or any other error status)
 
      $.ajax({
         url : "insertNewEmployee.php",
         type: "POST",
-        data : {eName            : eName,
-         ePhoneNumber      : ePhoneNumber,
-         eEmail            : eEmail,
-         ePass             : ePass,
-         ePassAgain        : ePassAgain},
+        data : {eName : eName,
+         ePhoneNumber : ePhoneNumber,
+         eEmail       : eEmail,
+         ePass        : ePass,
+         sec_lvl      : sec_lvl,
+         ePassAgain   : ePassAgain},
 
          success: function(data,status, xhr)
          {
@@ -968,8 +970,8 @@ function addShipDateToPO (line){
 function authenticate(){
     var username   = $('#user').val();
     var password   = $('#password').val();
-    console.log(username);
-    console.log(password);
+    //console.log(username);
+    //console.log(password);
   $.ajax({
     url : "logincheck.php",
     type: "POST",
@@ -977,5 +979,14 @@ function authenticate(){
             password : password}
     }).done(function(result){
         $("#txtadd").html(result);
+    })
+}
+function logout(){
+    console.log('eg er her');
+  $.ajax({
+    url : "logout.php",
+    type: "POST"
+    }).done(function(){
+        window.location.reload();
     })
 }

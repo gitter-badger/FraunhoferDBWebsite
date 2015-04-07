@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <?php
 include 'connection.php';
+echo "<a href='login.php'>Login Page</a></br>";
+die("This is an old view, please ask Eysteinn for an account if you dont have one. If you have one continue to the login page");
 ?>
 <html>
 <head>
@@ -16,7 +18,7 @@ include 'connection.php';
     $("#report tr:odd").addClass("odd");
     $("#report tr:not(.odd)").hide();
     $("#report tr:first-child").show();
-    
+
     $("#report tr.odd").click(function(){
       $(this).next("tr").toggle();
       $(this).find(".arrow").toggleClass("up");
@@ -33,7 +35,7 @@ include 'connection.php';
       <ul class='nav navbar-nav navbar-right'>
         <!--<li><a href='adminView.php'>Admins</a></li> -->
         <li><a href='feedback.php'>Notes and feedback</a></li> 
-        <li><a href='addOrEdit.html'>Add/edit info</a></li>
+        <li><a href='addOrEdit.php'>Add/edit info</a></li>
       </ul>
     </div>
   </div>
@@ -98,9 +100,9 @@ include 'connection.php';
          <select name="POS" onchange="showUser(this.value)">
           <option value="">Select a company:</option> 
           <?php
-          $sql = "SELECT * FROM Customers";
+          $sql = "SELECT CID, cName FROM Customers";
           $result = mysqli_query($link, $sql);
-          
+
           if (!$result) {
             die("Database query failed: " . mysql_error());
           }

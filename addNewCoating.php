@@ -18,10 +18,6 @@ while($row = mysqli_fetch_array($secResult)){
 <head>
   <title>Fraunhofer CCD</title>
   <link href='css/bootstrap.min.css' rel='stylesheet'>
-  <link href='css/main.css' rel='stylesheet'>
-
-  <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
-  <script src='js/bootstrap.min.js'></script>
   <script type="text/javascript" src='js/passScript.js'></script>
 </head>
 <body>
@@ -33,38 +29,33 @@ while($row = mysqli_fetch_array($secResult)){
         <li style='margin-top:15px'><strong><?php echo $_SESSION["username"];?></strong></li>
         <li><button onclick='logout()' class='btn btn-danger' style='margin-top:10px'>Logout</button></li>      </ul>
       </div>
-  </div>
-  <div class='container'>
-    <div class='row well well-lg'>
-      <div class='col-md-12'>
-        <h2>Here is a list of all our Coatings</h2>
-        <table id="report" class='col-md-12'>
-          <tr>
-            <th>Machine ID</th>
-            <th>Coating type</th>
-            <th>Something more?</th>
-          </tr>
-          <?php
-          $sql ="SELECT * 
-          FROM Coatings";
-          $result = mysqli_query($link, $sql);
-          if (!$result){
-           die("Database query failed: " . mysql_error());
-         }
-         while($row = mysqli_fetch_array($result)){
-          echo "<tr>".
-          "<td>".$row[0]."</td>".
-          "<td>".$row[1]."</td>".
-          "<td>".$row[2]."</td>".
-          "</tr>";
-
-        }
-
-
-        ?>
-      </table>
     </div>
-  </div>
-</div>
-</body>
-</html>
+    <div class='container'>
+      <div class='row well well-lg'>
+        <div class='col-md-12'>
+          <p>This is the add new coating View./p>
+
+            <form action="insertNewCoating.php" method="post">
+              <p class='col-md-6'>
+                <label for="cType">Coating type</label>
+                <input type="text" name="cType" id="cType">
+              </p>
+              <p class='col-md-6'>
+                <label for="coatingNotes">Notes</label>
+                <input type="text" name="coatingNotes" id="coatingNotes">
+              </p>
+              <input class='col-md-offset-1'type="submit" value="Add Machine to Database">
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+      <script src='js/bootstrap.min.js'></script>
+      <link rel="stylesheet" type="text/css" href="/code_examples/tutorial.css">
+    </body>
+    </html>
+
+
+    Coating type 
+    note...additional info

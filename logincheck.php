@@ -41,13 +41,13 @@ $usersql = "SELECT *
 $userResult = mysqli_query($link, $usersql);
 
 while($row = mysqli_fetch_array($userResult)){
-	echo "ID ".$row[0]."<br>".
-		 "Pass ".$row[1]."<br>".
-		 "Username ".$row[2]."<br>".
-		 "Email ".$row[3]."<br>".
-		 "PhoneNumber ".$row[4]."<br>";
+	echo "ID: ".$row[0]."<br>".
+		 "Pass: ".$row[1]."<br>".
+		 "Username: ".$row[2]."<br>".
+		 "Email: ".$row[3]."<br>".
+		 "PhoneNumber: ".$row[4]."<br>";
 }
-echo "Username is : " . $_SESSION["username"]. "</br>";
+echo "Session username is : " . $_SESSION["username"]. "</br>";
 
 
 

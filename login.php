@@ -18,11 +18,11 @@ include 'connection.php';
     <input class='col-md-offset-4' type="submit" value="Login" onclick='authenticate()'>
     <p id='txtadd' name='txtadd'></p>
 
-    <a href='index.php'>Index page</a>
+    <a href='selection.php'>Selection page</a>
 </body>
 </html>
-
-
+<!--
+Code for wrong authentication
 <!DOCTYPE html>
 <?php
   include 'connection.php';
@@ -33,4 +33,4 @@ include 'connection.php';
     die("You don't have the privlages to view this site.");
   }
 
-?>
+?>-->
