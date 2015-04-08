@@ -2,12 +2,12 @@
 
 include '../connection.php';
 
-$CID         = mysqli_real_escape_string($link, $_POST['CID']);
-$cPhone     = mysqli_real_escape_string($link, $_POST['cPhone']);
+$CID    = mysqli_real_escape_string($link, $_POST['CID']);
+$cPhone = mysqli_real_escape_string($link, $_POST['cPhone']);
 
 $sql = "UPDATE Customers 
-         SET cPhone = '$cPhone'
-         WHERE CID = $CID";   
+        SET cPhone = '$cPhone'
+        WHERE CID = $CID";   
 $result = mysqli_query($link, $sql);
 
 if (!$result) {
