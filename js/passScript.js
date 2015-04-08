@@ -48,7 +48,6 @@ function showUser(str) {
     }
 }
 function addPO(){
-     //get the form values
      var POID       = $('#POID').val();     
      var CID        = $('#CID').val();     
      var rDate      = $('#rDate').val(); 
@@ -69,7 +68,6 @@ function addPO(){
 
      success: function(data,status, xhr)
      {
-        //alert("PO was addedd successfully");
         $("#status_text").html(data);
         $('#POID').val('');
         $('#CID').val('');
@@ -80,9 +78,8 @@ function addPO(){
     },
     error: function (jqXHR, status, errorThrown)
     {
-            //if fail show error and server status
-            $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
-        }
+        $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
+    }
     })
  }
  function showTools(str) {
@@ -113,10 +110,8 @@ function showToolsPrint(str) {
         return;
     } else { 
         if (window.XMLHttpRequest) {
-        // code for IE7+, Firefox, Chrome, Opera, Safari
         xmlhttp = new XMLHttpRequest();
     } else {
-        // code for IE6, IE5
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
     xmlhttp.onreadystatechange = function() {
@@ -135,10 +130,8 @@ function showTrackPrint(str) {
         return;
     } else { 
         if (window.XMLHttpRequest) {
-        // code for IE7+, Firefox, Chrome, Opera, Safari
         xmlhttp = new XMLHttpRequest();
     } else {
-        // code for IE6, IE5
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
     xmlhttp.onreadystatechange = function() {
@@ -158,10 +151,8 @@ function showToolsTrack(str) {
         return;
     } else { 
         if (window.XMLHttpRequest) {
-        // code for IE7+, Firefox, Chrome, Opera, Safari
         xmlhttp = new XMLHttpRequest();
     } else {
-        // code for IE6, IE5
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
     xmlhttp.onreadystatechange = function() {
@@ -176,16 +167,13 @@ function showToolsTrack(str) {
 }
 function showPOTools() {
     var str = document.getElementById('POID').innerHTML;
-    //console.log(str);
     if (str == "") {
         document.getElementById("txtAdd").innerHTML = "";
         return;
     } else { 
         if (window.XMLHttpRequest) {
-        // code for IE7+, Firefox, Chrome, Opera, Safari
         xmlhttp = new XMLHttpRequest();
     } else {
-        // code for IE6, IE5
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
     xmlhttp.onreadystatechange = function() {
@@ -202,16 +190,13 @@ function showPOTools() {
 
 function showPORuns() {
     var str = document.getElementById('POID').innerHTML;
-    //console.log(str);
     if (str == "") {
         document.getElementById("txtAddRun").innerHTML = "";
         return;
     } else { 
         if (window.XMLHttpRequest) {
-        // code for IE7+, Firefox, Chrome, Opera, Safari
         xmlhttp = new XMLHttpRequest();
     } else {
-        // code for IE6, IE5
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
     xmlhttp.onreadystatechange = function() {
@@ -226,16 +211,13 @@ function showPORuns() {
 }
 function showRunTools() {
     var str = document.getElementById('POID').innerHTML;
-    //console.log(str);
     if (str == "") {
         document.getElementById("txtAddToolToRun").innerHTML = "";
         return;
     } else { 
         if (window.XMLHttpRequest) {
-        // code for IE7+, Firefox, Chrome, Opera, Safari
         xmlhttp = new XMLHttpRequest();
     } else {
-        // code for IE6, IE5
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
     xmlhttp.onreadystatechange = function() {
@@ -252,11 +234,6 @@ function generatePrice(){
    var diameter = $('#diameter').val();  
    var length   = $('#length').val();   
    var POID     = document.getElementById('POID').innerHTML;
-     //console.log(diameter);
-     //console.log(length);
-     //console.log(POID);
-     //call your input.php script in the background, when it returns it will call the success function if the request was successful or the error one if there was an issue (like a 404, 500 or any other error status)
-
      $.ajax({
         url : "../SelectPHP/generatePrice.php",
         type: "POST",
@@ -266,65 +243,54 @@ function generatePrice(){
          success: function(data,status, xhr)
          {
             $("#status_text").html(data);
-          // $('#POID').val('');
-      },
+         },
       error: function (jqXHR, status, errorThrown)
       {
-            //if fail show error and server status
             $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
         }
     })
  }
-  function addTool(){
-     //get the form values
-     var toolID   = $('#tid').val();     
-     var lineItem = $('#lineItem').val();     
-     var quantity = $('#quantity').val(); 
-     var diameter = $('#diameter').val(); 
-     var length   = $('#length').val(); 
-     var POID     = document.getElementById('POID').innerHTML;
-     
-     if($('#dblEnd').is(':checked'))
+function addTool(){
+  var toolID   = $('#tid').val();     
+  var lineItem = $('#lineItem').val();     
+  var quantity = $('#quantity').val(); 
+  var diameter = $('#diameter').val(); 
+  var length   = $('#length').val(); 
+  var POID     = document.getElementById('POID').innerHTML;
+  
+  if($('#dblEnd').is(':checked'))
+  {
+     var dblEnd   = $('#dblEnd').val();
+  }
+  var price     = document.getElementById('price').value;
+  $.ajax({
+     url : "../InsertPHP/insertNewToolToPo.php",
+     type: "POST",
+     data : {toolID  : toolID,
+      lineItem : lineItem,
+      quantity : quantity,
+      diameter : diameter,
+      length   : length,
+      price    : price,
+      dblEnd   : dblEnd,
+      POID     : POID},
+      success: function(data,status, xhr)
+      {
+         lineItem = parseInt(lineItem) + 1;
+         $("#status_text").html(data);
+         $('#toolID').val('');
+         $('#lineItem').val(lineItem);
+         $('#quantity').val('');
+         $('#POID').val('');
+         showPOTools();
+     },
+     error: function (jqXHR, status, errorThrown)
      {
-        var dblEnd   = $('#dblEnd').val();
-    }
-    var price     = document.getElementById('price').value;
-
-     //make the postdata
-     //call your input.php script in the background, when it returns it will call the success function if the request was successful or the error one if there was an issue (like a 404, 500 or any other error status)
-
-     $.ajax({
-        url : "../InsertPHP/insertNewToolToPo.php",
-        type: "POST",
-        data : {toolID  : toolID,
-         lineItem : lineItem,
-         quantity : quantity,
-         diameter : diameter,
-         length   : length,
-         price    : price,
-         dblEnd   : dblEnd,
-         POID     : POID},
-         success: function(data,status, xhr)
-         {
-            lineItem = parseInt(lineItem) + 1;
-            //console.log(lineItem);
-            //if success then just output the text to the status div then clear the form inputs to prepare for new data
-            $("#status_text").html(data);
-            $('#toolID').val('');
-            $('#lineItem').val(lineItem);
-            $('#quantity').val('');
-            $('#POID').val('');
-            showPOTools();
-        },
-        error: function (jqXHR, status, errorThrown)
-        {
-            //if fail show error and server status
-            $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
-        }
-    })
+         $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
+     }
+ })
 }
 function addCustomer(){
-     //get the form values
      var cName    = $('#cName').val();     
      var cAddress = $('#cAddress').val();     
      var cEmail   = $('#cEmail').val(); 
@@ -332,11 +298,6 @@ function addCustomer(){
      var cFax     = $('#cFax').val();
      var cContact = $('#cContact').val();
      var cNotes   = $('#cNotes').val();
-
-     //make the postdata
-
-     //call your input.php script in the background, when it returns it will call the success function if the request was successful or the error one if there was an issue (like a 404, 500 or any other error status)
-
      $.ajax({
         url : "../InsertPHP/insertNewCustomer.php",
         type: "POST",
@@ -350,8 +311,6 @@ function addCustomer(){
 
          success: function(data,status, xhr)
          {
-            //if success then just output the text to the status div then clear the form inputs to prepare for new data
-           // $("#status_text").html(data);
            $('#cName').val('');
            $('#cAddress').val('');
            $('#cEmail').val('');
@@ -359,28 +318,20 @@ function addCustomer(){
            $('#cFax').val('');
            $('#cContact').val('');
            $('#cNotes').val('');
-           // alert("customer was added successfully");
        },
        error: function (jqXHR, status, errorThrown)
        {
-            //if fail show error and server status
             $("#status_text").html('there was an error ' + errorThrown + ' with status ');
         }
     })
 }
 function addEmployee(){
-
-     //get the form values
      var eName        = $('#eName').val();     
      var ePhoneNumber = $('#ePhoneNumber').val();     
      var eEmail       = $('#eEmail').val(); 
      var ePass        = $('#ePass').val();
      var ePassAgain   = $('#ePassAgain').val();
      var sec_lvl      = $('#sec_lvl').val();
-     //make the postdata
-     console.log(sec_lvl);
-     //call your input.php script in the background, when it returns it will call the success function if the request was successful or the error one if there was an issue (like a 404, 500 or any other error status)
-
      $.ajax({
         url : "../InsertPHP/insertNewEmployee.php",
         type: "POST",
@@ -395,7 +346,6 @@ function addEmployee(){
          {
              alert("Employee added");
 
-            //if success then just output the text to the status div then clear the form inputs to prepare for new data
             $("#status_text").html(data);
             $('#eName').val('');
             $('#ePhoneNumber').val('');
@@ -405,7 +355,6 @@ function addEmployee(){
         },
         error: function (jqXHR, status, errorThrown)
         {
-            //if fail show error and server status
             $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
         }
     });
@@ -413,9 +362,6 @@ function addEmployee(){
 
  function delTool(line){
     var POID = document.getElementById('POID').innerHTML;
-     //make the postdata
-     //call your input.php script in the background, when it returns it will call the success function if the request was successful or the error one if there was an issue (like a 404, 500 or any other error status)
-
      $.ajax({
         url : "../DeletePHP/deleteToolFromPO.php",
         type: "POST",
@@ -423,24 +369,17 @@ function addEmployee(){
          line : line},
          success: function(data,status, xhr)
          {
-            //if success then just output the text to the status div then clear the form inputs to prepare for new data
             $("#status_text").html(data);
             alert("Tool deleted successfully");
         },
         error: function (jqXHR, status, errorThrown)
         {
-            //if fail show error and server status
             $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
         }
     })
  }
  function delRun(line){
     var POID = document.getElementById('POID').innerHTML;
-    //console.log(POID);
-    //console.log(line);
-     //make the postdata
-     //call your input.php script in the background, when it returns it will call the success function if the request was successful or the error one if there was an issue (like a 404, 500 or any other error status)
-
      $.ajax({
         url : "../DeletePHP/deleteRun.php",
         type: "POST",
@@ -448,24 +387,17 @@ function addEmployee(){
          line : line},
          success: function(data,status, xhr)
          {
-            //if success then just output the text to the status div then clear the form inputs to prepare for new data
             $("#status_text").html(data);
             alert("Run deleted successfully");
         },
         error: function (jqXHR, status, errorThrown)
         {
-            //if fail show error and server status
             $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
         }
     })
  }
  function delRunTool(line){
     var POID = document.getElementById('POID').innerHTML;
-    //console.log(POID);
-    //console.log(line);
-     //make the postdata
-     //call your input.php script in the background, when it returns it will call the success function if the request was successful or the error one if there was an issue (like a 404, 500 or any other error status)
-
      $.ajax({
         url : "../DeletePHP/deleteRunTool.php",
         type: "POST",
@@ -479,7 +411,6 @@ function addEmployee(){
         },
         error: function (jqXHR, status, errorThrown)
         {
-            //if fail show error and server status
             $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
         }
     })
@@ -500,7 +431,6 @@ function addEmployee(){
         },
         error: function (jqXHR, status, errorThrown)
         {
-            //if fail show error and server status
             $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
         }
     })
@@ -534,26 +464,19 @@ function searchPO() {
         return false;
     }
     function searchPOCompany() {
-        
-        // getting the value that user typed
         var searchString    = $("#search_box_company").val();
-        // forming the queryString
         var data            = 'search='+ searchString;
-        //console.log(searchString);
-        
-        // if searchString is not empty
         if(searchString) {
-            // ajax call
             $.ajax({
                 type: "POST",
                 url: "../SearchPHP/do_search_company.php",
                 data: data,
-                beforeSend: function(html) { // this happens before actual call
+                beforeSend: function(html) { 
                     $("#results").html(''); 
                     $("#searchresults").show();
                     $(".word").html(searchString);
                 },
-               success: function(html){ // this happens after we get results
+               success: function(html){ 
                 $("#results").show();
                 $("#results").append(html);
             }
@@ -563,25 +486,20 @@ function searchPO() {
     }
     function searchPOEmployee() {
         
-        // getting the value that user typed
         var searchString    = $("#search_box_employee").val();
-        // forming the queryString
         var data            = 'search='+ searchString;
         console.log(searchString);
-        
-        // if searchString is not empty
-        if(searchString) {
-            // ajax call
+                if(searchString) {
             $.ajax({
                 type: "POST",
                 url: "../SearchPHP/do_search_employee.php",
                 data: data,
-                beforeSend: function(html) { // this happens before actual call
+                beforeSend: function(html) {
                     $("#results").html('');
                     $("#searchresults").show();
                     $(".word").html(searchString);
                 },
-               success: function(html){ // this happens after we get results
+               success: function(html){
                 $("#results").show();
                 $("#results").append(html);
             }
@@ -590,15 +508,9 @@ function searchPO() {
         return false;
     }
     function changeCustomerAddress(){
-     //get the form values
      var CID   = $('#input_CID').val();     
      var cAddress = $('#input_address').val();     
      if(cAddress === ''){return;}
-     //console.log(CID);
-     //console.log(cAddress);
-
-     //make the postdata
-
      $.ajax({
         url : "../UpdatePHP/updateCustomerAddress.php",
         type: "POST",
@@ -607,21 +519,17 @@ function searchPO() {
          success: function(data,status, xhr)
          {
             window.location.reload(true);
-            //if success then just output the text to the status div then clear the form inputs to prepare for new data
             $("#status_text").html(data);
             $("#input_CID").val("");
             $("#input_address").val("");
-          // $('#POID').val('');
       },
       error: function (jqXHR, status, errorThrown)
       {
-            //if fail show error and server status
             $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
         }
     })
  }
  function changeCustomerPhoneNumber(){
-     //get the form values
      var CID   = $('#input_CID').val();     
      var cPhone = $('#input_phonenumber').val();     
      console.log(CID);
@@ -636,7 +544,6 @@ function searchPO() {
          success: function(data,status, xhr)
          {
             window.location.reload(true);
-            //if success then just output the text to the status div then clear the form inputs to prepare for new data
             $("#status_text").html(data);
             $("#input_CID").val("");
             $("#input_phonenumber").val("");
@@ -644,7 +551,6 @@ function searchPO() {
       },
       error: function (jqXHR, status, errorThrown)
       {
-            //if fail show error and server status
             $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
         }
     })
