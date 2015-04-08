@@ -28,7 +28,8 @@
     <div class='container'>
       <a href='selection.php' class='navbar-brand'>Selection Page</a>
       <ul class='nav navbar-nav navbar-right'>
-        <li><a href='login.php'>Log in or change user</a></li>
+        <li><a href='Views/feedback.php'><strong>Comment</strong></a></li>
+        <li><a href='Login/login.php'>Log in or change user</a></li>
         <li style='margin-top:15px'><strong><?php echo $_SESSION["username"];?></strong></li>
         <li><button onclick='logout()' class='btn btn-danger' style='margin-top:10px'>Logout</button></li>
         <!-- TODO make user profile site?? maybe not useful at all -->
@@ -38,7 +39,7 @@
   <div class='container'>
     <div class='row well well-lg'>
       <div class='col-md-3'>
-        <form action="overview.php">
+        <form action="Views/overview.php">
           <input type="submit" class='btn btn-primary' value="Tooling overview">
         </form>
       </div>
@@ -46,7 +47,7 @@
       if($user_sec_lvl >= 2){
         echo 
         "<div class='col-md-3'>
-        <form action='checkin.php'>
+        <form action='Views/checkin.php'>
         <input type='submit' class='btn btn-primary' value='Check in tools'>
         </form>
         </div>";
@@ -57,7 +58,7 @@
       if($user_sec_lvl >= 1){
         echo 
         "<div class='col-md-3'>
-        <form action='addOrEdit.php'>
+        <form action='Views/addOrEdit.php'>
         <input type='submit' class='btn btn-primary' value='General information'>
         </form>
         </div>";

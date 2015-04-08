@@ -43,7 +43,7 @@ function showUser(str) {
                 document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
             }
         }
-        xmlhttp.open("GET","getPos.php?q="+str,true);
+        xmlhttp.open("GET","../SelectPHP/getPos.php?q="+str,true);
         xmlhttp.send();
     }
 }
@@ -57,7 +57,7 @@ function addPO(){
      var employeeId = $('#employeeId').val();
 
      $.ajax({
-        url : "insertNewPO.php",
+        url : "../InsertPHP/insertNewPO.php",
         type: "POST",
         data : {POID      : POID,
          CID        : CID,
@@ -102,7 +102,7 @@ function addPO(){
             document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
         }
     }
-    xmlhttp.open("GET","getPosForToolMenu.php?q="+str,true);
+    xmlhttp.open("GET","../SelectPHP/getPosForToolMenu.php?q="+str,true);
     xmlhttp.send();
     return str;
 }
@@ -124,7 +124,7 @@ function showToolsPrint(str) {
             document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
         }
     }
-    xmlhttp.open("GET","getPOForPrinting.php?q="+str,true);
+    xmlhttp.open("GET","../SelectPHP/getPOForPrinting.php?q="+str,true);
     xmlhttp.send();
     return str;
 }
@@ -146,7 +146,7 @@ function showTrackPrint(str) {
             document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
         }
     }
-    xmlhttp.open("GET","getPOForPrintingTrack.php?q="+str,true);
+    xmlhttp.open("GET","../SelectPHP/getPOForPrintingTrack.php?q="+str,true);
     xmlhttp.send();
     return str;
 }
@@ -169,7 +169,7 @@ function showToolsTrack(str) {
             document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
         }
     }
-    xmlhttp.open("GET","getPOForTrackSheet.php?q="+str,true);
+    xmlhttp.open("GET","../SelectPHP/getPOForTrackSheet.php?q="+str,true);
     xmlhttp.send();
     return str;
 }
@@ -193,7 +193,7 @@ function showPOTools() {
             document.getElementById("txtAdd").innerHTML = xmlhttp.responseText;
         }
     }
-    xmlhttp.open("GET","getToolsForToolOverView.php?q="+str,true);
+    xmlhttp.open("GET","../SelectPHP/getToolsForToolOverView.php?q="+str,true);
     xmlhttp.send();
     return str;
 }
@@ -219,7 +219,7 @@ function showPORuns() {
             document.getElementById("txtAddRun").innerHTML = xmlhttp.responseText;
         }
     }
-    xmlhttp.open("GET","getRunsForPO.php?q="+str,true);
+    xmlhttp.open("GET","../SelectPHP/getRunsForPO.php?q="+str,true);
     xmlhttp.send();
     return str;
 }
@@ -243,7 +243,7 @@ function showRunTools() {
             document.getElementById("txtAddToolToRun").innerHTML = xmlhttp.responseText;
         }
     }
-    xmlhttp.open("GET","getToolsForRun.php?q="+str,true);
+    xmlhttp.open("GET","../SelectPHP/getToolsForRun.php?q="+str,true);
     xmlhttp.send();
     return str;
 }
@@ -258,7 +258,7 @@ function generatePrice(){
      //call your input.php script in the background, when it returns it will call the success function if the request was successful or the error one if there was an issue (like a 404, 500 or any other error status)
 
      $.ajax({
-        url : "generatePrice.php",
+        url : "../SelectPHP/generatePrice.php",
         type: "POST",
         data : {diameter : diameter,
          length   : length,
@@ -275,56 +275,7 @@ function generatePrice(){
         }
     })
  }
- function generateLength(){
-   var TID = $('#tid').val();  
-   var POID = document.getElementById('POID').innerHTML;
-     //console.log(TID);
-     //console.log(POID);
-     //call your input.php script in the background, when it returns it will call the success function if the request was successful or the error one if there was an issue (like a 404, 500 or any other error status)
-
-     $.ajax({
-        url : "generateLength.php",
-        type: "POST",
-        data : {TID : TID,
-         POID : POID},
-         success: function(data,status, xhr)
-         {
-            $("#changelength").html(data);
-          // $('#POID').val('');
-      },
-      error: function (jqXHR, status, errorThrown)
-      {
-            //if fail show error and server status
-            $("#changelength").html('there was an error ' + errorThrown + ' with status ' + textStatus);
-        }
-    })
- }
- function generateDiameter(){
-   var TID = $('#tid').val();  
-   var POID = document.getElementById('POID').innerHTML;
-     //console.log(TID);
-     //console.log(POID);
-     //call your input.php script in the background, when it returns it will call the success function if the request was successful or the error one if there was an issue (like a 404, 500 or any other error status)
-
-     $.ajax({
-        url : "generateDiameter.php",
-        type: "POST",
-        data : {TID : TID,
-         POID : POID},
-         success: function(data,status, xhr)
-         {
-            $("#changediameter").html(data);
-          // $('#POID').val('');
-      },
-      error: function (jqXHR, status, errorThrown)
-      {
-            //if fail show error and server status
-            $("#changediameter").html('there was an error ' + errorThrown + ' with status ' + textStatus);
-        }
-    })
- }
-
- function addTool(){
+  function addTool(){
      //get the form values
      var toolID   = $('#tid').val();     
      var lineItem = $('#lineItem').val();     
@@ -343,7 +294,7 @@ function generatePrice(){
      //call your input.php script in the background, when it returns it will call the success function if the request was successful or the error one if there was an issue (like a 404, 500 or any other error status)
 
      $.ajax({
-        url : "insertNewToolToPo.php",
+        url : "../InsertPHP/insertNewToolToPo.php",
         type: "POST",
         data : {toolID  : toolID,
          lineItem : lineItem,
@@ -387,7 +338,7 @@ function addCustomer(){
      //call your input.php script in the background, when it returns it will call the success function if the request was successful or the error one if there was an issue (like a 404, 500 or any other error status)
 
      $.ajax({
-        url : "insertNewCustomer.php",
+        url : "../InsertPHP/insertNewCustomer.php",
         type: "POST",
         data : {cName   : cName,
          cAddress : cAddress,
@@ -431,7 +382,7 @@ function addEmployee(){
      //call your input.php script in the background, when it returns it will call the success function if the request was successful or the error one if there was an issue (like a 404, 500 or any other error status)
 
      $.ajax({
-        url : "insertNewEmployee.php",
+        url : "../InsertPHP/insertNewEmployee.php",
         type: "POST",
         data : {eName : eName,
          ePhoneNumber : ePhoneNumber,
@@ -466,7 +417,7 @@ function addEmployee(){
      //call your input.php script in the background, when it returns it will call the success function if the request was successful or the error one if there was an issue (like a 404, 500 or any other error status)
 
      $.ajax({
-        url : "deleteToolFromPO.php",
+        url : "../DeletePHP/deleteToolFromPO.php",
         type: "POST",
         data : {POID  : POID,
          line : line},
@@ -491,7 +442,7 @@ function addEmployee(){
      //call your input.php script in the background, when it returns it will call the success function if the request was successful or the error one if there was an issue (like a 404, 500 or any other error status)
 
      $.ajax({
-        url : "deleteRun.php",
+        url : "../DeletePHP/deleteRun.php",
         type: "POST",
         data : {POID  : POID,
          line : line},
@@ -516,7 +467,7 @@ function addEmployee(){
      //call your input.php script in the background, when it returns it will call the success function if the request was successful or the error one if there was an issue (like a 404, 500 or any other error status)
 
      $.ajax({
-        url : "deleteRunTool.php",
+        url : "../DeletePHP/deleteRunTool.php",
         type: "POST",
         data : {POID  : POID,
          line : line},
@@ -539,7 +490,7 @@ function addEmployee(){
     console.log(POID);
     
     $.ajax({
-        url : "delPOAndTools.php",
+        url : "../DeletePHP/delPOAndTools.php",
         type: "POST",
         data : {POID  : POID,},
         success: function(data,status, xhr)
@@ -567,7 +518,7 @@ function searchPO() {
             // ajax call
             $.ajax({
                 type: "POST",
-                url: "do_search.php",
+                url: "../SearchPHP/do_search.php",
                 data: data,
                 beforeSend: function(html) { // this happens before actual call
                     $("#results").html(''); 
@@ -595,7 +546,7 @@ function searchPO() {
             // ajax call
             $.ajax({
                 type: "POST",
-                url: "do_search_company.php",
+                url: "../SearchPHP/do_search_company.php",
                 data: data,
                 beforeSend: function(html) { // this happens before actual call
                     $("#results").html(''); 
@@ -623,7 +574,7 @@ function searchPO() {
             // ajax call
             $.ajax({
                 type: "POST",
-                url: "do_search_employee.php",
+                url: "../SearchPHP/do_search_employee.php",
                 data: data,
                 beforeSend: function(html) { // this happens before actual call
                     $("#results").html('');
@@ -649,7 +600,7 @@ function searchPO() {
      //make the postdata
 
      $.ajax({
-        url : "updateCustomerAddress.php",
+        url : "../UpdatePHP/updateCustomerAddress.php",
         type: "POST",
         data : {CID : CID,
          cAddress : cAddress},
@@ -678,7 +629,7 @@ function searchPO() {
      if(cPhone === ''){return;}
      //make the postdata
      $.ajax({
-        url : "updateCustomerPhone.php",
+        url : "../UpdatePHP/updateCustomerPhone.php",
         type: "POST",
         data : {CID : CID,
          cPhone : cPhone},
@@ -708,7 +659,7 @@ function searchPO() {
      //make the postdata
      
      $.ajax({
-        url : "updateCustomerEmail.php",
+        url : "../UpdatePHP/updateCustomerEmail.php",
         type: "POST",
         data : {CID : CID,
          cEmail : cEmail},
@@ -743,7 +694,7 @@ function searchPO() {
      //call your input.php script in the background, when it returns it will call the success function if the request was successful or the error one if there was an issue (like a 404, 500 or any other error status)
 
      $.ajax({
-        url : "updateCustomerFax.php",
+        url : "../UpdatePHP/updateCustomerFax.php",
         type: "POST",
         data : {CID : CID,
          cFax : cFax},
@@ -764,28 +715,20 @@ function searchPO() {
     })
  }
  function changeCustomerNotes(){
-     //get the form values
      var CID   = $('#input_CID').val();     
      var cNotes = $('#input_notes').val();
      if(cNotes === '')
      {
         return;
     }     
-     //console.log(CID);
-     //console.log(cNotes);
-
-     //make the postdata
-     //call your input.php script in the background, when it returns it will call the success function if the request was successful or the error one if there was an issue (like a 404, 500 or any other error status)
-
      $.ajax({
-        url : "updateCustomerNotes.php",
+        url : "../UpdatePHP/updateCustomerNotes.php",
         type: "POST",
         data : {CID : CID,
          cNotes : cNotes},
          success: function(data,status, xhr)
          {
             window.location.reload(true);
-            //if success then just output the text to the status div then clear the form inputs to prepare for new data
             $("#status_text").html(data);
             $("#input_CID").val("");
             $("#input_notes").val("");
@@ -793,34 +736,25 @@ function searchPO() {
       },
       error: function (jqXHR, status, errorThrown)
       {
-            //if fail show error and server status
             $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
         }
     })
  }
  function changeCustomerContact(){
-     //get the form values
      var CID   = $('#input_CID').val();     
      var cContact = $('#input_contact').val();
      if(cContact === '')
      {
         return;
     }     
-     //console.log(CID);
-     //console.log(cContact);
-
-     //make the postdata
-     //call your input.php script in the background, when it returns it will call the success function if the request was successful or the error one if there was an issue (like a 404, 500 or any other error status)
-
      $.ajax({
-        url : "updateCustomerContact.php",
+        url : "../UpdatePHP/updateCustomerContact.php",
         type: "POST",
         data : {CID : CID,
          cContact : cContact},
          success: function(data,status, xhr)
          {
             window.location.reload(true);
-            //if success then just output the text to the status div then clear the form inputs to prepare for new data
             $("#status_text").html(data);
             $("#input_CID").val("");
             $("#input_contact").val("");
@@ -828,39 +762,30 @@ function searchPO() {
       },
       error: function (jqXHR, status, errorThrown)
       {
-            //if fail show error and server status
             $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
         }
     })
  }
  function deleteCustomer(){
-     //get the form values
      var CID   = $('#input_CID').val();     
-
-     //make the postdata
-     //call your input.php script in the background, when it returns it will call the success function if the request was successful or the error one if there was an issue (like a 404, 500 or any other error status)
-
      $.ajax({
-        url : "deleteCustomer.php",
+        url : "../DeletePHP/deleteCustomer.php",
         type: "POST",
         data : {CID : CID},
         success: function(data,status, xhr)
         {
             window.location.reload(true);
-            //if success then just output the text to the status div then clear the form inputs to prepare for new data
             $("#status_text").html(data);
             $("#input_CID").val("");
           // $('#POID').val('');
       },
       error: function (jqXHR, status, errorThrown)
       {
-            //if fail show error and server status
             $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
         }
     })
  }
  function addRun(){
-     //get the form values
      var runDate             = $('#runDate').val();     
      var rCoating            = $('#coatingType').val();     
      var machine_run_number  = $('#machine_run_number').val(); 
@@ -869,16 +794,9 @@ function searchPO() {
      var rcomments           = $('#rcomments').val();
      var run_on_this_PO      = $('#run_number').val();
      var POID                = document.getElementById('POID').innerHTML;
-   //console.log(runDate);
-   //console.log(rCoating);
-   //console.log(machine_run_number);
-   //console.log(ah_pulses);
-   //console.log(machine);
-   //console.log(rcomments);
-   //console.log(POID);
-   //console.log(run_on_this_PO);
+
    $.ajax({
-    url : "insertNewRunToTrackSheet.php",
+    url : "../InsertPHP/insertNewRunToTrackSheet.php",
     type: "POST",
     data : {runDate           : runDate,
      rCoating           : rCoating,
@@ -891,32 +809,28 @@ function searchPO() {
      success: function(data,status, xhr)
      {
         machine_run_number = parseInt(machine_run_number) + 1;
-            //if success then just output the text to the status div then clear the form inputs to prepare for new data
             $("#status_text").html(data);
             showPORuns();
-          // $('#POID').val('');
       },
       error: function (jqXHR, status, errorThrown)
       {
-            //if fail show error and server status
             $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
         }
     })
 }
 function addLineItemToRun(){
-     //get the form values
      var lineItem        = $('#lineItem').val();     
      var number_of_tools = $('#number_of_tools').val();     
-     var runNumber       = $('#run_number').val(); 
+     var runNumber       = $('#runNumber').val(); 
      var final_comment   = $('#final_comment').val();
      var POID            = document.getElementById('POID').innerHTML;
-   //  console.log(lineItem);
-   //  console.log(number_of_tools);
-   //  console.log(runNumber);
-   //  console.log(final_comment);
-
+     console.log(runNumber);
+     console.log(lineItem);
+     console.log(number_of_tools);
+     console.log(final_comment);
+     console.log(POID);
    $.ajax({
-    url : "insertLineItemtoRun.php",
+    url : "../InsertPHP/insertLineItemtoRun.php",
     type: "POST",
     data : {lineItem       : lineItem,
      number_of_tools : number_of_tools,
@@ -925,16 +839,13 @@ function addLineItemToRun(){
      final_comment   : final_comment,
  },
 
- success: function(data,status, xhr)
- {   
-            //alert("line item added");
-            
-            $("#runTools").html(data);
+        success: function(data,status, xhr)
+        {   
+            showRunTools();
 
         },
         error: function (jqXHR, status, errorThrown)
         {
-            //if fail show error and server status
             $("#runTools").html('there was an error ' + errorThrown + ' with status ' + textStatus);
         }
     })
@@ -943,12 +854,8 @@ function addShipDateToPO (line){
    var POID       = document.getElementById('POID').innerHTML;
    var fInspect   = $('#fInspect').val();
    var date       = $('#addShippingDate').val();
-  // console.log(POID);
-  // console.log(date);
-  // console.log(fInspect);
-
   $.ajax({
-    url : "insertShipDateToPO.php",
+    url : "../InsertPHP/insertShipDateToPO.php",
     type: "POST",
     data : {POID     : POID,
             fInspect : fInspect,
@@ -962,7 +869,6 @@ function addShipDateToPO (line){
         },
         error: function (jqXHR, status, errorThrown)
         {
-            //if fail show error and server status
             $("#runTools").html('there was an error ' + errorThrown + ' with status ' + textStatus);
         }
     })
@@ -973,7 +879,7 @@ function authenticate(){
     //console.log(username);
     //console.log(password);
   $.ajax({
-    url : "logincheck.php",
+    url : "../Login/logincheck.php",
     type: "POST",
     data : {username : username,
             password : password}
@@ -984,7 +890,7 @@ function authenticate(){
 function logout(){
     console.log('eg er her');
   $.ajax({
-    url : "logout.php",
+    url : "../Login/logout.php",
     type: "POST"
     }).done(function(){
         window.location.reload();
