@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 include 'connection.php';
-echo "<a href='login.php'>Login Page</a></br>";
+echo "<a href='../Login/login.php'>Login Page</a></br>";
 die("This is an old view, please ask Eysteinn for an account if you dont have one. If you have one continue to the login page");
 ?>
 <html>

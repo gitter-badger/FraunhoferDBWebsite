@@ -17,8 +17,6 @@
   <div class='col-md-12'>
     <a href='../selection.php'>Take me home</a>
     <h2>Place for feedback</h2>
-    <h5>please be gentle</h5>
-    <h6>I have feelings</h6>
       <form action="addFeedback.php" method="post">
         <h3>Name:</h3> <input type="text" name="name"><br>
         <h3>Feedback:</h3><textarea name="comment"></textarea><br>

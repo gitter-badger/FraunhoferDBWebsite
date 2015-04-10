@@ -5,13 +5,18 @@ include '../connection.php';
 $mName = mysqli_real_escape_string($link, $_POST['mname']);
 $mAcro = mysqli_real_escape_string($link, $_POST['macro']);
 
+if(empty($mName) || empty($mAcro)){
+	echo 'Missing info!';
+	die("You have to fill out all the information")
+}
 // attempt insert query execution
 $sql = "INSERT INTO Machine(mName, mAcronym) VALUES ('$mName', '$mAcro')";
-if(mysqli_query($link, $sql)){
-    echo "Records added successfully.";
-} else{
-    echo "ERROR: Could not execute $sql. " . mysqli_error($link);
+$result = mysqli_query($link, $sql);
+
+if(!$result){
+    die("Input data is fail" . mysqli_error($link));
 }
+
  
 // close connection
 mysqli_close($link);

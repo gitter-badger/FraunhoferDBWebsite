@@ -344,7 +344,7 @@ function addEmployee(){
 
          success: function(data,status, xhr)
          {
-             alert("Employee added");
+             //alert("Employee added");
 
             $("#status_text").html(data);
             $('#eName').val('');
