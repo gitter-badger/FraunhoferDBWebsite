@@ -121,7 +121,8 @@ while($row = mysqli_fetch_array($secResult)){
                   FROM POS p, Customers c 
                   WHERE p.CID = c.CID 
                   AND (shipping_date > DATE(NOW()) OR shipping_date IS null)
-                  GROUP BY p.POID";
+                  GROUP BY p.POID
+                  ORDER BY p.receiving_date";
 
           $result = mysqli_query($link, $sql);
 

@@ -9,6 +9,16 @@ $ePassAgain   = mysqli_real_escape_string($link, $_POST['ePassAgain']);
 $ePhoneNumber = mysqli_real_escape_string($link, $_POST['ePhoneNumber']);
 $sec_lvl      = mysqli_real_escape_string($link, $_POST['sec_lvl']);
 
+function cryptPass($input, $rounds = 9){
+	$salt = "";
+	$saltChars = array_merge(range('A', 'Z'), range('a', 'z'), range(0,9));
+	for($i = 0; $i < 22; $i++){
+		$salt .= $saltChars[array_rand($saltChars)];
+	}
+	return crypt($input, sprintf('$2y$%02d$', $rounds) . $salt);
+}
+$hashedPassword = cryptPass($ePass);
+
  if(empty($eName)){
  	exit(0);
  }
@@ -17,7 +27,7 @@ $sec_lvl      = mysqli_real_escape_string($link, $_POST['sec_lvl']);
  }
 // attempt insert query execution
 $sql = "INSERT INTO Employees(pass, ename, eEmail, ePhoneNumber, sec_lvl) 
-		VALUES ('$ePass', '$eName', '$eEmail', '$ePhoneNumber', '$sec_lvl')";
+		VALUES ('$hashedPassword', '$eName', '$eEmail', '$ePhoneNumber', '$sec_lvl')";
 $result = mysqli_query($link, $sql);
 if(!$result){
     echo("Input data is fail" . mysqli_error($link));

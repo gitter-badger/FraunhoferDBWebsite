@@ -780,14 +780,14 @@ function addShipDateToPO (line){
     })
 }
 function authenticate(){
-    var username   = $('#user').val();
+    var userID   = $('#userID').val();
     var password   = $('#password').val();
-    //console.log(username);
+    console.log(userID);
     //console.log(password);
   $.ajax({
     url : "../Login/logincheck.php",
     type: "POST",
-    data : {username : username,
+    data : {userID : userID,
             password : password}
     }).done(function(result){
         $("#txtadd").html(result);
@@ -802,3 +802,35 @@ function logout(){
         window.location.reload();
     })
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
