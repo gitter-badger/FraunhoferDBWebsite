@@ -48,7 +48,20 @@ if($user_sec_lvl < 2){
             </p>
             <p class='col-md-6'>
               <label for="CID" class ='col-md-3'>Company ID:</label>
-              <input type="number" name="CID" id="CID">
+              <select id='CID'>
+                <option value="">Select a company:</option> 
+                  <?php
+                  $sql = "SELECT CID, cName FROM Customers";
+                  $result = mysqli_query($link, $sql);
+
+                  if (!$result) {
+                  die("Database query failed: " . mysqli_error($link));
+                  }
+                  while($row = mysqli_fetch_array($result)){
+                  echo '<option value="'.$row['CID'].'">'.$row['cName'].'</option>';
+                  }
+                  ?>
+              </select>
             </p>
             <p class='col-md-6'>
               <label for="rDate" class='col-md-3'>Receiving Date:</label>

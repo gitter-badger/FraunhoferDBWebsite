@@ -47,7 +47,7 @@ if($user_sec_lvl < 2){
           <a href='addNewPO.php' class='btn btn-primary btn-lg' >
             Add new PO!
           </a>
-          <a href='deletePO.php' class='btn btn-danger btn-lg' >
+          <a href='../DeletePHP/deletePO.php' class='btn btn-danger btn-lg' >
             Delete existing PO!
           </a>
         </div>

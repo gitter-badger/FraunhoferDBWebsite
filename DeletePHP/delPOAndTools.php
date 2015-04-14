@@ -4,6 +4,9 @@ include '../connection.php';
 
 $poid      = mysqli_real_escape_string($link, $_POST['POID']);
 
+$workedOnSql = "DELETE FROM WorkedOn 
+				WHERE POID = '$poid'";
+$workedonResult = mysqli_query($link, $workedOnSql);
 
 $sql = "DELETE FROM POS
 		WHERE POID = '$poid'";

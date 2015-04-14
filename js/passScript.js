@@ -54,7 +54,7 @@ function addPO(){
      var iInspect   = $('#iInspect').val();
      var nrOfLines  = $('#nrOfLines').val();
      var employeeId = $('#employeeId').val();
-
+     console.log(CID);
      $.ajax({
         url : "../InsertPHP/insertNewPO.php",
         type: "POST",
@@ -81,6 +81,7 @@ function addPO(){
         $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
     }
     })
+
  }
  function showTools(str) {
     if (str == "") {
@@ -417,7 +418,7 @@ function addEmployee(){
  }
 
  function delPO(){
-    var POID = document.getElementById('POID').value;
+    var POID = document.getElementById('POID').innerHTML;
     console.log(POID);
     
     $.ajax({
