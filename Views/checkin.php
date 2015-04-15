@@ -36,46 +36,58 @@ if($user_sec_lvl < 2){
         <li style='margin-top:15px'><strong><?php echo $_SESSION["username"];?></strong></li>
         <li><button onclick='logout()' class='btn btn-danger' style='margin-top:10px'>Logout</button></li>      </ul>
       </div>
-  </div>
+    </div>
 
-  <div class='container'>
-    <div class='row well well-lg'>
-      <div class='col-md-6'>
-        <h2>Add a new PO</h2>
-        <p class='lead'>Click add a new PO</p>
-        <div class='btn-group'>
-          <a href='addNewPO.php' class='btn btn-primary btn-lg' >
-            Add new PO!
-          </a>
-          <a href='../DeletePHP/deletePO.php' class='btn btn-danger btn-lg' >
-            Delete existing PO!
-          </a>
+    <div class='container'>
+      <div class='row well well-lg'>
+        <div class='col-md-6'>
+          <h2>Add a new PO</h2>
+          <p class='lead'>Click add a new PO</p>
+          <div class='btn-group'>
+            <a href='addNewPO.php' class='btn btn-primary btn-lg' >
+              Add new PO!
+            </a>
+            <a href='../DeletePHP/deletePO.php' class='btn btn-danger btn-lg' >
+              Delete existing PO!
+            </a>
+          </div>
         </div>
       </div>
-    </div>
+      <div class='row well well-lg'>
+        <div class='col-md-6'>
+          <h2>Add tools to existing PO</h2>
+          <p class='lead'>Here you can add Tools to existing POS</p>
+          <div class='input-group col-md-8'>
+            <span class="btn-group">
+              <a href='addTools2.php' class='btn btn-primary btn-lg' type='submit'>Enter</a>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class='row well well-lg'>
+        <div class='col-md-6'>
+          <h2>Generate a track sheet for your PO</h2>
+          <p class='lead'></p>
+          <div class='input-group col-md-8'>
+            <span class="btn-group">
+              <a href='generateTrackSheet.php' class='btn btn-primary btn-lg' type='submit'>Enter</a>
+            </span>
+          </div>
+        </div>
+      </div>
         <div class='row well well-lg'>
           <div class='col-md-6'>
-            <h2>Add tools to existing PO</h2>
-            <p class='lead'>Here you can add Tools to existing POS</p>
+            <h2>Insert PO number to view Packing List</h2>
+            <p class='lead'></p>
             <div class='input-group col-md-8'>
-              <span class="btn-group">
-                <a href='addTools2.php' class='btn btn-primary btn-lg' type='submit'>Enter</a>
-              </span>
-            </div>
-          </div>
-        </div>
-          <div class='row well well-lg'>
-            <div class='col-md-6'>
-              <h2>Generate a track sheet for your PO</h2>
-              <p class='lead'></p>
-              <div class='input-group col-md-8'>
-                <span class="btn-group">
-                  <a href='generateTrackSheet.php' class='btn btn-primary btn-lg' type='submit'>Enter</a>
-                </span>
-              </div>
+              <form action='../Printouts/packingList.php' method="post">
+              <label for ="POID">POID: </label>
+                <input type="text" name="POID" id="POID"></input>
+                <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+              </form>
             </div>
           </div>
         </div>
       </div>
-  </body>
-  </html>
+</body>
+</html>

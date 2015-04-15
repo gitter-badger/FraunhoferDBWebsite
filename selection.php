@@ -98,9 +98,10 @@
           <span class='sr-only'>Toggle Dropdown</span>
         </button>
         <ul class='dropdown-menu' role='menu'>
-          <li><a href='Views/viewAllCustomers.php'>Customer info</a></li>
-          <li><a href='Views/viewAllEmployees.php'>Employee info</a></li>
-          <li><a href='Views/viewAllMachines.php'>Machine info</a></li>
+          <li><a href='Views/viewAllCustomers.php'>Money Trees</a></li>
+          <li><a href='Views/viewAllEmployees.php'>Money marbles and chalk</a></li>
+          <li><a href='Views/viewAllMachines.php'>Aint nothing but a 'G' thang</a></li>
+          <li><a href='Views/viewAllMachines.php'>It´s all about the Benjamins</a></li>
         </ul>
         </div>";
       }

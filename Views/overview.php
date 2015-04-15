@@ -169,8 +169,7 @@ while($row = mysqli_fetch_array($secResult)){
  </div>
 
 </div>
-<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
-<script src='js/bootstrap.min.js'></script>
+
 <script>
 $(function() {
   $('.nav-tabs a').click(function (e) {
