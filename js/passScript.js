@@ -489,7 +489,7 @@ function searchPO() {
         
         var searchString    = $("#search_box_employee").val();
         var data            = 'search='+ searchString;
-        console.log(searchString);
+       // console.log(searchString);
                 if(searchString) {
             $.ajax({
                 type: "POST",
@@ -593,13 +593,9 @@ function searchPO() {
      if(cFax === '')
      {
         return;
-    }     
+     }     
      //console.log(CID);
     // console.log(cFax);
-
-     //make the postdata
-     //call your input.php script in the background, when it returns it will call the success function if the request was successful or the error one if there was an issue (like a 404, 500 or any other error status)
-
      $.ajax({
         url : "../UpdatePHP/updateCustomerFax.php",
         type: "POST",
@@ -724,17 +720,23 @@ function searchPO() {
         }
     })
 }
+/*
+    Adds one line item to a run
+    You can add multiple lines of the
+    same item here so you can add more than
+    one line of tools to every run
+*/
 function addLineItemToRun(){
      var lineItem        = $('#lineItem').val();     
      var number_of_tools = $('#number_of_tools').val();     
      var runNumber       = $('#runNumber').val(); 
      var final_comment   = $('#final_comment').val();
      var POID            = document.getElementById('POID').innerHTML;
-     console.log(runNumber);
-     console.log(lineItem);
-     console.log(number_of_tools);
-     console.log(final_comment);
-     console.log(POID);
+    // console.log(runNumber);
+    // console.log(lineItem);
+    // console.log(number_of_tools);
+    // console.log(final_comment);
+    // console.log(POID);
    $.ajax({
     url : "../InsertPHP/insertLineItemtoRun.php",
     type: "POST",
@@ -756,6 +758,10 @@ function addLineItemToRun(){
         }
     })
 }
+/*
+    Adds a final inspection comment
+    and a shipping date to the chosen PO
+*/
 function addShipDateToPO (line){
    var POID       = document.getElementById('POID').innerHTML;
    var fInspect   = $('#fInspect').val();
@@ -782,8 +788,8 @@ function addShipDateToPO (line){
 function addCoating (line){
    var coatingType   = $('#coatingType').val();
    var coatingDesc = $('#coatingDesc').val();
-   console.log(coatingType);
-   console.log(coatingDesc);
+  // console.log(coatingType);
+  // console.log(coatingDesc);
   $.ajax({
     url : "../InsertPHP/insertNewCoating.php",
     type: "POST",
@@ -799,10 +805,34 @@ function addCoating (line){
         }
     })
 }
+function addNewMachine (line){
+   var mname   = $('#mname').val();
+   var macro = $('#macro').val();
+   //console.log(mname);
+   //console.log(macro);
+  $.ajax({
+    url : "../InsertPHP/insertNewMachine.php",
+    type: "POST",
+    data : {mname : mname,
+            macro : macro},
+        success: function(data,status, xhr)
+        {
+            $("#errormsg").html('you added to the database');
+        },
+        error: function (jqXHR, status, errorThrown)
+        {
+            $("#errormsg").html('there was an error');
+        }
+    })
+}
+/*
+    Function that checks if your password matches your 
+    username.
+*/
 function authenticate(){
     var userID   = $('#userID').val();
     var password   = $('#password').val();
-    console.log(userID);
+    //console.log(userID);
     //console.log(password);
   $.ajax({
     url : "../Login/logincheck.php",
@@ -813,8 +843,14 @@ function authenticate(){
         $("#txtadd").html(result);
     })
 }
+/*
+    Function that logs the user out.
+    Calls a php script that logs you out 
+    and then reloads the page so you loose 
+    all your privlages
+*/
 function logout(){
-    console.log('eg er her');
+    //console.log('eg er her');
   $.ajax({
     url : "../Login/logout.php",
     type: "POST"

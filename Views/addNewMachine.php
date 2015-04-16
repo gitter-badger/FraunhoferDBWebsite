@@ -36,8 +36,6 @@ while($row = mysqli_fetch_array($secResult)){
       <div class='row well well-lg'>
         <div class='col-md-12'>
           <p>This is the add new machine View</p>
-
-          <form action="../InsertPHP/insertNewMachine.php" method="post">
             <p class='col-md-6'>
               <label for="mname">Machine Name: </label>
               <input type="text" name="mname" id="mname">
@@ -46,10 +44,12 @@ while($row = mysqli_fetch_array($secResult)){
               <label for="macro">Short Version(acronym): </label>
               <input type="text" name='macro' id='macro'>
             </p>
-            <input class='col-md-offset-1'type="submit" value="Add Machine to Database">
-          </form>
+            <input class='col-md-offset-1'type="button" value="Add Machine to Database" onclick='addNewMachine()'>
         </div>
       </div>
+      <div>
+      <p id='errormsg'></p>
+    </div>
     </div>
 
 

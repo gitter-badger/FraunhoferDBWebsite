@@ -33,11 +33,11 @@ if (!$result) {
 //from the coatingResult query
 //then we get the rest of the data
 while($row = mysqli_fetch_array($result)){
-    echo "<td>".$Row[0]."</td>".
-         "<td>".$Row[1]."</td>". 
-         "<td>".$Row[2]."</td>".
-         "<td>".$Row[3]."</td>".
-         "<td>".$Row[4]."</td>".
+    echo "<td>".$row[0]."</td>".
+         "<td>".$row[1]."</td>". 
+         "<td>".$row[2]."</td>".
+         "<td>".$row[3]."</td>".
+         "<td>".$row[4]."</td>".
          "</tr>";
 }
 ?>
