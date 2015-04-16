@@ -1,0 +1,27 @@
+@media print {
+   body 
+   {
+      color: #000;
+      background: #fff;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      font-size: 11pt; 
+   }
+   nav, aside {
+      display: none;
+   }
+   img 
+   {
+   		max-width: 100% !important;
+   }
+   ul, img 
+   {
+   		page-break-inside: avoid;
+   }
+   table, td, th {
+    border: 1px solid black;
+    padding: 5px;
+    font-size: x-small;
+}
+}

@@ -694,25 +694,24 @@ function searchPO() {
  }
  function addRun(){
      var runDate             = $('#runDate').val();     
-     var rCoating            = $('#coatingType').val();     
+     var rCoating            = $('#coatingID').val();     
      var machine_run_number  = $('#machine_run_number').val(); 
      var ah_pulses           = $('#ah_pulses').val(); 
-     var machine             = $('#machine').val(); 
+     var machine             = $('#machineID').val(); 
      var rcomments           = $('#rcomments').val();
      var run_on_this_PO      = $('#run_number').val();
      var POID                = document.getElementById('POID').innerHTML;
-
    $.ajax({
     url : "../InsertPHP/insertNewRunToTrackSheet.php",
     type: "POST",
     data : {runDate           : runDate,
-     rCoating           : rCoating,
-     POID               : POID,
-     machine_run_number : machine_run_number,
-     ah_pulses          : ah_pulses,
-     machine            : machine,
-     run_on_this_PO     : run_on_this_PO,
-     rcomments          :rcomments},
+            rCoating           : rCoating,
+            POID               : POID,
+            machine_run_number : machine_run_number,
+            ah_pulses          : ah_pulses,
+            machine            : machine,
+            run_on_this_PO     : run_on_this_PO,
+            rcomments          :rcomments},
      success: function(data,status, xhr)
      {
         machine_run_number = parseInt(machine_run_number) + 1;
@@ -777,6 +776,26 @@ function addShipDateToPO (line){
         error: function (jqXHR, status, errorThrown)
         {
             $("#runTools").html('there was an error ' + errorThrown + ' with status ' + textStatus);
+        }
+    })
+}
+function addCoating (line){
+   var coatingType   = $('#coatingType').val();
+   var coatingDesc = $('#coatingDesc').val();
+   console.log(coatingType);
+   console.log(coatingDesc);
+  $.ajax({
+    url : "../InsertPHP/insertNewCoating.php",
+    type: "POST",
+    data : {coatingType : coatingType,
+            coatingDesc : coatingDesc},
+        success: function(data,status, xhr)
+        {
+            $("#errormsg").html('you added ' + coatingType + ' to the database');
+        },
+        error: function (jqXHR, status, errorThrown)
+        {
+            $("#errormsg").html('there was an error ' + errorThrown + ' with status ' + textStatus);
         }
     })
 }

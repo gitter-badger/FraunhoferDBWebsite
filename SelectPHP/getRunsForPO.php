@@ -2,18 +2,9 @@
 
 include '../connection.php';
 
-
+// getting the right POID from the html side
 $q = mysqli_real_escape_string($link, $_GET['q']);
-
-$sql = "SELECT coating_type, ah_pulses, run_number, RID, run_comment FROM Runs WHERE POID = '$q' ORDER BY run_number";
-
-$result = mysqli_query($link, $sql);
-
-if (!$result) {
-    $message  = 'Invalid query: ' . mysqli_error($link) . "\n";
-    $message .= 'Whole query: ' . $query;
-    die($message);
-}
+// display the table
 echo         "<tr>".
 "<td>Coating type</td>".
 "<td>AH/Pulses</td>".
@@ -22,17 +13,33 @@ echo         "<tr>".
 "<td>Comments</td>".
 "</tr>";
 
-while($row = mysqli_fetch_array($result)) {
-    echo 
-    "<tr>".
-    "<td>".$row[0]."</td>".
-    "<td>".$row[1]."</td>".
-    "<td>".$row[2]."</td>".
-    "<td>".$row[3]."</td>".
-    "<td>".$row[4]."</td>".
-    "</tr>";
+// select all the info about the run we need
+$sql = "SELECT c.coatingType, r.ah_pulses, r.run_number, r.RID, r.run_comment 
+        FROM Runs r, Coatings c
+        WHERE POID = '$q' 
+        AND r.CoatingID = c.coatingID
+        ORDER BY run_number";
+//run a query to find the right ID of our coating
+$result = mysqli_query($link, $sql);
+
+
+if (!$result) {
+    $message  = 'Invalid query: ' . mysqli_error($link) . "\n";
+    $message .= 'Whole query: ' . $query;
+    die($message);
 }
 
+//first we get the coating type 
+//from the coatingResult query
+//then we get the rest of the data
+while($row = mysqli_fetch_array($result)){
+    echo "<td>".$Row[0]."</td>".
+         "<td>".$Row[1]."</td>". 
+         "<td>".$Row[2]."</td>".
+         "<td>".$Row[3]."</td>".
+         "<td>".$Row[4]."</td>".
+         "</tr>";
+}
 ?>
 
 

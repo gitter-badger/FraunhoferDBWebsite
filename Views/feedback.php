@@ -17,7 +17,7 @@
   <div class='col-md-12'>
     <a href='../selection.php'>Take me home</a>
     <h2>Place for feedback</h2>
-      <form action="addFeedback.php" method="post">
+      <form action="../InsertPHP/addFeedback.php" method="post">
         <h3>Name:</h3> <input type="text" name="name"><br>
         <h3>Feedback:</h3><textarea name="comment"></textarea><br>
         <input type="submit">
@@ -29,7 +29,7 @@
 
       $sql = "SELECT * FROM Feedback";
       $result = mysqli_query($link, $sql);
-
+      if(!$result){mysqli_error($link);}
       while($row = mysqli_fetch_array($result)){
         echo "<div class='row well well-lg'>".$row[0]."<div><strong>".$row[1]."</strong></div><div>". $row[2]."</div></div>";
       }

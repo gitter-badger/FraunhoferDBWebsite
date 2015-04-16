@@ -8,7 +8,7 @@ $ah_pulses		    = mysqli_real_escape_string($link, $_POST['ah_pulses']);
 $machine  			= mysqli_real_escape_string($link, $_POST['machine']);
 $rcomments			= mysqli_real_escape_string($link, $_POST['rcomments']);
 $run_on_this_po		= mysqli_real_escape_string($link, $_POST['run_on_this_PO']);
-
+var_dump($machine_run_number);
 $machineSql = "SELECT mAcronym FROM Machine WHERE MID = '$machine'";
 $machineResult = mysqli_query($link, $machineSql);
 
