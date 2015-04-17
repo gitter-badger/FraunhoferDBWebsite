@@ -7,7 +7,7 @@ $coatingType = mysqli_real_escape_string($link, $_POST['coatingType']);
 $coatingDesc = mysqli_real_escape_string($link, $_POST['coatingDesc']);
  var_dump($coatingDesc);
 // attempt insert query execution
-$sql = "INSERT INTO Coatings(CoatingType, CoatingDescription) VALUES ('$coatingType', '$coatingDesc');";
+$sql = "INSERT INTO Coatings(coating_type, coating_description) VALUES ('$coatingType', '$coatingDesc');";
 if(mysqli_query($link, $sql)){
     echo "Records added successfully.";
 } else{

@@ -5,9 +5,9 @@ session_start();
 //find the current user
 $user = $_SESSION["username"];
 //find his level of security 
-$secsql = "SELECT sec_lvl
-           FROM Employees
-           WHERE ename = '$user'";
+$secsql = "SELECT security_level
+           FROM employee
+           WHERE employee_name = '$user'";
 $secResult = mysqli_query($link, $secsql);
 
 while($row = mysqli_fetch_array($secResult)){
@@ -51,7 +51,7 @@ if($user_sec_lvl < 2){
               <select id='CID'>
                 <option value="">Select a company:</option> 
                   <?php
-                  $sql = "SELECT CID, cName FROM Customers";
+                  $sql = "SELECT customer_ID, customer_name FROM customer";
                   $result = mysqli_query($link, $sql);
 
                   if (!$result) {

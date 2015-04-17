@@ -5,9 +5,9 @@ session_start();
 //find the current user
 $user = $_SESSION["username"];
 //find his level of security 
-$secsql = "SELECT sec_lvl
-           FROM Employees
-           WHERE ename = '$user'";
+$secsql = "SELECT security_level
+           FROM employee
+           WHERE employee_name = '$user'";
 $secResult = mysqli_query($link, $secsql);
 
 while($row = mysqli_fetch_array($secResult)){
@@ -49,7 +49,7 @@ while($row = mysqli_fetch_array($secResult)){
             <th class ='col-md-2'>Notes</th>
           </tr>
           <?php
-          $sql = "SELECT * FROM Customers";
+          $sql = "SELECT * FROM customer";
           $result = mysqli_query($link, $sql);
           if (!$result){
            die("Database query failed: " . mysql_error());

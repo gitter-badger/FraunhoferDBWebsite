@@ -5,9 +5,9 @@ session_start();
 //find the current user
 $user = $_SESSION["username"];
 //find his level of security 
-$secsql = "SELECT sec_lvl
-           FROM Employees
-           WHERE ename = '$user'";
+$secsql = "SELECT security_level
+           FROM employee
+           WHERE employee_name = '$user'";
 $secResult = mysqli_query($link, $secsql);
 
 while($row = mysqli_fetch_array($secResult)){
@@ -39,10 +39,12 @@ while($row = mysqli_fetch_array($secResult)){
               <p class='col-md-6'>
                 <label for="coatingType">Coating type</label>
                 <input type="text" name="coatingType" id="coatingType">
+                Fx. AlTin
               </p>
               <p class='col-md-6'>
                 <label for="coatingDesc">Coating Description</label>
                 <input type="text" name="coatingDesc" id="coatingDesc">
+                Fx. 60% Aluminum 40% titanium
               </p>
               <input class='col-md-offset-1'type="button" value="Add coating to database" onclick='addCoating()'>
           </div>

@@ -26,7 +26,7 @@ $hashedPassword = cryptPass($ePass);
  	die("The passwords do not match!" . mysqli_error($link));
  }
 // attempt insert query execution
-$sql = "INSERT INTO Employees(pass, ename, eEmail, ePhoneNumber, sec_lvl) 
+$sql = "INSERT INTO employee(employee_password, employee_name, employee_email, employee_phone, security_level) 
 		VALUES ('$hashedPassword', '$eName', '$eEmail', '$ePhoneNumber', '$sec_lvl')";
 $result = mysqli_query($link, $sql);
 if(!$result){

@@ -13,7 +13,7 @@ if(empty($mName) || empty($mAcro)){
 }
 */
 // attempt insert query execution
-$sql = "INSERT INTO Machine(mName, mAcronym) VALUES ('$mName', '$mAcro')";
+$sql = "INSERT INTO machine(machine_name, machine_acronym) VALUES ('$mName', '$mAcro')";
 $result = mysqli_query($link, $sql);
 
 if(!$result){

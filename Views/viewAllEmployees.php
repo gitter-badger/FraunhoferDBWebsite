@@ -5,9 +5,9 @@ session_start();
 //find the current user
 $user = $_SESSION["username"];
 //find his level of security 
-$secsql = "SELECT sec_lvl
-           FROM Employees
-           WHERE ename = '$user'";
+$secsql = "SELECT security_level
+           FROM employee
+           WHERE employee_name = '$user'";
 $secResult = mysqli_query($link, $secsql);
 
 while($row = mysqli_fetch_array($secResult)){
@@ -44,8 +44,8 @@ while($row = mysqli_fetch_array($secResult)){
             <th>Phone Number</th>
           </tr>
           <?php
-          $sql ="SELECT EID, ename, eEmail, ePhoneNumber 
-          FROM Employees";
+          $sql ="SELECT employee_ID, employee_name, employee_email, employee_phone 
+                 FROM employee";
           $result = mysqli_query($link, $sql);
           if (!$result){
            die("Database query failed: " . mysql_error());

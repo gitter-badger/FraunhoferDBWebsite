@@ -37,7 +37,7 @@
     </div>
   </div>
   <div class='container'>
-    <h1>Fixing stuff you wont be able to add new items at the moment</h1>
+    <h1>Making big changes to the database layout, dont expect you can use the system today(friday)</h1>
     <div class='row well well-lg'>
       <div class='col-md-3 btn-group'>
           <!-- <input type="submit" class='btn btn-primary' value="Tooling overview"> -->

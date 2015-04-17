@@ -5,9 +5,9 @@ include '../connection.php';
 $CID    = mysqli_real_escape_string($link, $_POST['CID']);
 $cPhone = mysqli_real_escape_string($link, $_POST['cPhone']);
 
-$sql = "UPDATE Customers 
-        SET cPhone = '$cPhone'
-        WHERE CID = $CID";   
+$sql = "UPDATE customer 
+        SET customer_phone = '$cPhone'
+        WHERE customer_ID  = $CID";   
 $result = mysqli_query($link, $sql);
 
 if (!$result) {

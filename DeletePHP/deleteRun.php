@@ -1,12 +1,13 @@
+<!-- This file should find the right run_ID and delete from that info -->
 <?php
 include '../connection.php';
 
-$poid      = mysqli_real_escape_string($link, $_POST['POID']);
-$RID	   = mysqli_real_escape_string($link, $_POST['line']);
+$po_ID         = mysqli_real_escape_string($link, $_POST['po_ID']);
+$run_number	   = mysqli_real_escape_string($link, $_POST['line']);
 
-$sql = "DELETE FROM Runs 
-		WHERE POID = '$poid'
-		AND run_number = '$RID'";
+$sql = "DELETE FROM run 
+		WHERE po_ID = '$po_ID'
+		AND run_number = '$run_number'";
 $result = mysqli_query($link, $sql);
 
 

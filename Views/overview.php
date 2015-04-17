@@ -5,9 +5,9 @@ session_start();
 //find the current user
 $user = $_SESSION["username"];
 //find his level of security 
-$secsql = "SELECT sec_lvl
-           FROM Employees
-           WHERE ename = '$user'";
+$secsql = "SELECT security_level
+           FROM employee
+           WHERE employee_name = '$user'";
 $secResult = mysqli_query($link, $secsql);
 
 while($row = mysqli_fetch_array($secResult)){
@@ -20,7 +20,6 @@ while($row = mysqli_fetch_array($secResult)){
   <link href='../css/bootstrap.min.css' rel='stylesheet'>
   <link href='../css/main.css' rel='stylesheet'>
   <script type="text/javascript" src='../js/passScript.js'></script>
-  <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" type="text/javascript"></script>-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
   <script type="text/javascript">  
@@ -87,7 +86,7 @@ while($row = mysqli_fetch_array($secResult)){
          <select name="POS" onchange="showUser(this.value)">
           <option value="">Select a company:</option> 
           <?php
-            $sql = "SELECT CID, cName FROM Customers";
+            $sql = "SELECT customer_ID, customer_name FROM customers";
             $result = mysqli_query($link, $sql);
             
             if (!$result) {
@@ -117,10 +116,14 @@ while($row = mysqli_fetch_array($secResult)){
           <th class='col-md-2'>Number of Lines</th>
         </tr>
         <?php
-          $sql = "SELECT p.POID, c.cName, p.receiving_date, p.initial_inspection, p.nr_of_lines 
+          /*
+              query that shows a list of POS, and some info about them, that have not been shipped yet
+              if clicked will display a list of the line items on that PO
+          */
+          $sql = "SELECT p.po_ID, c.customer_name, p.receiving_date, p.initial_inspection, p.nr_of_lines 
                   FROM POS p, Customers c 
-                  WHERE p.CID = c.CID 
-                  AND (shipping_date > DATE(NOW()) OR shipping_date IS null)
+                  WHERE p.customer_ID= c.customer_ID 
+                  AND (p.shipping_date > DATE(NOW()) OR p.shipping_date IS null)
                   GROUP BY p.POID
                   ORDER BY p.receiving_date";
 
@@ -138,12 +141,13 @@ while($row = mysqli_fetch_array($secResult)){
             "<td class='col-md-2'>".$row[3]."</td>".
             "<td class='col-md-2'>".$row[4]."</td>".
             "</tr>";
-            $toolSql = "SELECT po.line_item, po.TID, po.quantity, t.tPrice, SUM(ROUND(t.tPrice * po.quantity, 2)) 
-                        FROM POTools po, Tools t
-                        WHERE po.POID = '$rightRow' 
-                        AND po.TID = t.TID
-                        GROUP BY po.TID
-                        ORDER BY po.line_item";
+        /*
+            query that shows the information about line items on the clicked po
+        */
+            $toolSql = "SELECT l.line_on_po, l.tool_ID, l.quantity, l.price, SUM(ROUND(l.price * l.quantity, 2)) 
+                        FROM lineitem l
+                        WHERE l.po_ID = '$rightRow' 
+                        ORDER BY l.line_on_po";
 
             $toolResult = mysqli_query($link, $toolSql);
 

@@ -600,11 +600,10 @@ function searchPO() {
         url : "../UpdatePHP/updateCustomerFax.php",
         type: "POST",
         data : {CID : CID,
-         cFax : cFax},
+                cFax : cFax},
          success: function(data,status, xhr)
          {
             window.location.reload(true);
-            //if success then just output the text to the status div then clear the form inputs to prepare for new data
             $("#status_text").html(data);
             $("#input_CID").val("");
             $("#input_faxnumber").val("");

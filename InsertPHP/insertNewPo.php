@@ -33,5 +33,3 @@ if($employeeResult){
 // close connection
 mysqli_close($link);
 ?>
-
-   

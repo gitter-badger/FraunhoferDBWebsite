@@ -5,9 +5,9 @@ session_start();
 //find the current user
 $user = $_SESSION["username"];
 //find his level of security 
-$secsql = "SELECT sec_lvl
-FROM Employees
-WHERE ename = '$user'";
+$secsql = "SELECT security_level
+           FROM employee
+           WHERE employee_name = '$user'";
 $secResult = mysqli_query($link, $secsql);
 
 while($row = mysqli_fetch_array($secResult)){
@@ -47,7 +47,7 @@ if($user_sec_lvl < 2){
         <form><select name='POS' onchange='showTools(this.value)'>
           <option value''>Select a PO#: </option>
           <?php 
-          $sql = "SELECT POID FROM POS WHERE shipping_date IS NULL";
+          $sql = "SELECT po_ID FROM pos WHERE shipping_date IS NULL";
           $result = mysqli_query($link, $sql);
           while($row = mysqli_fetch_array($result)){
            echo '<option value="'.$row[0].'">'.$row[0].'</option>';
@@ -68,13 +68,13 @@ if($user_sec_lvl < 2){
         <select id='coatingID'>
           <option value="">Select coating type:</option> 
           <?php
-          $sql = "SELECT CoatingID, CoatingType FROM Coatings";
+          $sql = "SELECT coating_ID, coating_type FROM coating";
           $result = mysqli_query($link, $sql);
           if (!$result) {
             die("Database query failed: " . mysqli_error($link));
           }
           while($row = mysqli_fetch_array($result)){
-            echo '<option value="'.$row['CoatingID'].'">'.$row['CoatingType'].'</option>';
+            echo '<option value="'.$row['coating_ID'].'">'.$row['coating_type'].'</option>';
           }
           ?>
         </select>
@@ -96,7 +96,7 @@ if($user_sec_lvl < 2){
         <select id='machineID'>
           <option value="">Select a machine:</option> 
           <?php
-          $sql = "SELECT MID, mAcronym FROM Machine";
+          $sql = "SELECT machine_ID, machine_acronym FROM machine";
           $result = mysqli_query($link, $sql);
           if (!$result) {
             die("Database query failed: " . mysqli_error($link));

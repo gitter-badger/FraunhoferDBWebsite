@@ -16,11 +16,14 @@ if($cName == ""){
  }
  else{
 // attempt insert query execution
-$sql = "INSERT INTO Customers(cName, cAddress, cEmail, cPhone, cFax, last_order, nr_of_active_pos, cContact, cNotes) 
-        VALUES ('$cName', '$cAddress', '$cEmail', '$cPhone', '$cFax', null, 0, '$cContact', '$cNotes')";
+$sql = "INSERT INTO customer(customer_name, customer_address, customer_email, customer_phone, customer_fax, customer_contact, customer_notes) 
+        VALUES ('$cName', '$cAddress', '$cEmail', '$cPhone', '$cFax', '$cContact', '$cNotes')";
 
 $result = mysqli_query($link, $sql);
 
+if(!$result){
+    echo("Input data is fail" . mysqli_error($link));
+}
 }
 // close connection
 mysqli_close($link);

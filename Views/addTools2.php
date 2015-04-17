@@ -5,9 +5,9 @@ session_start();
 //find the current user
 $user = $_SESSION["username"];
 //find his level of security 
-$secsql = "SELECT sec_lvl
-           FROM Employees
-           WHERE ename = '$user'";
+$secsql = "SELECT security_level
+           FROM employee
+           WHERE employee_name = '$user'";
 $secResult = mysqli_query($link, $secsql);
 
 while($row = mysqli_fetch_array($secResult)){
@@ -47,7 +47,7 @@ if($user_sec_lvl < 2){
             <form><select name='POS' onchange='showTools(this.value)'>
               <option value''>Select a PO#: </option>
           <?php 
-                $sql = "SELECT POID FROM POS WHERE shipping_date is NULL";
+                $sql = "SELECT po_ID FROM pos WHERE shipping_date is NULL";
                 $result = mysqli_query($link, $sql);
                 while($row = mysqli_fetch_array($result)){
 	 		           echo '<option value="'.$row[0].'">'.$row[0].'</option>';
