@@ -3,22 +3,29 @@
 include '../connection.php';
 //POID from the dropdown list
 $q = mysqli_real_escape_string($link, $_GET['q']);
+// first we have to find the right po_ID from the po_Number we get from the user
+$po_IDsql = "SELECT l.po_ID
+             FROM lineitem l, pos p
+             WHERE p.po_number = '$q'
+             AND l.po_ID = p.po_ID;";
+$po_IDresult = mysqli_query($link, $po_IDsql);
 
+while($row = mysqli_fetch_array($po_IDresult)){
+    $po_ID = $row[0];
+}
 //sql for table data
-$sql = "SELECT po.line_item, po.quantity, po.TID, t.tDiameter, t.tLength, t.double_end, t.tPrice, ROUND(t.tPrice * po.quantity, 2) 
-        FROM POTools po, Tools t, POS p   
-        WHERE po.POID = '$q'
-        AND po.POID = p.POID
-        AND p.CID = t.CID
-        AND po.TID = t.TID
-        ORDER BY po.line_item";
+$sql = "SELECT l.line_on_po, l.quantity, l.tool_ID, l.diameter, l.length, l.double_end, l.price, ROUND(l.price * l.quantity, 2) 
+        FROM lineitem l, POS p   
+        WHERE l.po_ID = '$po_ID'
+        GROUP BY l.lineitem_ID
+        ORDER BY l.line_on_po";
 $result = mysqli_query($link, $sql);
 
 
 //sql for bottom row
-$sumSql = "SELECT COUNT('*'), SUM(quantity)
-           FROM POTools po
-           WHERE po.POID = '$q'";
+$sumSql = "SELECT COUNT('lineitem_ID'), SUM(quantity)
+           FROM lineitem l
+           WHERE l.po_ID = '$po_ID'";
 $sumresult = mysqli_query($link, $sumSql);
 //if sum table is wrong
 if (!$sumresult) {
@@ -28,7 +35,7 @@ if (!$sumresult) {
 }
 //if table query is wrong
 if (!$result) {
-    $message  = 'Invalid query: ' . mysql_error() . "\n";
+    $message  = 'Invalid query result query: ' . mysql_error() . "\n";
     $message .= 'Whole query: ' . $query;
     die($message);
 }
@@ -57,10 +64,9 @@ while($row = mysqli_fetch_array($result)) {
         "<td>".$row[7]."</td>".
         "</tr>";
 }
-$totalSumSql = "SELECT SUM(ROUND(t.tPrice * po.quantity, 2)) 
-                FROM POTools po, Tools t   
-                WHERE po.POID = '$q'
-                AND po.TID = t.TID";
+$totalSumSql = "SELECT SUM(ROUND(l.price * l.quantity, 2)) 
+                FROM lineitem l   
+                WHERE l.po_ID = '$po_ID'";
 $totalSumResult = mysqli_query($link, $totalSumSql);
 
 

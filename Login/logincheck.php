@@ -7,9 +7,9 @@ $userID = mysqli_real_escape_string($link, $_POST['userID']);
 $password = mysqli_real_escape_string($link, $_POST['password']);
 
 // select the username and hashed password
-$sql = "SELECT ename, pass
-		FROM Employees
-		WHERE EID = '$userID'";
+$sql = "SELECT employee_name, employee_password
+		FROM employee
+		WHERE employee_ID = '$userID'";
 //run the query
 $result = mysqli_query($link, $sql);
 //store the hashed password and Username
@@ -25,9 +25,9 @@ $_SESSION["username"] = $username;
 
 //This is code to let the user know he is logged in.
 //This is handy while developing but should probably be removed
-$usersql = "SELECT EID, ename, eEmail, ePhoneNumber  
-			FROM Employees
-			WHERE EID = '$userID'";
+$usersql = "SELECT employee_ID, employee_name, employee_email, employee_phone  
+			FROM employee
+			WHERE employee_ID = '$userID'";
 $userResult = mysqli_query($link, $usersql);
 
 while($row = mysqli_fetch_array($userResult)){

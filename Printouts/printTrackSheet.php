@@ -42,10 +42,10 @@ while($row = mysqli_fetch_array($secResult)){
         <label>POID: <select name='POS' onchange='showTrackPrint(this.value)'>
           <option name='po'value''>Select a PO#: </option>
           <?php 
-          $sql = "SELECT POID FROM POS";
+          $sql = "SELECT po_ID, po_number FROM pos";
           $result = mysqli_query($link, $sql);
           while($row = mysqli_fetch_array($result)){
-           echo '<option value="'.$row[0].'">'.$row[0].'</option>';
+           echo '<option value="'.$row[0].'">'.$row[1].'</option>';
          }   
          echo "</select></label></form>";
          ?>

@@ -1,45 +1,31 @@
 <?php
 include '../connection.php';
-$poid      = mysqli_real_escape_string($link, $_POST['POID']);
-$toolID    = mysqli_real_escape_string($link, $_POST['toolID']);
+$po_ID      = mysqli_real_escape_string($link, $_POST['POID']);
+$tool_ID    = mysqli_real_escape_string($link, $_POST['toolID']);
 $quantity  = mysqli_real_escape_string($link, $_POST['quantity']);
 $line_item = mysqli_real_escape_string($link, $_POST['lineItem']);
 $diameter  = mysqli_real_escape_string($link, $_POST['diameter']);
 $length    = mysqli_real_escape_string($link, $_POST['length']);
 $price     = mysqli_real_escape_string($link, $_POST['price']);
 $doubleEnd = mysqli_real_escape_string($link, $_POST['dblEnd']);
-
+var_dump($po_ID);
 if($doubleEnd == 'on'){
 	$doubleEnd = 1;
 	$price = $price * 2;
 }
 #convert diameter to string so MySQL doesnt read it as a number.
-$diameter = (string)$diameter;
+//$diameter = (string)$diameter;
+//find the right po_ID to insert into the lineitem table
+$rightpo_IDsql = "SELECT po_ID FROM pos WHERE po_number = '$po_ID'";
+$po_IDresult = mysqli_query($link, $rightpo_IDsql);
 
-#fetch right CID
-
-$cidsql = "SELECT DISTINCT c.CID
-		   FROM Customers c, POS p
-		   WHERE c.CID = p.cid
-		   AND p.POID = '$poid'";
-
-$cidResult = mysqli_query($link, $cidsql);
-
-while($row = mysqli_fetch_array($cidResult)){
-	$rightCid = $row[0];
+while($row = mysqli_fetch_array($po_IDresult)){
+	$rightPO = $row[0];
 }
-if (!$cidResult) {
-    $message  = 'Invalid cid query: ' . mysqli_error($link) . "\n";
-    $message .= 'Whole cid query: ' . $query;
-    die($message);
-}
+//var_dump($rightPO);
 
-#insert Tool into tools table...if it does exist nothing happens. 
-$toolsql = "INSERT INTO Tools (TID, CID, tDiameter, tLength, tPrice, double_end) VALUES('$toolID', '$rightCid', '$diameter', '$length', '$price', '$doubleEnd') ON DUPLICATE KEY UPDATE    
-tDiameter=VALUES(tDiameter), tLength=VALUES(tLength), tPrice=VALUES(tPrice)";
-$toolResult = mysqli_query($link, $toolsql);
 
-$sql = "INSERT INTO POTools(POID, TID, line_item, quantity) VALUES('$poid', '$toolID', '$line_item', '$quantity')";
+$sql = "INSERT INTO lineitem(line_on_po, po_ID, quantity, tool_ID, diameter, length, double_end, price) VALUES('$line_item', '$rightPO', '$quantity', '$tool_ID', '$diameter', '$length', '$doubleEnd', '$price')";
 
 $result = mysqli_query($link, $sql);
 if (!$result) {

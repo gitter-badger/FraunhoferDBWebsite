@@ -7,9 +7,9 @@
 //find the current user
   $user = $_SESSION["username"];
 //find his level of security 
-  $secsql = "SELECT sec_lvl
-  FROM Employees
-  WHERE ename = '$user'";
+  $secsql = "SELECT security_level
+  FROM employee
+  WHERE employee_name = '$user'";
   $secResult = mysqli_query($link, $secsql);
 
   while($row = mysqli_fetch_array($secResult)){

@@ -20,8 +20,8 @@ include '../connection.php';
     <p>All our employee ID's</p>
     <div>
     <?php
-      $sql = "SELECT ename, EID
-              FROM Employees";
+      $sql = "SELECT employee_name, employee_ID
+              FROM employee";
       $result = mysqli_query($link, $sql);
       while($row = mysqli_fetch_array($result)){
         echo "<span>".$row[0]." ID: ".$row[1]."</span></br>";

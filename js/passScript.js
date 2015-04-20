@@ -54,7 +54,14 @@ function addPO(){
      var iInspect   = $('#iInspect').val();
      var nrOfLines  = $('#nrOfLines').val();
      var employeeId = $('#employeeId').val();
-     console.log(CID);
+    // console.log(CID);
+    // console.log(POID);
+    // console.log(rDate);
+    // console.log(iInspect);
+    // console.log(nrOfLines);
+    // console.log(employeeId);
+
+
      $.ajax({
         url : "../InsertPHP/insertNewPO.php",
         type: "POST",
@@ -371,7 +378,7 @@ function addEmployee(){
          success: function(data,status, xhr)
          {
             $("#status_text").html(data);
-            alert("Tool deleted successfully");
+            //alert("Tool deleted successfully");
         },
         error: function (jqXHR, status, errorThrown)
         {

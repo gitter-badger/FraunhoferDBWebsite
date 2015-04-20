@@ -4,13 +4,14 @@ include '../connection.php';
 
 $q = mysqli_real_escape_string($link, $_GET['q']);
 
-$sql = "SELECT p.POID, p.receiving_date, c.cName,  p.shipping_date, p.nr_of_lines 
-FROM POS p, Customers c
-WHERE p.CID = c.CID
-AND POID = '$q'";
-$sumdata = "SELECT COUNT(POID)
-FROM POTools
-WHERE POID = '$POID'";
+$sql = "SELECT p.po_number, p.receiving_date, c.customer_name,  p.shipping_date, p.nr_of_lines 
+		FROM pos p, customer c
+		WHERE p.customer_ID = c.customer_ID
+		AND po_ID = '$q'";
+
+$sumdata = "SELECT COUNT(po_ID)
+			FROM POTools
+			WHERE po_ID = '$POID'";
 
 $result = mysqli_query($link, $sql);
 

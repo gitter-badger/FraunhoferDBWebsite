@@ -4,6 +4,14 @@ include '../connection.php';
 
 // getting the right POID from the html side
 $q = mysqli_real_escape_string($link, $_GET['q']);
+$po_IDsql = "SELECT p.po_ID
+             FROM pos p
+             WHERE p.po_number = '$q';";
+$po_IDresult = mysqli_query($link, $po_IDsql);
+
+while($row = mysqli_fetch_array($po_IDresult)){
+    $POID = $row[0];
+}
 // display the table
 echo         "<tr>".
 "<td>Coating type</td>".
@@ -14,11 +22,11 @@ echo         "<tr>".
 "</tr>";
 
 // select all the info about the run we need
-$sql = "SELECT c.coatingType, r.ah_pulses, r.run_number, r.RID, r.run_comment 
-        FROM Runs r, Coatings c
-        WHERE POID = '$q' 
-        AND r.CoatingID = c.coatingID
-        ORDER BY run_number";
+$sql = "SELECT c.coating_type, r.ah_pulses, posr.run_number_on_po, r.run_number, r.run_comment 
+        FROM run r, pos_run posr, coating c
+        WHERE r.run_ID = posr.run_ID
+        AND posr.po_ID = '$POID'
+        AND r.coating_ID = c.coating_ID;";
 //run a query to find the right ID of our coating
 $result = mysqli_query($link, $sql);
 

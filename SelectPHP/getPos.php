@@ -1,11 +1,11 @@
 <?php
 include '../connection.php';
-$q = intval($_GET['q']);
+$q = mysqli_real_escape_string($link, $_GET['q']);
 
-$sql = "SELECT p.POID, c.cName, p.receiving_date, p.initial_inspection, p.final_inspection, p.nr_of_lines, p.shipping_date 
-        FROM POS p, Customers c 
-        WHERE p.CID = c.CID 
-        AND c.CID = '$q'
+$sql = "SELECT p.po_number, c.customer_name, p.receiving_date, p.initial_inspection, p.final_inspection, p.nr_of_lines, p.shipping_date 
+        FROM pos p, customer c 
+        WHERE p.customer_ID = c.customer_ID 
+        AND c.customer_ID = '$q'
         ORDER BY p.receiving_date";
 $result = mysqli_query($link, $sql);
 if (!$result) {

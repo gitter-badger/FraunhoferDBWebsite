@@ -86,14 +86,14 @@ while($row = mysqli_fetch_array($secResult)){
          <select name="POS" onchange="showUser(this.value)">
           <option value="">Select a company:</option> 
           <?php
-            $sql = "SELECT customer_ID, customer_name FROM customers";
+            $sql = "SELECT customer_ID, customer_name FROM customer";
             $result = mysqli_query($link, $sql);
             
             if (!$result) {
               die("Database query failed: " . mysqli_error($link));
             }
             while($row = mysqli_fetch_array($result)){
-              echo '<option value="'.$row['CID'].'">'.$row['cName'].'</option>';
+              echo '<option value="'.$row['customer_ID'].'">'.$row['customer_name'].'</option>';
           }
           ?>
         </select>
@@ -109,7 +109,7 @@ while($row = mysqli_fetch_array($secResult)){
       <p class='lead'>These are all our active POS at the moment.(that havent been shipped)</p>
       <table id="report">
         <tr>
-          <th class='col-md-1'>POID</th>
+          <th class='col-md-1'>PO number</th>
           <th class='col-md-2'>Company Name</th>
           <th class='col-md-2'>Receiving date</th>
           <th class='col-md-2'>Initial inspection</th>
@@ -120,11 +120,11 @@ while($row = mysqli_fetch_array($secResult)){
               query that shows a list of POS, and some info about them, that have not been shipped yet
               if clicked will display a list of the line items on that PO
           */
-          $sql = "SELECT p.po_ID, c.customer_name, p.receiving_date, p.initial_inspection, p.nr_of_lines 
-                  FROM POS p, Customers c 
+          $sql = "SELECT p.po_number, c.customer_name, p.receiving_date, p.initial_inspection, p.nr_of_lines 
+                  FROM pos p, customer c 
                   WHERE p.customer_ID= c.customer_ID 
                   AND (p.shipping_date > DATE(NOW()) OR p.shipping_date IS null)
-                  GROUP BY p.POID
+                  GROUP BY p.po_ID
                   ORDER BY p.receiving_date";
 
           $result = mysqli_query($link, $sql);
@@ -141,13 +141,25 @@ while($row = mysqli_fetch_array($secResult)){
             "<td class='col-md-2'>".$row[3]."</td>".
             "<td class='col-md-2'>".$row[4]."</td>".
             "</tr>";
+
+            // first we have to find the right po_ID from the po_Number we get from the user
+            $po_IDsql = "SELECT l.po_ID
+                         FROM lineitem l, pos p
+                         WHERE p.po_number = '$rightRow'
+                         AND l.po_ID = p.po_ID;";
+            $po_IDresult = mysqli_query($link, $po_IDsql);
+            
+            while($row = mysqli_fetch_array($po_IDresult)){
+                $po_ID = $row[0];
+            }
         /*
             query that shows the information about line items on the clicked po
         */
             $toolSql = "SELECT l.line_on_po, l.tool_ID, l.quantity, l.price, SUM(ROUND(l.price * l.quantity, 2)) 
-                        FROM lineitem l
-                        WHERE l.po_ID = '$rightRow' 
-                        ORDER BY l.line_on_po";
+                        FROM lineitem l, pos p
+                        WHERE l.po_ID = '$po_ID'
+                        GROUP BY l.lineitem_ID
+                        ORDER BY l.line_on_po;";
 
             $toolResult = mysqli_query($link, $toolSql);
 

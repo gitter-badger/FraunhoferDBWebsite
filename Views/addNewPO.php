@@ -58,7 +58,7 @@ if($user_sec_lvl < 2){
                   die("Database query failed: " . mysqli_error($link));
                   }
                   while($row = mysqli_fetch_array($result)){
-                  echo '<option value="'.$row['CID'].'">'.$row['cName'].'</option>';
+                  echo '<option value="'.$row['customer_ID'].'">'.$row['customer_name'].'</option>';
                   }
                   ?>
               </select>

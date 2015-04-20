@@ -1,28 +1,31 @@
 <?php
+/*
+        This page generates all the info after you picked your PO number
+        The user picks the ponumber put we are using the ID here  so we can access other tables via foreign keys
+
+*/
 
 include '../connection.php';
-
+// the po_ID the user picked from the dropdown list
 $q = mysqli_real_escape_string($link, $_GET['q']);
-
-$sql = "SELECT p.POID, p.receiving_date, c.cName,  p.shipping_date, p.nr_of_lines 
-FROM POS p, Customers c
-WHERE p.CID = c.CID
-AND POID = '$q'";
+// finds the right info from that po_ID
+$sql = "SELECT p.po_ID, p.receiving_date, c.customer_name,  p.shipping_date, p.nr_of_lines 
+        FROM pos p, customer c
+        WHERE p.customer_ID = c.customer_ID
+        AND po_ID = '$q'";
 
 $result = mysqli_query($link, $sql);
-
-$tsql = "SELECT pot.line_item, pot.quantity, pot.TID, t.tDiameter, t.tLength, t.tPrice, SUM(ROUND(t.tPrice * pot.quantity, 2)) 
-FROM POTools pot, Tools t, POS p
-WHERE pot.POID = '$q'
-AND pot.POID = p.POID
-AND p.CID = t.CID
-AND t.TID = pot.TID
-GROUP BY pot.line_item";
+// finds all the line items for that PO
+$tsql = "SELECT l.line_on_po, l.quantity, l.tool_ID, l.diameter, l.length, l.price, SUM(ROUND(l.price * l.quantity, 2)) 
+         FROM pos p, lineitem l
+         WHERE l.po_ID = '$q'
+         AND l.po_ID = p.po_ID
+         GROUP BY l.line_on_po";
 $tresult = mysqli_query($link, $tsql);
-
+// the sum of all the tools from all the line items on that PO
 $sumSql = "SELECT SUM(quantity)
-FROM POTools
-WHERE POID = '$q'";
+           FROM lineitem
+           WHERE po_ID = '$q'";
 $sumresult = mysqli_query($link, $sumSql);
 
 
@@ -45,7 +48,6 @@ echo         "<tr>".
 "<td>unit price</td>".
 "<td>total unit price</td>".
 "</tr>";
-                //filling it with data from POTools
 
 while($row = mysqli_fetch_array($tresult)) {
  echo
@@ -60,12 +62,11 @@ while($row = mysqli_fetch_array($tresult)) {
  "<td>".$row[6]."</td>".
  "</tr>";
 }
-$totalPricesql = "SELECT SUM(ROUND(t.tPrice * pot.quantity, 2)) 
-FROM POTools pot, Tools t, POS p
-WHERE p.POID = '$q'
-AND pot.POID = p.POID
-AND pot.TID = t.TID
-AND t.CID = p.CID";
+// Finds the price of all the tools on that po
+$totalPricesql = "SELECT SUM(ROUND(l.price * l.quantity, 2)) 
+                  FROM lineitem l, pos p
+                  WHERE p.po_ID = '$q'
+                  AND l.po_ID = p.po_ID";
 
 $totalPriceResult = mysqli_query($link, $totalPricesql);
 

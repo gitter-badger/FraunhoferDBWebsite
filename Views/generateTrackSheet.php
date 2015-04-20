@@ -47,10 +47,13 @@ if($user_sec_lvl < 2){
         <form><select name='POS' onchange='showTools(this.value)'>
           <option value''>Select a PO#: </option>
           <?php 
-          $sql = "SELECT po_ID FROM pos WHERE shipping_date IS NULL";
+          //dropdown list for po numbers
+          $sql = "SELECT po_ID, po_number 
+                  FROM pos 
+                  WHERE shipping_date IS NULL";
           $result = mysqli_query($link, $sql);
           while($row = mysqli_fetch_array($result)){
-           echo '<option value="'.$row[0].'">'.$row[0].'</option>';
+           echo '<option value="'.$row[0].'">'.$row[1].'</option>';
          } 
          echo "</select></form>";
          ?>
@@ -102,7 +105,7 @@ if($user_sec_lvl < 2){
             die("Database query failed: " . mysqli_error($link));
           }
           while($row = mysqli_fetch_array($result)){
-            echo '<option value="'.$row['MID'].'">'.$row['mAcronym'].'</option>';
+            echo '<option value="'.$row['machine_ID'].'">'.$row['machine_acronym'].'</option>';
           }
           ?>
         </select>

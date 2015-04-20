@@ -1,30 +1,31 @@
 <?php
+/*
+        This page generates all the info after you picked your PO number
+        The user picks the ponumber put we are using the ID here  so we can access other tables via foreign keys
 
+*/
 include '../connection.php';
-
+// poID from the user
 $q = mysqli_real_escape_string($link, $_GET['q']);
 
-
-$topsql ="SELECT p.POID, p.receiving_date, c.cName, p.shipping_date, TIMESTAMPDIFF(DAY, receiving_date, shipping_date), e.ename, p.initial_inspection, p.final_inspection
-          FROM Customers c, POS p, Employees e, WorkedOn w
-          WHERE c.CID   = p.CID
-          AND p.POID    = '$q'
-          AND w.POID    = p.POID
-          AND e.EID     = w.EID";
+// all the basic info for the header of the printout. The timestamp is the turnaround time(difference between receive and shipping date)
+$topsql ="SELECT p.po_ID, p.receiving_date, c.customer_name, p.shipping_date, TIMESTAMPDIFF(DAY, receiving_date, shipping_date), e.employee_name, p.initial_inspection, p.final_inspection
+          FROM customer c, pos p, employee e, employee_pos w
+          WHERE c.customer_ID   = p.customer_ID
+          AND p.po_ID    = '$q'
+          AND w.po_ID    = p.po_ID
+          AND e.employee_ID     = w.employee_ID";
 $topresult = mysqli_query($link, $topsql);
-
-$sumSql ="SELECT SUM(ROUND(t.tPrice * pot.quantity, 2)) 
-          FROM POTools pot, Tools t, POS p
-          WHERE pot.POID = '$q'
-          AND pot.POID   = p.POID
-          AND p.CID      = t.CID
-          AND t.TID      = pot.TID";
+// the overall price of the po
+$sumSql ="SELECT SUM(ROUND(l.tPrice * l.quantity, 2)) 
+          FROM lineitem l
+          WHERE l.po_ID = '$q'";
 
 $sumResult = mysqli_query($link, $sumSql);
-
-$countSql = "SELECT SUM(quantity), MAX(line_item)
-             FROM POTools
-             WHERE POID = '$q'";
+// the number of tools and number of lineitems
+$countSql = "SELECT SUM(quantity), MAX(line_on_po)
+             FROM lineitem l
+             WHERE l.po_ID = '$q'";
 $countresult = mysqli_query($link, $countSql);
 
 while($row = mysqli_fetch_array($topresult)) {
@@ -55,39 +56,42 @@ while($row = mysqli_fetch_array($newResult)){
          
 // -----------------------------------------------------------//
 
+/*
 
-$sql = "SELECT pot.line_item, pot.TID, t.tDiameter, t.tLength, t.double_end ,pot.quantity, r.run_number, rpo.number_of_items, rpo.final_comment
-        FROM POS p, Runs r, RunPOS rpo, POTools pot, Tools t
-        WHERE p.POID      = rpo.POID
-        AND p.POID        = pot.POID
-        AND t.CID         = p.CID
-        AND t.TID         = pot.TID
-        AND p.POID        = r.POID
-        AND r.RID         = rpo.RID
-        AND rpo.line_item = pot.line_item
-        AND p.POID        = '$q'
-        GROUP BY rpo.RPOID
-        ORDER BY pot.line_item";
+        Need to fix this query. Uses the lineitem and lineitem_run tables
+
+*/
+$sql = "SELECT l.line_on_po, l.tool_ID, l.diameter, l.length, l.double_end, l.quantity, r.run_number, lr.number_of_items_in_run, lr.lineitem_run_comment
+        FROM lineitem l, lineitem_run lr
+        WHERE l.po_ID      = '$q'
+        AND lr.po_ID = l.po_ID
+        AND lr.run_ID = r.run_ID
+        ORDER BY lr.line_on_po";
 
 $result = mysqli_query($link, $sql);
-/*
-if($result){
-     echo ("Successfull");
-} else{
+
+if(!$result){
      echo("Input data is fail".mysqli_error($link));
-}*/
-$runsql ="SELECT r.coating_type, r.run_number, r.ah_pulses, r.RID, r.run_comment
-          FROM Runs r
-          WHERE r.POID = '$q'
-          GROUP BY r.RID;";
+}
+/*
+
+        Probably wrong query
+        Need to link runs coating
+
+*/
+$runsql ="SELECT c.coating_type, r.run_number_on_po, r.ah_pulses, r.run_number, r.run_comment
+          FROM run r, coating c, lineitem_run lr, lineitem l
+          WHERE l.po_ID = '$q'
+          AND lr.lineitem_ID = l.lineitem_ID
+          AND lr.run_ID = r.run_ID
+          AND r.coating_ID = c.coating_ID
+          GROUP BY r.run_ID;";
 
 $runresult = mysqli_query($link, $runsql);
-/*
-if($runresult){
-     echo ("Successfull");
-} else{
+
+if(!$runresult){
      echo("Input data is fail".mysqli_error($link));
-}*/
+}
 echo "<table>";
    echo         "<tr>".
                 "<td>Line#</td>".
@@ -100,7 +104,6 @@ echo "<table>";
                 "<td>#Of items in run</td>".
                 "<td>Final Comment</td>".
                 "</tr>";
-                //filling it with data from POTools
 
 while($row = mysqli_fetch_array($result)) {
    echo
