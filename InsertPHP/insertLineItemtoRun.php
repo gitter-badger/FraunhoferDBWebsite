@@ -1,39 +1,67 @@
 <?php
+/*
+	This file inserts a line in the lineitem_run table, so we have a link between the runs
+	and the line items. The only extra data we store in that table is
+	a final comment for the line item and the number of tools in that run.
+*/
 include '../connection.php';
-# clean the data recieved from the html
-$po_ID 			 = mysqli_real_escape_string($link, $_POST['po_ID']);
-$lineItem  		 = mysqli_real_escape_string($link, $_POST['lineItem']);
-$number_of_tools = mysqli_real_escape_string($link, $_POST['number_of_tools']);
-$runNumber 		 = mysqli_real_escape_string($link, $_POST['runNumber']);
-$final_comment 	 = mysqli_real_escape_string($link, $_POST['final_comment']);
+$po_ID 			  = mysqli_real_escape_string($link, $_POST['POID']);
+$line_on_po   	  = mysqli_real_escape_string($link, $_POST['lineItem']);
+$number_of_tools  = mysqli_real_escape_string($link, $_POST['number_of_tools']);
+$run_number 	  = mysqli_real_escape_string($link, $_POST['runNumber']);
+$lineitem_comment = mysqli_real_escape_string($link, $_POST['final_comment']);
 
-var_dump($runNumber);
+/*
+	TODO:
+		1. Get the line_on_po, run_number and the po_number
+		2. Find the right po_ID from the po_number
+		3. Find the lineitem_ID that has this po_ID and this line_on_po
+		4. Find the run_ID from the run_number
+*/
 
-#finding the right runID from our database
-$findRightRun = "SELECT DISTINCT RID
-				 FROM Runs r
-				 WHERE r.po_ID ='$po_ID'
-				 AND r.run_number = '$runNumber'";
-# running the query
-$resultRun = mysqli_query($link, $findRightRun);
-# binding the result to a variable $RID
-while($row = mysqli_fetch_array($resultRun)){
-	$RID = $row[0];
+//	Find the right po_id from the po_number from the user
+$po_IDsql = "SELECT p.po_ID
+             FROM   pos p
+             WHERE p.po_number = '$po_ID';";
+$po_IDresult = mysqli_query($link, $po_IDsql);
+
+while($row = mysqli_fetch_array($po_IDresult)){
+    $POID = $row[0];
+}
+// Find the right lineitem by querying the database
+// Find the lineitem that has the right po_ID and the right line_on_po
+$lineitemSql = "SELECT lineitem_ID
+				FROM lineitem
+				WHERE po_ID = '$POID'
+				AND line_on_po = '$line_on_po'";
+$lineitemResult = mysqli_query($link, $lineitemSql);
+while($row = mysqli_fetch_array($lineitemResult)){
+	$lineitem_ID = $row[0];
+}
+if (!$lineitemResult) {
+    $message  = 'Invalid lineitem  query: ' . mysqli_error($link) . "\n";
+    $message .= 'Error with the lineitem input number: ' . $query;
+    die($message);
 }
 
+// Find the right run
+// Need to find the run that has the right po_ID and the right run_number_on_po in the pos_run table
+$runIDsql = "SELECT run_ID
+			 FROM pos_run posr
+			 WHERE run_number_on_po = '$run_number'
+			 AND po_ID = '$POID';";
 
-#MySql insert with the data recieved from HTML
-$sql = "INSERT INTO RunPOS(po_ID, RID, line_item, number_of_items, final_comment) VALUES ('$po_ID','$RID', '$lineItem', '$number_of_tools', '$final_comment')";
+$runIDresult = mysqli_query($link, $runIDsql);
+while($row = mysqli_fetch_array($runIDresult)){
+	$run_ID = $row[0];
+}
 
-# running the insert query
-$result = mysqli_query($link, $sql);
+$sql = "INSERT INTO lineitem_run VALUES('$lineitem_ID', '$run_ID','$number_of_tools', '$lineitem_comment')";
 
-#if successfull let user know
-if($result){
-	 echo ("DATA SAVED SUCCESSFULLY");
-} 
+$resultSql = mysqli_query($link, $sql);
+
 #if fail let user know what went wrong
-if (!$result) {
+if (!$resultSql) {
     $message  = 'Invalid result query: ' . mysqli_error($link) . "\n";
     $message .= 'Whole result query: ' . $query;
     die($message);

@@ -747,14 +747,15 @@ function addLineItemToRun(){
     url : "../InsertPHP/insertLineItemtoRun.php",
     type: "POST",
     data : {lineItem       : lineItem,
-     number_of_tools : number_of_tools,
-     runNumber       : runNumber,
-     POID            : POID,
-     final_comment   : final_comment,
+            number_of_tools : number_of_tools,
+            runNumber       : runNumber,
+            POID            : POID,
+            final_comment   : final_comment,
  },
 
         success: function(data,status, xhr)
         {   
+            $("#status_text2").html(data);
             showRunTools();
 
         },

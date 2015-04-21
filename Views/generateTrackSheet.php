@@ -170,7 +170,7 @@ if($user_sec_lvl < 2){
       </button>
       <table id ='txtAddToolToRun'>
       </table>
-
+        <div id="status_text2"></div>
     </div>
   </div>
   <div class='navbar navbar-default navbar-static-bottom'>

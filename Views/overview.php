@@ -143,15 +143,14 @@ while($row = mysqli_fetch_array($secResult)){
             "</tr>";
 
             // first we have to find the right po_ID from the po_Number we get from the user
-            $po_IDsql = "SELECT l.po_ID
-                         FROM lineitem l, pos p
-                         WHERE p.po_number = '$rightRow'
-                         AND l.po_ID = p.po_ID;";
-            $po_IDresult = mysqli_query($link, $po_IDsql);
-            
-            while($row = mysqli_fetch_array($po_IDresult)){
-                $po_ID = $row[0];
-            }
+            $po_IDsql = "SELECT p.po_ID
+             FROM   pos p
+             WHERE p.po_number = '$rightRow';";
+             $po_IDresult = mysqli_query($link, $po_IDsql);
+
+             while($row = mysqli_fetch_array($po_IDresult)){
+                  $po_ID = $row[0];
+             }
         /*
             query that shows the information about line items on the clicked po
         */
@@ -160,7 +159,6 @@ while($row = mysqli_fetch_array($secResult)){
                         WHERE l.po_ID = '$po_ID'
                         GROUP BY l.lineitem_ID
                         ORDER BY l.line_on_po;";
-
             $toolResult = mysqli_query($link, $toolSql);
 
             if (!$toolResult) {
