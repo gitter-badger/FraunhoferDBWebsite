@@ -1,4 +1,10 @@
 <?php
+/*
+	This file adds a relationship between a PO and a run
+	If this run is new, i.e. has not been linked to another PO we insert the data in to the run table
+	If this run has already been inserted we add it to the pos_run table to make a connection between the run and the PO.
+	We do this by calling a procedure in MySQL called check_run found in the procedures.sql file
+*/
 include '../connection.php';
 $POID 				= mysqli_real_escape_string($link, $_POST['POID']);
 $runDate  			= mysqli_real_escape_string($link, $_POST['runDate']);
@@ -18,7 +24,6 @@ while($row = mysqli_fetch_array($po_IDresult)){
     $POID = $row[0];
 }
 // this query gets the machine acronym to generate the right run number
-//the run number is a combination of the machine acronym, the date and what run of the day on this machine it is.
 $machineSql = "SELECT machine_acronym FROM machine WHERE machine_ID = '$machine'";
 $machineResult = mysqli_query($link, $machineSql);
 
@@ -32,7 +37,7 @@ $RID = $machineAcro.$runDate[2].$runDate[3].$runDate[4].$runDate[5].$runDate[6].
 
 var_dump($RID);
 
-// making data to call the check_run_procedure
+// Setting the variables in mysql. Might be an easier way to do this but this works.
 
 $set_run_date = "SET @run_date = '$runDate';";
 $set_run_date_result = mysqli_query($link, $set_run_date);
@@ -61,7 +66,7 @@ $set_coating_ID_result = mysqli_query($link, $set_coating_ID);
 $set_machine_ID = "SET @machine_ID = '$machine';";
 $set_machine_ID_result = mysqli_query($link, $set_machine_ID);
 
-
+// calling the check_run procedure in MySQL. It can be found in the file procedures.sql
 $check_run_procedure = "CALL check_run(@run_date, @run_number_on_po, @run_number_for_machine, @run_number, @machine_ID, @ah_pulses, @run_comment, @coating_ID, @po_ID);";
 
 $result = mysqli_query($link, $check_run_procedure);

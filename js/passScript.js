@@ -392,11 +392,11 @@ function addEmployee(){
         url : "../DeletePHP/deleteRun.php",
         type: "POST",
         data : {POID  : POID,
-         line : line},
+                line : line},
          success: function(data,status, xhr)
          {
             $("#status_text").html(data);
-            alert("Run deleted successfully");
+            //alert("Run deleted successfully");
         },
         error: function (jqXHR, status, errorThrown)
         {
