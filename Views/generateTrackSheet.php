@@ -83,11 +83,11 @@ if($user_sec_lvl < 2){
         </select>
       </p>
         <p class='col-md-4'>
-          <label for="run_number">run_number# on this PO: </label>
+          <label for="run_number">Number of run on this PO: </label>
           <input type=" number" name="run_number" id="run_number">
         </p>
         <p class='col-md-4'>
-          <label for="machine_run_number">run# for the machine </label>
+          <label for="machine_run_number">Run# for machine</label>
           <input type=" number" name="machine_run_number" id="machine_run_number">
         </p>
         <p class='col-md-4'>
@@ -126,7 +126,7 @@ if($user_sec_lvl < 2){
           <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
         </button>
         <label for='delitem' class='col-md-offset-8'>Insert Run ID to Delete</label>
-        <input type="text" id="delitem" name='delitem'/>
+        <input type="text" placeholder='' id="delitem" name='delitem'/>
         <button type='button' id='del_button' class='btn btn-danger' onclick='delRun(document.getElementById("delitem").value) ; showPORuns()'>
           <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
         </button>
@@ -163,9 +163,10 @@ if($user_sec_lvl < 2){
       <button type='button'  class='btn btn-default' onclick='addLineItemToRun()'>
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
       </button>
-      <label for='delRunTool' class='col-md-offset-7'>Insert line item and to delete</label>
-      <input type="text" id="delRunTool" name='delRunTool'/>
-      <button type='button' id='delRunToolButton' class='btn btn-danger' onclick='delRunTool(document.getElementById("delRunTool").value) ; showRunTools()'>
+      <label for='delRunTool' class='col-md-offset-6'>Insert line# and run#</label>
+      <input type="text" id="delRunTool" placeholder='Line Item#' name='delRunTool'/>
+      <input type="text" placeholder='Run number' id="delRunToolRun" name='delRunToolRun'/>
+      <button type='button' id='delRunToolButton' class='btn btn-danger' onclick='delRunTool(document.getElementById("delRunTool").value, document.getElementById("delRunToolRun").value) ; showRunTools()'>
         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
       </button>
       <table id ='txtAddToolToRun'>

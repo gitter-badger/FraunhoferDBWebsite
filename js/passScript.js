@@ -404,19 +404,19 @@ function addEmployee(){
         }
     })
  }
- function delRunTool(line){
+ function delRunTool(lineitem, run_number){
     var POID = document.getElementById('POID').innerHTML;
      $.ajax({
         url : "../DeletePHP/deleteRunTool.php",
         type: "POST",
-        data : {POID  : POID,
-         line : line},
+        data : {POID       : POID,
+                lineitem   : lineitem,
+                run_number : run_number},
          success: function(data,status, xhr)
          {
-            //if success then just output the text to the status div then clear the form inputs to prepare for new data
+            showPORuns();
             $("#status_text").html(data);
-            alert("Deleted successfully");
-        },
+         },
         error: function (jqXHR, status, errorThrown)
         {
             $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);

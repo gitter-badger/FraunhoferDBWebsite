@@ -1,4 +1,3 @@
-<!-- this file needs to be changed 100% -->
 <?php
 include '../connection.php';
 
@@ -25,7 +24,7 @@ $result = mysqli_query($link, $sql);
 
 //if the query goes wrong
 if(!$result){
-  echo ("Error deleting" . mysqli_error($link));
+  echo ("Error deleting, are you sure this PO has no runs connected to it?" . mysqli_error($link));
 }
 mysqli_close($link);
 ?>
