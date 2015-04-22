@@ -26,7 +26,8 @@ $sql = "SELECT c.coating_type, r.ah_pulses, posr.run_number_on_po, r.run_number,
         FROM run r, pos_run posr, coating c
         WHERE r.run_ID = posr.run_ID
         AND posr.po_ID = '$POID'
-        AND r.coating_ID = c.coating_ID;";
+        AND r.coating_ID = c.coating_ID
+        ORDER BY posr.run_number_on_po";
 //run a query to find the right ID of our coating
 $result = mysqli_query($link, $sql);
 

@@ -61,9 +61,31 @@ if($user_sec_lvl < 2){
          <br><div id="txtHint"><b>PO info will be listed here...</b></div>
        </div>
      </div>
+      <div class='row well well-lg'>
+       <div class='col-md-12'>
+        <p><strong>The run might already be in the database so here you can quickly add it to this PO. This dropdown shows all runs for the last 3 days</strong></p>
+        <form>
+        <select name="runsel" id="runsel">
+          <option value="">Choose an run number</option> 
+          <?php
+            $sql = "SELECT run_ID, run_Number FROM run WHERE run_date >= DATE_ADD(CURDATE(), INTERVAL -3 DAY);";
+            $result = mysqli_query($link, $sql);
+            
+            if (!$result) {
+              die("Database query failed: " . mysqli_error($link));
+            }
+            while($row = mysqli_fetch_array($result)){
+              echo '<option id="'.$row['run_ID'].'" value="'.$row['run_ID'].'">'.$row['run_Number'].'</option>';
+          }
+          ?>
+        </select>
+        <button type='button' id='del_button' class='btn btn-primary'onclick="addOldRun()">Add run</button>
+      </form>
+       </div>
+     </div>
      <div class='row well well-lg'>
        <div class='col-md-12'>
-        <p class='col-md-12'>Add info about a run. You can add as many runs as you want. Below we will then add tools to each run.</p>
+        <p class='col-md-12'><strong>Add info about a run. You can add as many runs as you want. Below we will then add tools to each run.</strong></p>
       </div>
       <div class='col-md-12'>
         <p class='col-md-4'>

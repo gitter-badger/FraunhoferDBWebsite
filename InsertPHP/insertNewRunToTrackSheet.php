@@ -35,7 +35,6 @@ $runDate = str_replace("-","",$runDate);
 // concatting machine acronym the right chars from the date and the run number for that machine on that date. 
 $RID = $machineAcro.$runDate[2].$runDate[3].$runDate[4].$runDate[5].$runDate[6].$runDate[7].$machine_run_number;
 
-var_dump($RID);
 
 // Setting the variables in mysql. Might be an easier way to do this but this works.
 

@@ -47,6 +47,32 @@ function showUser(str) {
         xmlhttp.send();
     }
 }
+function addOldRun(){
+     var POID    = document.getElementById('POID').innerHTML;
+     //this fetches the dropdownlist 
+     var e       = document.getElementById("runsel");
+     //this chooses the selected item from the dropdown list
+     var old_run = e.options[e.selectedIndex].value;
+     //console.log(POID);
+     //console.log(job);
+     $.ajax({
+        url : "../InsertPHP/addOldRun.php",
+        type: "POST",
+        data : {
+                    POID    : POID,
+                    old_run : old_run,
+                },
+     success: function(data,status, xhr)
+     {
+        $("#status_text").html(data);
+        showPORuns();
+     },
+    error: function (jqXHR, status, errorThrown)
+    {
+        $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
+    }
+    })
+ }
 function addPO(){
      var POID       = $('#POID').val();     
      var CID        = $('#CID').val();     
@@ -54,14 +80,6 @@ function addPO(){
      var iInspect   = $('#iInspect').val();
      var nrOfLines  = $('#nrOfLines').val();
      var employeeId = $('#employeeId').val();
-    // console.log(CID);
-    // console.log(POID);
-    // console.log(rDate);
-    // console.log(iInspect);
-    // console.log(nrOfLines);
-    // console.log(employeeId);
-
-
      $.ajax({
         url : "../InsertPHP/insertNewPO.php",
         type: "POST",
