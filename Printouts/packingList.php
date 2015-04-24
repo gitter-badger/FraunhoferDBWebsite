@@ -59,16 +59,16 @@ while($row = mysqli_fetch_array($customerResult)){
 <div class='container'>
   <div class='row well well-xs'>
   <div class="col-xs-12">
-    <img src="../images/iso.jpg" alt="ISO logo" style="float:left; width:70px; height:auto; margin-top:10px; margin-left:10px"/>
-    <img src="../images/fraunhoferlogo.jpg" alt="Fraunhofer Logo" style="float:right; width:150px; height:auto; margin-top:10px; margin-right:10px"/>
+    <img src="../images/iso.jpg" alt="ISO logo" style="float:right; width:70px; height:auto; margin-top:10px;"/>
+    <img src="../images/fraunhoferlogo.jpg" alt="Fraunhofer Logo" style="float:left; width:220px; height:auto; margin-top:10px;"/>
   </div>
   <div style="font-size:9px">
     <div class="col-xs-12">
-      <span><strong>Packing list </strong></span>
-      <hr style="border-width: 1px;border-style:solid">
+    <div style="margin-top:20px;margin-bottom:-10px;" class='col-xs-12'><span><h5>Packing list </h5></span></div>
+      <div style="margin-top:20px;margin-bottom:-20px;"><hr style="border-width: 1px;border-style:solid"></div>
       <span class='col-xs-12'><strong>Shipped to: </strong></span>
       <span class='col-xs-12'></br></span>
-      <span class="col-xs-4"><?php echo $customer_name;?></span>
+      <span class="col-xs-4"><strong><?php echo $customer_name;?></strong></span>
       <span class="col-xs-4 col-xs-offset-1">Fraunhofer USA</span>
     </div>
     <div class="col-xs-12">
@@ -76,6 +76,7 @@ while($row = mysqli_fetch_array($customerResult)){
       <span class="col-xs-6 col-xs-offset-2">Center for Coatings and Diamond Technologies</span>
     </div>
     <div class="col-xs-12">
+    </br>
       <span class="col-xs-3">Ph. <?php echo $customer_phone;?></span>
       <span class="col-xs-5 col-xs-offset-2">1449 Engineering Reasearch Court</span>
     </div>
@@ -92,7 +93,7 @@ while($row = mysqli_fetch_array($customerResult)){
       <span class="col-xs-5 col-xs-offset-5">Email: lhaubold@fraunhofer.org</span>
     </div>
   </div>
-    <div class='col-xs-12'><hr style="border-width: 1px;border-style:solid"></div>
+    <div class='col-xs-12' style="margin-top:-19px;margin-bottom:-23px;"><hr style="border-width: 1px;border-style:solid"></div>
     <h5 class='col-xs-4'>
       <?php
       $sql = "SELECT shipping_date
