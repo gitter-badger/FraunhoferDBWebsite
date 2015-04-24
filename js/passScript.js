@@ -73,6 +73,24 @@ function addOldRun(){
     }
     })
  }
+ function setSessionID(){
+     //this fetches the dropdownlist 
+     var e       = document.getElementById("packingsel");
+     //this chooses the selected item from the dropdown list
+     var po_ID = e.options[e.selectedIndex].value;
+     console.log(po_ID);
+     $.ajax({
+        url : "../UpdatePHP/setSessionID.php",
+        type: "GET",
+        data : {
+                    po_ID : po_ID,
+               },
+     success: function(data,status, xhr)
+     {
+        $("#status_text").html(data);
+     },
+    })
+ }
 function addPO(){
      var POID       = $('#POID').val();     
      var CID        = $('#CID').val();     
@@ -108,7 +126,7 @@ function addPO(){
     })
 
  }
- function showTools(str) {
+function showTools(str) {
     if (str == "") {
         document.getElementById("txtHint").innerHTML = "";
         return;
@@ -127,6 +145,7 @@ function addPO(){
     }
     xmlhttp.open("GET","../SelectPHP/getPosForToolMenu.php?q="+str,true);
     xmlhttp.send();
+
     return str;
 }
 }
@@ -274,6 +293,19 @@ function generatePrice(){
       {
             $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
         }
+    })
+ }
+ function displayHelper(){
+   var POID     = document.getElementById('POID').innerHTML;
+   console.log(POID);
+     $.ajax({
+        url : "../SelectPHP/displayHelper.php",
+        type: "GET",
+        data : {POID     : POID},
+         success: function(data,status, xhr)
+         {
+            $("#displayHelper").html(data);
+         }
     })
  }
 function addTool(){
@@ -791,6 +823,9 @@ function addShipDateToPO (line){
    var POID       = document.getElementById('POID').innerHTML;
    var fInspect   = $('#fInspect').val();
    var date       = $('#addShippingDate').val();
+   console.log(POID);
+   console.log(fInspect);
+   console.log(date);
   $.ajax({
     url : "../InsertPHP/insertShipDateToPO.php",
     type: "POST",
@@ -800,7 +835,6 @@ function addShipDateToPO (line){
 
         success: function(data,status, xhr)
         {
-            alert("Date and final inspection added successfully");
             $("#runTools").html(data);
 
         },

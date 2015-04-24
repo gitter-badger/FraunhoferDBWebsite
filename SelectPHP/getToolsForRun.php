@@ -17,7 +17,8 @@ $sql = "SELECT l.line_on_po, lr.number_of_items_in_run, r.run_number, lr.lineite
         FROM lineitem l, lineitem_run lr, run r
         WHERE l.po_ID = '$POID'
         AND l.lineitem_ID = lr.lineitem_ID
-        AND lr.run_ID = r.run_ID;";
+        AND lr.run_ID = r.run_ID
+        ORDER BY l.line_on_po;";
 
 $result = mysqli_query($link, $sql);
 

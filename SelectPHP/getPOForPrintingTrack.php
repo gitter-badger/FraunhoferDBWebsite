@@ -56,17 +56,14 @@ while($row = mysqli_fetch_array($newResult)){
          
 // -----------------------------------------------------------//
 
-/*
-
-        Need to fix this query. Uses the lineitem and lineitem_run tables
-
-*/
-$sql = "SELECT l.line_on_po, l.tool_ID, l.diameter, l.length, l.double_end, l.quantity, r.run_number, lr.number_of_items_in_run, lr.lineitem_run_comment
-        FROM lineitem l, lineitem_run lr
-        WHERE l.po_ID      = '$q'
-        AND lr.po_ID = l.po_ID
+$sql = "SELECT l.line_on_po, l.tool_ID, l.diameter, l.length, IF(l.double_end = 0, 'NO', 'NO') AS 'Double End', l.quantity, posr.run_number_on_po, lr.number_of_items_in_run, lr.lineitem_run_comment
+        FROM lineitem l, lineitem_run lr, pos_run posr, run r
+        WHERE l.po_ID = '$q'
+        AND posr.po_ID = l.po_ID
+        AND l.lineitem_ID = lr.lineitem_ID
         AND lr.run_ID = r.run_ID
-        ORDER BY lr.line_on_po";
+        AND posr.run_ID = r.run_ID
+        ORDER BY l.line_on_po;";
 
 $result = mysqli_query($link, $sql);
 
@@ -79,11 +76,13 @@ if(!$result){
         Need to link runs coating
 
 */
-$runsql ="SELECT c.coating_type, r.run_number_on_po, r.ah_pulses, r.run_number, r.run_comment
-          FROM run r, coating c, lineitem_run lr, lineitem l
+$runsql ="SELECT c.coating_type, posr.run_number_on_po, r.ah_pulses, r.run_number, r.run_comment
+          FROM run r, coating c, lineitem_run lr, lineitem l, pos_run posr
           WHERE l.po_ID = '$q'
           AND lr.lineitem_ID = l.lineitem_ID
           AND lr.run_ID = r.run_ID
+          AND posr.po_ID = l.po_ID
+          AND posr.run_ID = r.run_ID
           AND r.coating_ID = c.coating_ID
           GROUP BY r.run_ID;";
 

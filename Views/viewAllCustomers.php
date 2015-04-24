@@ -62,8 +62,8 @@ while($row = mysqli_fetch_array($secResult)){
           "<td>"."<a href='mailto:$row[3]'>".$row[3]." "."<span class='glyphicon glyphicon-envelope' aria-hidden='true'></span>"."</a>"."</td>".
           "<td>"."<a href='skype:".$row[4]."?call'"."</a>".$row[4]." <span class='glyphicon glyphicon-earphone' aria-hidden='true'></span>"."</td>".
           "<td>".$row[5]."</td>".
-          "<td>".$row[8]."</td>".
-          "<td>".$row[9]."</td>".
+          "<td>".$row[6]."</td>".
+          "<td>".$row[7]."</td>".
           "</tr>";
 
         }

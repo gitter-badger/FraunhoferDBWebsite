@@ -2,28 +2,31 @@
 include '../connection.php';
 // Escape user inputs for security
 
-$POID 	  = mysqli_real_escape_string($link, $_POST['POID']);
+$po_ID 	  = mysqli_real_escape_string($link, $_POST['POID']);
 $date 	  = mysqli_real_escape_string($link, $_POST['date']);
 $fInspect = mysqli_real_escape_string($link, $_POST['fInspect']);
 // attempt insert query execution
+//getting the right po_ID
+$po_IDsql = "SELECT p.po_ID
+             FROM   pos p
+             WHERE p.po_number = '$po_ID';";
+$po_IDresult = mysqli_query($link, $po_IDsql);
 
-$sumSql = "SELECT round(sum(t.tPrice * pot.quantity),2)
-		   FROM tools t, POS p, POTools pot
-		   WHERE p.POID = '$POID'
-		   AND p.POID = pot.POID
-		   AND pot.TID = t.TID
-		   AND p.CID = t.CID;";
+while($row = mysqli_fetch_array($po_IDresult)){
+    $po_ID = $row[0];
+}
+$sumSql = "SELECT round(sum(l.price * l.quantity),2)
+		   FROM lineitem l
+		   WHERE l.po_ID = '$po_ID';";
 $sumResult = mysqli_query($link, $sumSql);
 
 while($row = mysqli_fetch_array($sumResult)){
 	$finalPrice = $row[0];	
 }
-var_dump($finalPrice);
 $sql1 = "SET SQL_SAFE_UPDATES=0;";
-
-$sql2 ="UPDATE POS SET shipping_date ='$date' WHERE POID='$POID'";
-$sql3 ="UPDATE POS SET final_inspection = '$fInspect' WHERE POID='$POID'";
-$sql4 ="UPDATE POS SET final_price = '$finalPrice' WHERE POID='$POID'";
+$sql2 ="UPDATE pos SET shipping_date = '$date' WHERE po_ID = '$po_ID'";
+$sql3 ="UPDATE pos SET final_inspection = '$fInspect' WHERE po_ID = '$po_ID'";
+$sql4 ="UPDATE pos SET final_price = '$finalPrice' WHERE po_ID = '$po_ID'";
 $sql5 = "SQL_SAFE_UPDATES=1;";
 
 $result1 = mysqli_query($link, $sql1);

@@ -75,19 +75,29 @@ if($user_sec_lvl < 2){
           </div>
         </div>
       </div>
-        <div class='row well well-lg'>
-          <div class='col-md-6'>
-            <h2>Insert PO number to view Packing List</h2>
-            <p class='lead'></p>
-            <div class='input-group col-md-8'>
-              <form action='../Printouts/packingList.php' method="post">
-              <label for ="POID">POID: </label>
-                <input type="text" name="POID" id="POID"></input>
-                <button type="submit" class="btn btn-primary btn-sm">Submit</button>
-              </form>
-            </div>
-          </div>
-        </div>
+      <div class='row well well-lg'>
+       <div class='col-md-12'>
+        <p><strong>The run might already be in the database so here you can quickly add it to this PO. This dropdown shows all runs from the last 3 days</strong></p>
+        <select name="packingsel" id="packingsel" class='dropdown' onchange="setSessionID()">
+          <option value="">Choose a PO number</option> 
+          <?php
+          $sql = "SELECT po_ID, po_number FROM pos ORDER BY receiving_date DESC;";
+          $result = mysqli_query($link, $sql);
+
+          if (!$result) {
+            die("Database query failed: " . mysqli_error($link));
+          }
+          while($row = mysqli_fetch_array($result)){
+            echo '<option id="'.$row['po_ID'].'" value="'.$row['po_ID'].'">'.$row['po_number'].'</option>';
+          }
+          ?>
+        </select>
+          <span class="btn-group">
+              <a class='btn btn-primary btn-lg' href='../Printouts/packingList.php' target="_blank">Print PO</a>
+          </span>
+        <div id='status_text'></div>
+      </div>
+      </div>
       </div>
 </body>
 </html>

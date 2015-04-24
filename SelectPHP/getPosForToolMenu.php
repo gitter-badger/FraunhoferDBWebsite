@@ -22,7 +22,7 @@ if (!$result) {
 }
 while($row = mysqli_fetch_array($result)) {
     $POID = $row[0];
-    echo "<p class ='col-md-1'>".'POID:'."<div type='hidden' id='POID'>".$POID."</div>"."</p>";
+    echo "<p class='col-md-2'>".'POID:'."<div type='hidden' id='POID'>".$POID."</div>"."</p>";
     echo "<p>".'Reciving Date :    ' . $row[1] ."</p>";
     echo "<p>".'Customer :    ' .$row[2] ."</p>";
     echo "<p>". 'Shipping Date :    ' . $row[3] ."</p>";
