@@ -10,7 +10,7 @@ include '../connection.php';
 $po_number = mysqli_real_escape_string($link, $_POST['POID']);
 $run_ID	   = mysqli_real_escape_string($link, $_POST['old_run']);
 
-//getting the right po_ID
+//getting the right po_ID from the po_number
 $po_IDsql = "SELECT p.po_ID
              FROM   pos p
              WHERE p.po_number = '$po_number';";
@@ -19,7 +19,7 @@ $po_IDresult = mysqli_query($link, $po_IDsql);
 while($row = mysqli_fetch_array($po_IDresult)){
     $po_ID = $row[0];
 }
-// find the next run number on po by selecting the highest one in the database
+// find the next run number on this po by selecting the highest one in the database
 // and adding 1 to it
 
 $runOnPoSql = "SELECT MAX(run_number_on_po)
@@ -29,7 +29,7 @@ $runOnPoResult = mysqli_query($link, $runOnPoSql);
 while($row = mysqli_fetch_array($runOnPoResult)){
 	$right_run_number = $row[0];
 }
-
+// add one to the highest run for that po
 $right_run_number++;
 
 $insertSql = "INSERT INTO pos_run VALUES('$run_ID', '$po_ID', '$right_run_number')";

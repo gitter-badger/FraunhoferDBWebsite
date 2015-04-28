@@ -16,13 +16,15 @@ $topsql ="SELECT p.po_ID, p.receiving_date, c.customer_name, p.shipping_date, TI
           AND w.po_ID    = p.po_ID
           AND e.employee_ID     = w.employee_ID";
 $topresult = mysqli_query($link, $topsql);
+
 // the overall price of the po
 $sumSql ="SELECT SUM(ROUND(l.tPrice * l.quantity, 2)) 
           FROM lineitem l
           WHERE l.po_ID = '$q'";
-
 $sumResult = mysqli_query($link, $sumSql);
+
 // the number of tools and number of lineitems
+// we can use MAX here to just pick the highest number, we could also use count.
 $countSql = "SELECT SUM(quantity), MAX(line_on_po)
              FROM lineitem l
              WHERE l.po_ID = '$q'";
@@ -54,8 +56,9 @@ while($row = mysqli_fetch_array($newResult)){
          "<div class='col-md-6'><strong>Final inspection : </strong>".$row[7]."</div></div>";
 }
          
-// -----------------------------------------------------------//
 
+// All the info for the lineitems on this PO
+// ordered by what line on the PO they are
 $sql = "SELECT l.line_on_po, l.tool_ID, l.diameter, l.length, IF(l.double_end = 0, 'NO', 'NO') AS 'Double End', l.quantity, posr.run_number_on_po, lr.number_of_items_in_run, lr.lineitem_run_comment
         FROM lineitem l, lineitem_run lr, pos_run posr, run r
         WHERE l.po_ID = '$q'
@@ -69,13 +72,8 @@ $result = mysqli_query($link, $sql);
 
 if(!$result){
      echo("Input data is fail".mysqli_error($link));
-}
-/*
 
-        Probably wrong query
-        Need to link runs coating
-
-*/
+// All the info about the runs linked to this PO
 $runsql ="SELECT c.coating_type, posr.run_number_on_po, r.ah_pulses, r.run_number, r.run_comment
           FROM run r, coating c, lineitem_run lr, lineitem l, pos_run posr
           WHERE l.po_ID = '$q'
@@ -91,22 +89,21 @@ $runresult = mysqli_query($link, $runsql);
 if(!$runresult){
      echo("Input data is fail".mysqli_error($link));
 }
-echo "<table>";
-   echo         "<tr>".
-                "<td>Line#</td>".
-                "<td>ToolID</td>".
-                "<td>Dia</td>".
-                "<td>Len</td>".
-                "<td>DblEnd</td>".  
-                "<td>Quantity of items on PO</td>".
-                "<td>Run Number</td>".
-                "<td>#Of items in run</td>".
-                "<td>Final Comment</td>".
-                "</tr>";
+   echo "<table>";
+   echo "<tr>".
+        "<td>Line#</td>".
+        "<td>ToolID</td>".
+        "<td>Dia</td>".
+        "<td>Len</td>".
+        "<td>DblEnd</td>".  
+        "<td>Quantity of items on PO</td>".
+        "<td>Run Number</td>".
+        "<td>#Of items in run</td>".
+        "<td>Final Comment</td>".
+        "</tr>";
 
 while($row = mysqli_fetch_array($result)) {
-   echo
-        "<tr>".
+   echo "<tr>".
         "<td>".$row[0]."</td>".
         "<td>".$row[1]."</td>".
         "<td>".$row[2]."</td>".
@@ -128,8 +125,7 @@ echo "<tr>".
      "</tr>";
 
 while($row = mysqli_fetch_array($runresult)){
-   echo 
-        "<tr>".
+   echo "<tr>".
         "<td>".$row[0]."</td>".
         "<td>".$row[1]."</td>".
         "<td>".$row[2]."</td>".

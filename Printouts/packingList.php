@@ -5,7 +5,7 @@ session_start();
 //find the current user
 $user = $_SESSION["username"];
 $po_ID = $_SESSION["po_ID"];
-//$_SESSION["POID"] = $poid;
+
 //find his level of security 
 $secsql = "SELECT sec_lvl
            FROM Employees
@@ -27,7 +27,7 @@ while($row = mysqli_fetch_array($po_IDresult)){
 }
 $sql = "SELECT l.tool_ID, SUM(lir.number_of_items_in_run), l.quantity, c.coating_type
         FROM lineitem l, lineitem_run lir, coating c, run r
-        WHERE l.po_ID = 3
+        WHERE l.po_ID = '$po_ID'
         AND l.lineitem_ID = lir.lineitem_ID
         AND lir.run_ID = r.run_ID
         AND r.coating_ID = c.coating_ID
@@ -63,9 +63,13 @@ while($row = mysqli_fetch_array($customerResult)){
     <img src="../images/fraunhoferlogo.jpg" alt="Fraunhofer Logo" style="float:left; width:220px; height:auto; margin-top:10px;"/>
   </div>
   <div style="font-size:9px">
-    <div class="col-xs-12">
-    <div style="margin-top:20px;margin-bottom:-10px;" class='col-xs-12'><span><h5>Packing list </h5></span></div>
-      <div style="margin-top:20px;margin-bottom:-20px;"><hr style="border-width: 1px;border-style:solid"></div>
+    <div class="col-xs-12"> 
+        <div style="margin-top:20px;margin-bottom:-10px;" class='col-xs-12'>
+          <span><h5>Packing list </h5></span>
+        </div>
+      <div style="margin-top:20px;margin-bottom:-20px;">
+        <hr style="border-width: 1px;border-style:solid; width:95%;">
+      </div>
       <span class='col-xs-12'><strong>Shipped to: </strong></span>
       <span class='col-xs-12'></br></span>
       <span class="col-xs-4"><strong><?php echo $customer_name;?></strong></span>
@@ -93,10 +97,14 @@ while($row = mysqli_fetch_array($customerResult)){
       <span class="col-xs-5 col-xs-offset-5">Email: lhaubold@fraunhofer.org</span>
     </div>
   </div>
-    <div class='col-xs-12' style="margin-top:-19px;margin-bottom:-23px;"><hr style="border-width: 1px;border-style:solid"></div>
+    <div class='col-xs-12' style="margin-top:-19px;margin-bottom:-23px;">
+      <hr style="border-width: 1px;border-style:solid;width:95%;">
+    </div>
+    <div class="col-xs-offset-1">
     <h5 class='col-xs-4'>
       <?php
-      $sql = "SELECT shipping_date
+      // this displayes the date the right way
+      $sql = "SELECT DATE_FORMAT(shipping_date,'%m/%d/%y')
               FROM pos
               WHERE po_ID = '$po_ID';";
       $result = mysqli_query($link, $sql);
@@ -109,7 +117,8 @@ while($row = mysqli_fetch_array($customerResult)){
     </h5>
     <span><h5 class="col-xs-4"> Purchase Order # : <?php echo $po_number; ?></h4></span>
     <span><h5 class="col-xs-4"> Initial : LH</h4></span>
-    <table class="table">
+  </div>
+    <table class="table" style=''>
       <tr>
         <th>Tool type</th>
         <th>Number of tools</th>

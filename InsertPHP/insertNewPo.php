@@ -2,13 +2,13 @@
 include '../connection.php';
  
 // Escape user inputs for security
-$po_number 		 = mysqli_real_escape_string($link, $_POST['POID']);
+$po_number 	 = mysqli_real_escape_string($link, $_POST['POID']);
 $CID 		 = mysqli_real_escape_string($link, $_POST['CID']);
 $rDate 		 = mysqli_real_escape_string($link, $_POST['rDate']);
 $iInspect	 = mysqli_real_escape_string($link, $_POST['iInspect']);
 $nrOfLines   = mysqli_real_escape_string($link, $_POST['nrOfLines']);
 $employeeId  = mysqli_real_escape_string($link, $_POST['employeeId']);
-var_dump($CID);
+// if the po_number is empty
 if($po_number == ""){
 	echo "You need to give the PO an ID";
 }

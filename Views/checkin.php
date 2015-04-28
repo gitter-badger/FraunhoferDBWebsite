@@ -13,6 +13,7 @@ $secResult = mysqli_query($link, $secsql);
 while($row = mysqli_fetch_array($secResult)){
   $user_sec_lvl = $row[0];
 }
+// if the user security level is not high enough we kill the page and give him a link to the log in page
 if($user_sec_lvl < 2){
   echo "<a href='../Login/login.php'>Login Page</a></br>";
   die("You don't have the privlages to view this site.");
@@ -80,6 +81,7 @@ if($user_sec_lvl < 2){
         <p><strong>The run might already be in the database so here you can quickly add it to this PO. This dropdown shows all runs from the last 3 days</strong></p>
         <select name="packingsel" id="packingsel" class='dropdown' onchange="setSessionID()">
           <option value="">Choose a PO number</option> 
+          <!-- Drop down list of PO numbers with po_ID as the value -->
           <?php
           $sql = "SELECT po_ID, po_number FROM pos ORDER BY receiving_date DESC;";
           $result = mysqli_query($link, $sql);
@@ -93,7 +95,7 @@ if($user_sec_lvl < 2){
           ?>
         </select>
           <span class="btn-group">
-              <a class='btn btn-primary btn-lg' href='../Printouts/packingList.php' target="_blank">Print PO</a>
+              <a class='btn btn-primary btn-lg' href='../Printouts/packingList.php' target="_blank">Generate packing list</a>
           </span>
         <div id='status_text'></div>
       </div>

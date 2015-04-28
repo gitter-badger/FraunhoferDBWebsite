@@ -1,3 +1,4 @@
+<!-- In this view we only display some parts if the security level is high enough -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,7 +38,7 @@
     </div>
   </div>
   <div class='container'>
-    <h1>Making big changes to the database layout, dont expect you can use the system today(friday)</h1>
+    <h1>The database is working and you can use it as much as you want! If you have free time please do</h1>
     <div class='row well well-lg'>
       <div class='col-md-3 btn-group'>
           <!-- <input type="submit" class='btn btn-primary' value="Tooling overview"> -->
