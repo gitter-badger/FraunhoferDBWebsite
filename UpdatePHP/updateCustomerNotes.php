@@ -9,5 +9,9 @@ $sql = "UPDATE customer
         SET customer_notes = '$cNotes'
         WHERE customer_ID = $CID";   
 $result = mysqli_query($link, $sql);
+if (!$result) {
+    $message  = 'Invalid query: ' . mysql_error();
+    die($message);
+}
 mysqli_close($link);
 ?>

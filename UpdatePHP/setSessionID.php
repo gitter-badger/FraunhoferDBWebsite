@@ -1,6 +1,7 @@
 <?php
 /*
 	This file sets the session po_ID to the user input
+	This is only used for the package list but maybe I should use this feature in more places.
 */
 session_start();
 include '../connection.php';

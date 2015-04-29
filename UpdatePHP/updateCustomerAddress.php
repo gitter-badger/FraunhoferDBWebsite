@@ -11,9 +11,7 @@ $sql = "UPDATE customer
 $result = mysqli_query($link, $sql);
 
 if (!$result) {
-	$message  = 'Invalid query: ' . mysqli_error($link) . "\n";
-	$message .= 'Whole query: ' . $query;
-	die($message);
+    $message  = 'Invalid query: ' . mysql_error();
 }
-
+mysqli_close($link);
 ?>

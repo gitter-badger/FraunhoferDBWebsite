@@ -1,20 +1,22 @@
 <?php
 /*
-        This page generates all the info after you picked your PO number
-        The user picks the ponumber put we are using the ID here  so we can access other tables via foreign keys
+        This page generates all the info needed
+        for the "general information sheet" after you picked your PO number
+        The user picks the ponumber but we are using the ID here  so we can access other tables via foreign keys
 
 */
 
 include '../connection.php';
 // the po_ID the user picked from the dropdown list
 $q = mysqli_real_escape_string($link, $_GET['q']);
+
 // finds the right info from that po_ID
 $sql = "SELECT p.po_ID, p.receiving_date, c.customer_name,  p.shipping_date, p.nr_of_lines 
         FROM pos p, customer c
         WHERE p.customer_ID = c.customer_ID
         AND po_ID = '$q'";
-
 $result = mysqli_query($link, $sql);
+
 // finds all the line items for that PO
 $tsql = "SELECT l.line_on_po, l.quantity, l.tool_ID, l.diameter, l.length, l.price, SUM(ROUND(l.price * l.quantity, 2)) 
          FROM pos p, lineitem l
@@ -22,6 +24,7 @@ $tsql = "SELECT l.line_on_po, l.quantity, l.tool_ID, l.diameter, l.length, l.pri
          AND l.po_ID = p.po_ID
          GROUP BY l.line_on_po";
 $tresult = mysqli_query($link, $tsql);
+
 // the sum of all the tools from all the line items on that PO
 $sumSql = "SELECT SUM(quantity)
            FROM lineitem
@@ -38,29 +41,28 @@ while($row = mysqli_fetch_array($result)) {
 }
 
 echo "<table>";
-echo         "<tr>".
-"<td>Line#</td>".
-"<td>Quantity</td>".  
-"<td>ToolID</td>".
-"<td>diameter</td>".
-"<td>length</td>".
-"<td>double end</td>".
-"<td>unit price</td>".
-"<td>total unit price</td>".
-"</tr>";
+echo    "<tr>".
+            "<td>Line#</td>".
+            "<td>Quantity</td>".  
+            "<td>ToolID</td>".
+            "<td>diameter</td>".
+            "<td>length</td>".
+            "<td>double end</td>".
+            "<td>unit price</td>".
+            "<td>total unit price</td>".
+        "</tr>";
 
 while($row = mysqli_fetch_array($tresult)) {
- echo
- "<tr>".
- "<td>".$row[0]."</td>".
- "<td>".$row[1]."</td>".
- "<td>".$row[2]."</td>".
- "<td>".$row[3]."</td>".
- "<td>".$row[4]."</td>".
- "<td>No</td>".
- "<td>".$row[5]."</td>".
- "<td>".$row[6]."</td>".
- "</tr>";
+     echo "<tr>".
+            "<td>".$row[0]."</td>".
+            "<td>".$row[1]."</td>".
+            "<td>".$row[2]."</td>".
+            "<td>".$row[3]."</td>".
+            "<td>".$row[4]."</td>".
+            "<td>No</td>".
+            "<td>".$row[5]."</td>".
+            "<td>".$row[6]."</td>".
+          "</tr>";
 }
 // Finds the price of all the tools on that po
 $totalPricesql = "SELECT SUM(ROUND(l.price * l.quantity, 2)) 

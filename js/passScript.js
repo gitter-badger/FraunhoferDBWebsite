@@ -52,9 +52,7 @@ function addOldRun(){
      //this fetches the dropdownlist 
      var e       = document.getElementById("runsel");
      //this chooses the selected item from the dropdown list
-     var old_run = e.options[e.selectedIndex].value;
-     //console.log(POID);
-     //console.log(job);
+     var old_run = e.options[e.selectedIndex].value;                        
      $.ajax({
         url : "../InsertPHP/addOldRun.php",
         type: "POST",
@@ -65,6 +63,7 @@ function addOldRun(){
      success: function(data,status, xhr)
      {
         $("#status_text").html(data);
+        // if it is a success we want to refresh the PORuns list
         showPORuns();
      },
     error: function (jqXHR, status, errorThrown)

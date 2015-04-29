@@ -13,7 +13,6 @@ $secResult = mysqli_query($link, $secsql);
 while($row = mysqli_fetch_array($secResult)){
   $user_sec_lvl = $row[0];
 }
-#add comment for github test
 ?>
 <html>
 <head>
@@ -59,7 +58,9 @@ while($row = mysqli_fetch_array($secResult)){
           "<td>".$row[0]."</td>".
           "<td>".$row[1]."</td>".
           "<td>".$row[2]."</td>".
+          // opens the default email program with that emails in the receievers address
           "<td>"."<a href='mailto:$row[3]'>".$row[3]." "."<span class='glyphicon glyphicon-envelope' aria-hidden='true'></span>"."</a>"."</td>".
+          // opens the skype call function to that number
           "<td>"."<a href='skype:".$row[4]."?call'"."</a>".$row[4]." <span class='glyphicon glyphicon-earphone' aria-hidden='true'></span>"."</td>".
           "<td>".$row[5]."</td>".
           "<td>".$row[6]."</td>".
@@ -67,7 +68,6 @@ while($row = mysqli_fetch_array($secResult)){
           "</tr>";
 
         }
-    //<a href="skype:echo123?call">Call the Skype Echo / Sound Test Service</a>
         mysqli_close($link);
 
         ?>
