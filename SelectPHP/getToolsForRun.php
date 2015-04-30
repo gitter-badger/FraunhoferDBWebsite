@@ -13,7 +13,7 @@ $po_IDresult = mysqli_query($link, $po_IDsql);
 while($row = mysqli_fetch_array($po_IDresult)){
     $POID = $row[0];
 }
-$sql = "SELECT l.line_on_po, lr.number_of_items_in_run, r.run_number, lr.lineitem_run_comment 
+$sql = "SELECT l.line_on_po, lr.number_of_items_in_run, l.quantity, r.run_number, lr.lineitem_run_comment 
         FROM lineitem l, lineitem_run lr, run r
         WHERE l.po_ID = '$POID'
         AND l.lineitem_ID = lr.lineitem_ID
@@ -38,9 +38,9 @@ echo"<tr>".
 while($row = mysqli_fetch_array($result)) {
    echo "<tr>".
         "<td>".$row[0]."</td>".
-        "<td>".$row[1]."</td>".
-        "<td>".$row[2]."</td>".
+        "<td>".$row[1]."/".$row[2]."</td>".
         "<td>".$row[3]."</td>".
+        "<td>".$row[4]."</td>".
         "</tr>";
 }
 

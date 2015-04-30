@@ -8,7 +8,6 @@ $diameter  = mysqli_real_escape_string($link, $_POST['diameter']);
 $length    = mysqli_real_escape_string($link, $_POST['length']);
 $price     = mysqli_real_escape_string($link, $_POST['price']);
 $doubleEnd = mysqli_real_escape_string($link, $_POST['dblEnd']);
-var_dump($po_ID);
 if($doubleEnd == 'on'){
 	$doubleEnd = 1;
 	$price = $price * 2;

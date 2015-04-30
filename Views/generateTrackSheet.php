@@ -47,10 +47,18 @@ if($user_sec_lvl < 2){
         <form><select name='POS' onchange='showTools(this.value)'>
           <option value''>Select a PO#: </option>
           <?php 
-          //dropdown list for po numbers
-          $sql = "SELECT po_ID, po_number 
-          FROM pos 
-          WHERE shipping_date IS NULL";
+          // dropdown list for po numbers
+          // We pick all the pos that have shipping date not set
+          // but we also want to get all the POS that have had invalid 
+          // dates inserted to them. invalid dates show up as 0000-00-00
+          // this way the user can easily fix the wrong date.
+          $sql = "SELECT po_ID, po_number
+                  FROM pos
+                  WHERE shipping_date IS NULL
+                  UNION
+                  SELECT po_ID, po_number
+                  FROM pos
+                  where shipping_date LIKE date_format(0000-00-00, '%Y-%m-%d');";
           $result = mysqli_query($link, $sql);
           while($row = mysqli_fetch_array($result)){
            echo '<option value="'.$row[0].'">'.$row[1].'</option>';
@@ -103,7 +111,7 @@ if($user_sec_lvl < 2){
         </select>
       </p>
       <p class='col-md-4'>
-        <label for="run_number">Number of run on this PO: </label>
+        <label for="run_number">Run number on this PO: </label>
         <input type=" number" name="run_number" id="run_number">
       </p>
       <p class='col-md-4'>

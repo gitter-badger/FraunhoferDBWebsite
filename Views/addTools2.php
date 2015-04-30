@@ -71,19 +71,34 @@ if($user_sec_lvl < 2){
       </div>
       <div class='col-md-4'id='changediameter'>
         <label for="diameter">Diameter: </label>
-        <input type="text" name="diameter" id="diameter">
+          <select id="diameter" name="diameter" onchange='generatePrice()' onfocus='generatePrice()'>
+            <option value="1/8">1/8</option>
+            <option value="3/16">3/16</option>
+            <option value="1/4">1/4</option>
+            <option value="3/8">3/8</option>
+            <option value="1/2">1/2</option>
+            <option value="5/8">5/8</option>
+            <option value="3/4">3/4</option>
+            <option value="1">1</option>
+          </select>
       </div>
       <div class='col-md-4' id='changelength'>
         <label for="length">Length: </label>
-        <input type="number" name="length" id="length" onchange='generatePrice()' onfocus='generatePrice()'>
+          <select id="length" name="length" onchange='generatePrice()' onfocus='generatePrice()'>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+          </select>
       </div>
       <div class='col-md-4'>
         <label for="quantity">Quantity: </label>
         <input type=" number" name="quantity" id="quantity">
       </div>
-      <div class='col-md-4' id='status_text'>
+      <div class='col-md-4' id='pricediv'>
         <label for="price">Unit Price: </label>
-        <input type=" number" name="price" id='price'>
+        <input name="price" id='price' value=''></input>
       </div>
       <div class='col-md-4'>
         <label for="dblEnd">Double ended? </label>

@@ -13,6 +13,7 @@ $secResult = mysqli_query($link, $secsql);
 while($row = mysqli_fetch_array($secResult)){
   $user_sec_lvl = $row[0];
 }
+// if the users security level is to low he can access this page.
 if($user_sec_lvl < 2){
   echo "<a href='../Login/login.php'>Login Page</a></br>";
   die("You don't have the privlages to view this site.");
@@ -64,6 +65,23 @@ if($user_sec_lvl < 2){
               </select>
             </p>
             <p class='col-md-6'>
+              <label for="employeeId" class ='col-md-3'>Employee ID:</label>
+              <select id='employeeId'>
+                <option value="">Select a company:</option> 
+                  <?php
+                  $sql = "SELECT employee_ID, employee_name FROM employee";
+                  $result = mysqli_query($link, $sql);
+
+                  if (!$result) {
+                  die("Database query failed: " . mysqli_error($link));
+                  }
+                  while($row = mysqli_fetch_array($result)){
+                  echo '<option value="'.$row['employee_ID'].'">'.$row['employee_name'].'</option>';
+                  }
+                  ?>
+              </select>
+            </p>
+            <p class='col-md-6'>
               <label for="rDate" class='col-md-3'>Receiving Date:</label>
               <input type="rDate" value="<?php echo date('Y-m-d'); ?>" name='rDate' id='rDate'>
             </p>
@@ -75,10 +93,7 @@ if($user_sec_lvl < 2){
               <label for="nrOfLines" class='col-md-3'>Number of Lines:</label>
               <input type="number" name='nrOfLines' id='nrOfLines'>
             </p>
-            <p class='col-md-6'>
-              <label for="employeeId" class='col-md-3'>Employee ID:</label>
-              <input type="number" name='employeeId' id='employeeId'>
-            </p>
+
             <input class='col-md-offset-4' type="submit" id="btn_submit" onclick='addPO()' value="Add PO">
           </form>
           <br/>

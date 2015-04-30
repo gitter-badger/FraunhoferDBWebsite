@@ -1,7 +1,9 @@
 <?php
 /*
-        This page generates all the info after you picked your PO number
-        The user picks the ponumber put we are using the ID here  so we can access other tables via foreign keys
+        This page generates all the info 
+        to print the 'Tracking Sheet' after you picked your PO number.
+        The user picks the po_number put we are using the ID here 
+        so we can access other tables via foreign keys
 
 */
 include '../connection.php';
@@ -14,7 +16,7 @@ $topsql ="SELECT p.po_ID, p.receiving_date, c.customer_name, p.shipping_date, TI
           WHERE c.customer_ID   = p.customer_ID
           AND p.po_ID    = '$q'
           AND w.po_ID    = p.po_ID
-          AND e.employee_ID     = w.employee_ID";
+          AND e.employee_ID     = w.employee_ID;";
 $topresult = mysqli_query($link, $topsql);
 
 // the overall price of the po
@@ -27,7 +29,7 @@ $sumResult = mysqli_query($link, $sumSql);
 // we can use MAX here to just pick the highest number, we could also use count.
 $countSql = "SELECT SUM(quantity), MAX(line_on_po)
              FROM lineitem l
-             WHERE l.po_ID = '$q'";
+             WHERE l.po_ID = '$q';";
 $countresult = mysqli_query($link, $countSql);
 
 while($row = mysqli_fetch_array($topresult)) {
@@ -72,6 +74,7 @@ $result = mysqli_query($link, $sql);
 
 if(!$result){
      echo("Input data is fail".mysqli_error($link));
+}
 
 // All the info about the runs linked to this PO
 $runsql ="SELECT c.coating_type, posr.run_number_on_po, r.ah_pulses, r.run_number, r.run_comment

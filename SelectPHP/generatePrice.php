@@ -30,10 +30,15 @@ if(!$rightPrice){
 while($row = mysqli_fetch_array($rightPrice)){
 	$price = $row[0];
 }
+/*
 echo "<div>
       <label for='price'>Unit Price: </label>
       <input type='number' name='price' id='price' value='".$price."'>
       </div>";
+*/
+$_SESSION['toolprice'] = $price;
+
+echo $_SESSION['toolprice'];
 mysqli_close($link);
 ?>
 

@@ -169,6 +169,7 @@ function showToolsPrint(str) {
 }
 }
 function showTrackPrint(str) {
+    console.log(str);
     if (str == "") {
         document.getElementById("txtHint").innerHTML = "";
         return;
@@ -286,17 +287,19 @@ function generatePrice(){
          POID     : POID},
          success: function(data,status, xhr)
          {
-            $("#status_text").html(data);
+            var html = data;
+            console.log(html);
+            //$("#generatedPrice").html(data);
+            document.getElementById('price').value = html;
          },
-      error: function (jqXHR, status, errorThrown)
-      {
+        error: function (jqXHR, status, errorThrown)
+        {
             $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
         }
     })
  }
- function displayHelper(){
-   var POID     = document.getElementById('POID').innerHTML;
-   console.log(POID);
+function displayHelper(){
+    var POID     = document.getElementById('POID').innerHTML;
      $.ajax({
         url : "../SelectPHP/displayHelper.php",
         type: "GET",
@@ -306,7 +309,7 @@ function generatePrice(){
             $("#displayHelper").html(data);
          }
     })
- }
+}
 function addTool(){
   var toolID   = $('#tid').val();     
   var lineItem = $('#lineItem').val();     
@@ -314,7 +317,7 @@ function addTool(){
   var diameter = $('#diameter').val(); 
   var length   = $('#length').val(); 
   var POID     = document.getElementById('POID').innerHTML;
-  
+  console.log(diameter);
   if($('#dblEnd').is(':checked'))
   {
      var dblEnd   = $('#dblEnd').val();
@@ -765,9 +768,14 @@ function searchPO() {
             rcomments          :rcomments},
      success: function(data,status, xhr)
      {
-        machine_run_number = parseInt(machine_run_number) + 1;
+            // increment the run number and update it on the html view
+            run_on_this_PO = parseInt(run_on_this_PO) + 1;
+            $('#run_number').val(run_on_this_PO);
+
             $("#status_text").html(data);
+            // refresh the table to show the newly inserted run.
             showPORuns();
+
       },
       error: function (jqXHR, status, errorThrown)
       {
@@ -787,11 +795,6 @@ function addLineItemToRun(){
      var runNumber       = $('#runNumber').val(); 
      var final_comment   = $('#final_comment').val();
      var POID            = document.getElementById('POID').innerHTML;
-    // console.log(runNumber);
-    // console.log(lineItem);
-    // console.log(number_of_tools);
-    // console.log(final_comment);
-    // console.log(POID);
    $.ajax({
     url : "../InsertPHP/insertLineItemtoRun.php",
     type: "POST",
@@ -818,13 +821,11 @@ function addLineItemToRun(){
     Adds a final inspection comment
     and a shipping date to the chosen PO
 */
+
 function addShipDateToPO (line){
-   var POID       = document.getElementById('POID').innerHTML;
-   var fInspect   = $('#fInspect').val();
-   var date       = $('#addShippingDate').val();
-   console.log(POID);
-   console.log(fInspect);
-   console.log(date);
+   var POID     = document.getElementById('POID').innerHTML;
+   var fInspect = $('#fInspect').val();
+   var date     = $('#addShippingDate').val();
   $.ajax({
     url : "../InsertPHP/insertShipDateToPO.php",
     type: "POST",
@@ -834,13 +835,14 @@ function addShipDateToPO (line){
 
         success: function(data,status, xhr)
         {
-            $("#runTools").html(data);
+            console.log(data);
+            if(data.indexOf("Error") > -1){
+               alert("Error!");
+            }else{
+                alert("Final comment and shipping date added");
+        }
 
         },
-        error: function (jqXHR, status, errorThrown)
-        {
-            $("#runTools").html('there was an error ' + errorThrown + ' with status ' + textStatus);
-        }
     })
 }
 function addCoating (line){
@@ -896,9 +898,27 @@ function authenticate(){
     url : "../Login/logincheck.php",
     type: "POST",
     data : {userID : userID,
-            password : password}
-    }).done(function(result){
-        $("#txtadd").html(result);
+            password : password},
+    success: function(data, status, xhr)
+    {
+        /*
+            checks if the data recieved from the php file
+            contains the string "error".
+
+            data.indexOf("error") returns -1 only if the string
+            is not found, so if the string is found it will return
+            a number larger than -1 and we move to the selection site.
+            The php file takes care of logging in or logging off the current user if he tries to log 
+            in with wrong information, this is done for security reasons
+        */
+        if(data.indexOf("error") > -1)
+        {
+            alert("Please enter the right information");
+
+        }else{
+            window.location = "../Selection.php";
+        }
+    }
     })
 }
 /*
@@ -913,6 +933,9 @@ function logout(){
     url : "../Login/logout.php",
     type: "POST"
     }).done(function(){
+        // refresh the page on logout with all securty level set to 0
+        // this is done so you loose access to the site you are at
+        // when you log out.
         window.location.reload();
     })
 }

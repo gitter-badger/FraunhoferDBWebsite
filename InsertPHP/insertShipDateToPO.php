@@ -5,7 +5,10 @@ include '../connection.php';
 $po_ID 	  = mysqli_real_escape_string($link, $_POST['POID']);
 $date 	  = mysqli_real_escape_string($link, $_POST['date']);
 $fInspect = mysqli_real_escape_string($link, $_POST['fInspect']);
-
+if($date == "" OR $fInspect == ""){ 
+	echo "Error";
+}
+else{
 //getting the right po_ID
 $po_IDsql = "SELECT p.po_ID
              FROM   pos p
@@ -30,7 +33,7 @@ $sql2 ="UPDATE pos SET shipping_date = '$date' WHERE po_ID = '$po_ID'";
 $sql3 ="UPDATE pos SET final_inspection = '$fInspect' WHERE po_ID = '$po_ID'";
 $sql4 ="UPDATE pos SET final_price = '$finalPrice' WHERE po_ID = '$po_ID'";
 // turns the safe update feature back on
-$sql5 = "SQL_SAFE_UPDATES=1;";
+$sql5 = "SET SQL_SAFE_UPDATES=1;";
 
 $result1 = mysqli_query($link, $sql1);
 $result2 = mysqli_query($link, $sql2);
@@ -38,14 +41,27 @@ $result3 = mysqli_query($link, $sql3);
 $result4 = mysqli_query($link, $sql4);
 $result5 = mysqli_query($link, $sql5);
 
-if($result4){
-	 echo ("DATA SAVED SUCCESSFULLY");
-} else{
-	 echo("Input data is fail".mysqli_error($link));
+if(!$result1){
+	echo("Error. Input data is fail on setting SQL_SAFE_UPDATES = 0".mysqli_error($link));
 }
+
+if(!$result2){
+	echo("Error. Input data is fail on setting updateing shippingdate".mysqli_error($link));
+}
+
+if(!$result3){
+	echo("Error. Input data is fail on setting final inspection".mysqli_error($link));
+}
+
+if(!$result4){
+	echo("Error. Input data is fail on calculating final price".mysqli_error($link));
+}
+
+if(!$result5){
+	echo("Error. Input data is fail on setting SQL_SAFE_UPDATES = 1".mysqli_error($link));
+}
+
 // close connection
 mysqli_close($link);
-
+}
 ?>
-
-
