@@ -48,7 +48,7 @@ if($user_sec_lvl < 2){
               <input type="text" name="POID" id="POID">
             </p>
             <p class='col-md-6'>
-              <label for="CID" class ='col-md-3'>Company ID:</label>
+              <label for="CID" class ='col-md-3'>Company:</label>
               <select id='CID'>
                 <option value="">Select a company:</option> 
                   <?php
@@ -65,9 +65,9 @@ if($user_sec_lvl < 2){
               </select>
             </p>
             <p class='col-md-6'>
-              <label for="employeeId" class ='col-md-3'>Employee ID:</label>
+              <label for="employeeId" class ='col-md-3'>Employee:</label>
               <select id='employeeId'>
-                <option value="">Select a company:</option> 
+                <option value="">Select a employee:</option> 
                   <?php
                   $sql = "SELECT employee_ID, employee_name FROM employee";
                   $result = mysqli_query($link, $sql);
