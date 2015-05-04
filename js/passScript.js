@@ -71,7 +71,7 @@ function addOldRun(){
         $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
     }
     })
- }
+}
  function setSessionID(){
      //this fetches the dropdownlist 
      var e       = document.getElementById("packingsel");
@@ -419,8 +419,7 @@ function addEmployee(){
         }
     });
  }
-
- function delTool(line){
+function delTool(line){
     var POID = document.getElementById('POID').innerHTML;
      $.ajax({
         url : "../DeletePHP/deleteToolFromPO.php",
@@ -438,7 +437,7 @@ function addEmployee(){
         }
     })
  }
- function delRun(line){
+function delRun(line){
     var POID = document.getElementById('POID').innerHTML;
      $.ajax({
         url : "../DeletePHP/deleteRun.php",
@@ -456,7 +455,7 @@ function addEmployee(){
         }
     })
  }
- function delRunTool(lineitem, run_number){
+function delRunTool(lineitem, run_number){
     var POID = document.getElementById('POID').innerHTML;
      $.ajax({
         url : "../DeletePHP/deleteRunTool.php",
@@ -475,8 +474,7 @@ function addEmployee(){
         }
     })
  }
-
- function delPO(){
+function delPO(){
     var POID = document.getElementById('POID').innerHTML;
     console.log(POID);
     
@@ -496,82 +494,82 @@ function addEmployee(){
     })
 }
 function searchPO() {
+    // getting the value that user typed
+    var searchString    = $("#search_box_PO").val();
+    // forming the queryString
+    var data            = 'search='+ searchString;
+    //console.log(searchString);
     
-        // getting the value that user typed
-        var searchString    = $("#search_box_PO").val();
-        // forming the queryString
-        var data            = 'search='+ searchString;
-        //console.log(searchString);
-        
-        // if searchString is not empty
-        if(searchString) {
-            // ajax call
-            $.ajax({
-                type: "POST",
-                url: "../SearchPHP/do_search.php",
-                data: data,
-                beforeSend: function(html) { // this happens before actual call
-                    $("#results").html(''); 
-                    $("#searchresults").show();
-                    $(".word").html(searchString);
-                },
-               success: function(html){ // this happens after we get results
-                $("#results").show();
-                $("#results").append(html);
-            }
-        })  
+    // if searchString is not empty
+    if(searchString) {
+        // ajax call
+        $.ajax({
+            type: "POST",
+            url: "../SearchPHP/do_search.php",
+            data: data,
+            beforeSend: function(html) { // this happens before actual call
+                $("#results").html(''); 
+                $("#searchresults").show();
+                $(".word").html(searchString);
+            },
+           success: function(html){ // this happens after we get results
+            $("#results").show();
+            $("#results").append(html);
         }
-        return false;
+    })  
     }
-    function searchPOCompany() {
-        var searchString    = $("#search_box_company").val();
-        var data            = 'search='+ searchString;
-        if(searchString) {
-            $.ajax({
-                type: "POST",
-                url: "../SearchPHP/do_search_company.php",
-                data: data,
-                beforeSend: function(html) { 
-                    $("#results").html(''); 
-                    $("#searchresults").show();
-                    $(".word").html(searchString);
-                },
-               success: function(html){ 
-                $("#results").show();
-                $("#results").append(html);
-            }
-        })  
+    return false;
+}
+function searchPOCompany() {
+    var searchString    = $("#search_box_company").val();
+    var data            = 'search='+ searchString;
+    if(searchString) {
+        $.ajax({
+            type: "POST",
+            url: "../SearchPHP/do_search_company.php",
+            data: data,
+            beforeSend: function(html) { 
+                $("#results").html(''); 
+                $("#searchresults").show();
+                $(".word").html(searchString);
+            },
+           success: function(html){ 
+            $("#results").show();
+            $("#results").append(html);
         }
-        return false;
+    })  
     }
-    function searchPOEmployee() {
-        
-        var searchString    = $("#search_box_employee").val();
-        var data            = 'search='+ searchString;
-       // console.log(searchString);
-                if(searchString) {
-            $.ajax({
-                type: "POST",
-                url: "../SearchPHP/do_search_employee.php",
-                data: data,
-                beforeSend: function(html) {
-                    $("#results").html('');
-                    $("#searchresults").show();
-                    $(".word").html(searchString);
-                },
-               success: function(html){
-                $("#results").show();
-                $("#results").append(html);
-            }
-        })  
+    return false;
+}
+
+function searchPOEmployee() {
+    var searchString    = $("#search_box_employee").val();
+    var data            = 'search='+ searchString;
+    // console.log(searchString);
+            if(searchString) {
+        $.ajax({
+            type: "POST",
+            url: "../SearchPHP/do_search_employee.php",
+            data: data,
+            beforeSend: function(html) {
+                $("#results").html('');
+                $("#searchresults").show();
+                $(".word").html(searchString);
+            },
+           success: function(html){
+            $("#results").show();
+            $("#results").append(html);
         }
-        return false;
+    })  
     }
-    function changeCustomerAddress(){
-     var CID   = $('#input_CID').val();     
-     var cAddress = $('#input_address').val();     
-     if(cAddress === ''){return;}
-     $.ajax({
+    return false;
+}
+
+function changeCustomerAddress(){
+    var CID   = $('#input_CID').val();     
+    var cAddress = $('#input_address').val();     
+    if(cAddress === ''){return;}
+    $.ajax({
         url : "../UpdatePHP/updateCustomerAddress.php",
         type: "POST",
         data : {CID : CID,
@@ -582,14 +580,15 @@ function searchPO() {
             $("#status_text").html(data);
             $("#input_CID").val("");
             $("#input_address").val("");
-      },
+         },
       error: function (jqXHR, status, errorThrown)
       {
-            $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
-        }
+          $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
+      }
     })
- }
- function changeCustomerPhoneNumber(){
+}
+
+function changeCustomerPhoneNumber(){
      var CID   = $('#input_CID').val();     
      var cPhone = $('#input_phonenumber').val();     
      console.log(CID);
@@ -615,7 +614,8 @@ function searchPO() {
         }
     })
  }
- function changeCustomerEmail(){
+
+function changeCustomerEmail(){
      //get the form values
      var CID   = $('#input_CID').val();     
      var cEmail = $('#input_email').val();     
@@ -644,8 +644,9 @@ function searchPO() {
             $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
         }
     })
- }
- function changeCustomerFax(){
+}
+
+function changeCustomerFax(){
      //get the form values
      var CID   = $('#input_CID').val();     
      var cFax = $('#input_faxnumber').val();
@@ -674,8 +675,9 @@ function searchPO() {
             $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
         }
     })
- }
- function changeCustomerNotes(){
+}
+
+function changeCustomerNotes(){
      var CID   = $('#input_CID').val();     
      var cNotes = $('#input_notes').val();
      if(cNotes === '')
@@ -700,8 +702,8 @@ function searchPO() {
             $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
         }
     })
- }
- function changeCustomerContact(){
+}
+function changeCustomerContact(){
      var CID   = $('#input_CID').val();     
      var cContact = $('#input_contact').val();
      if(cContact === '')
@@ -726,8 +728,8 @@ function searchPO() {
             $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
         }
     })
- }
- function deleteCustomer(){
+}
+function deleteCustomer(){
      var CID   = $('#input_CID').val();     
      $.ajax({
         url : "../DeletePHP/deleteCustomer.php",
@@ -745,8 +747,8 @@ function searchPO() {
             $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
         }
     })
- }
- function addRun(){
+}
+function addRun(){
      var runDate             = $('#runDate').val();     
      var rCoating            = $('#coatingID').val();     
      var machine_run_number  = $('#machine_run_number').val(); 
@@ -835,7 +837,6 @@ function addShipDateToPO (line){
 
         success: function(data,status, xhr)
         {
-            console.log(data);
             if(data.indexOf("Error") > -1){
                alert("Error!");
             }else{
@@ -848,8 +849,6 @@ function addShipDateToPO (line){
 function addCoating (line){
    var coatingType   = $('#coatingType').val();
    var coatingDesc = $('#coatingDesc').val();
-  // console.log(coatingType);
-  // console.log(coatingDesc);
   $.ajax({
     url : "../InsertPHP/insertNewCoating.php",
     type: "POST",

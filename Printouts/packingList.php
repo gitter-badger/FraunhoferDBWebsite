@@ -115,10 +115,10 @@ while($row = mysqli_fetch_array($customerResult)){
       echo "Shipping date: ".$shippingDate;
       ?>
     </h5>
-    <span><h5 class="col-xs-4"> Purchase Order # : <?php echo $po_number; ?></h4></span>
-    <span><h5 class="col-xs-4"> Initial : LH</h4></span>
+    <span><h5 class="col-xs-4"> Purchase Order # : <?php echo $po_number; ?></h5></span>
+    <span><h5 class="col-xs-4"> Initial : LH</h5></span>
   </div>
-    <table class="table" style=''>
+    <table class="table">
       <tr>
         <th>Tool type</th>
         <th>Number of tools</th>

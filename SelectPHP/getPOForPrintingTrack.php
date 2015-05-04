@@ -3,7 +3,9 @@
         This page generates all the info 
         to print the 'Tracking Sheet' after you picked your PO number.
         The user picks the po_number put we are using the ID here 
-        so we can access other tables via foreign keys
+        so we can access other tables via foreign keys.
+        There are some strange usage of <div> in this file
+        because its made to look good when printing on A4 sized paper
 
 */
 include '../connection.php';
@@ -19,14 +21,14 @@ $topsql ="SELECT p.po_ID, p.receiving_date, c.customer_name, p.shipping_date, TI
           AND e.employee_ID     = w.employee_ID;";
 $topresult = mysqli_query($link, $topsql);
 
-// the overall price of the po
+// the overall price of the PO
 $sumSql ="SELECT SUM(ROUND(l.tPrice * l.quantity, 2)) 
           FROM lineitem l
           WHERE l.po_ID = '$q'";
 $sumResult = mysqli_query($link, $sumSql);
 
 // the number of tools and number of lineitems
-// we can use MAX here to just pick the highest number, we could also use count.
+// we can use MAX here to just pick the highest number.
 $countSql = "SELECT SUM(quantity), MAX(line_on_po)
              FROM lineitem l
              WHERE l.po_ID = '$q';";
@@ -61,7 +63,7 @@ while($row = mysqli_fetch_array($newResult)){
 
 // All the info for the lineitems on this PO
 // ordered by what line on the PO they are
-$sql = "SELECT l.line_on_po, l.tool_ID, l.diameter, l.length, IF(l.double_end = 0, 'NO', 'NO') AS 'Double End', l.quantity, posr.run_number_on_po, lr.number_of_items_in_run, lr.lineitem_run_comment
+$sql = "SELECT l.line_on_po, l.tool_ID, l.diameter, l.length, IF(l.double_end = 0, 'NO', 'YES') AS 'Double End', l.quantity, posr.run_number_on_po, lr.number_of_items_in_run, lr.lineitem_run_comment
         FROM lineitem l, lineitem_run lr, pos_run posr, run r
         WHERE l.po_ID = '$q'
         AND posr.po_ID = l.po_ID

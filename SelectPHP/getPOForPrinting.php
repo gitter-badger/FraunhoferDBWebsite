@@ -18,7 +18,7 @@ $sql = "SELECT p.po_ID, p.receiving_date, c.customer_name,  p.shipping_date, p.n
 $result = mysqli_query($link, $sql);
 
 // finds all the line items for that PO
-$tsql = "SELECT l.line_on_po, l.quantity, l.tool_ID, l.diameter, l.length, l.price, SUM(ROUND(l.price * l.quantity, 2)) 
+$tsql = "SELECT l.line_on_po, l.quantity, l.tool_ID, l.diameter, l.length, IF(l.double_end = 0, 'NO', 'YES') AS 'Double End' ,l.price, SUM(ROUND(l.price * l.quantity, 2)) 
          FROM pos p, lineitem l
          WHERE l.po_ID = '$q'
          AND l.po_ID = p.po_ID
@@ -59,9 +59,9 @@ while($row = mysqli_fetch_array($tresult)) {
             "<td>".$row[2]."</td>".
             "<td>".$row[3]."</td>".
             "<td>".$row[4]."</td>".
-            "<td>No</td>".
             "<td>".$row[5]."</td>".
             "<td>".$row[6]."</td>".
+            "<td>".$row[7]."</td>".
           "</tr>";
 }
 // Finds the price of all the tools on that po

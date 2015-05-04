@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <?php
-// Start the session
 include '../connection.php';
 //session_start();
 ?>
@@ -26,15 +25,13 @@ include '../connection.php';
       while($row = mysqli_fetch_array($result)){
         echo "<span>".$row[0]." ID: ".$row[1]."</span></br>";
       }
-
-
      ?>
    </div>
     <p id='txtadd' name='txtadd'></p>
 
     <a href='../selection.php'>Selection page</a>
 </body>
-<!-- Script to make the input fields behave like a form -->
+<!-- Script to make the input fields behave like a form so that when you press 'Enter' you submit -->
   <script type='text/javascript'>
   $(document).ready(function(){
     $('#password').keypress(function(e){

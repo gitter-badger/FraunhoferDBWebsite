@@ -47,11 +47,13 @@ if($user_sec_lvl < 2){
         <form><select name='POS' onchange='showTools(this.value)'>
           <option value''>Select a PO#: </option>
           <?php 
-          // dropdown list for po numbers
-          // We pick all the pos that have shipping date not set
-          // but we also want to get all the POS that have had invalid 
-          // dates inserted to them. invalid dates show up as 0000-00-00
-          // this way the user can easily fix the wrong date.
+          /*
+           *  dropdown list for po numbers
+           *  We pick all the pos that have shipping date not set
+           *  but we also want to get all the POS that have had invalid 
+           *  dates inserted to them. invalid dates show up as 0000-00-00
+           *  this way the user can easily fix the wrong date.
+           */
           $sql = "SELECT po_ID, po_number
                   FROM pos
                   WHERE shipping_date IS NULL
@@ -75,15 +77,17 @@ if($user_sec_lvl < 2){
         <select name="runsel" id="runsel" class='dropdown'>
           <option value="">Choose an run number</option> 
           <?php
-          $sql = "SELECT run_ID, run_Number FROM run WHERE run_date >= DATE_ADD(CURDATE(), INTERVAL -3 DAY);";
-          $result = mysqli_query($link, $sql);
+            $sql = "SELECT run_ID, run_Number FROM run WHERE run_date >= DATE_ADD(CURDATE(), INTERVAL -3 DAY);";
+            $result = mysqli_query($link, $sql);
 
-          if (!$result) {
-            die("Database query failed: " . mysqli_error($link));
-          }
-          while($row = mysqli_fetch_array($result)){
-            echo '<option id="'.$row['run_ID'].'" value="'.$row['run_ID'].'">'.$row['run_Number'].'</option>';
-          }
+            if (!$result) 
+            {
+              die("Database query failed: " . mysqli_error($link));
+            }
+            while($row = mysqli_fetch_array($result))
+            {
+              echo '<option id="'.$row['run_ID'].'" value="'.$row['run_ID'].'">'.$row['run_Number'].'</option>';
+            }
           ?>
         </select>
         <button type='button' id='del_button' class='btn btn-primary'onclick="addOldRun()">Add run</button>
@@ -99,14 +103,16 @@ if($user_sec_lvl < 2){
         <select id='coatingID'>
           <option value="">Select coating type:</option> 
           <?php
-          $sql = "SELECT coating_ID, coating_type FROM coating";
-          $result = mysqli_query($link, $sql);
-          if (!$result) {
-            die("Database query failed: " . mysqli_error($link));
-          }
-          while($row = mysqli_fetch_array($result)){
-            echo '<option value="'.$row['coating_ID'].'">'.$row['coating_type'].'</option>';
-          }
+            $sql = "SELECT coating_ID, coating_type FROM coating";
+            $result = mysqli_query($link, $sql);
+            if (!$result) 
+            {
+              die("Database query failed: " . mysqli_error($link));
+            }
+            while($row = mysqli_fetch_array($result))
+            {
+              echo '<option value="'.$row['coating_ID'].'">'.$row['coating_type'].'</option>';
+            }
           ?>
         </select>
       </p>

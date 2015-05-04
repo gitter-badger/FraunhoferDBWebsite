@@ -1,13 +1,15 @@
 <?php
 include '../connection.php';
-$po_ID      = mysqli_real_escape_string($link, $_POST['POID']);
-$tool_ID    = mysqli_real_escape_string($link, $_POST['toolID']);
+$po_ID     = mysqli_real_escape_string($link, $_POST['POID']);
+$tool_ID   = mysqli_real_escape_string($link, $_POST['toolID']);
 $quantity  = mysqli_real_escape_string($link, $_POST['quantity']);
 $line_item = mysqli_real_escape_string($link, $_POST['lineItem']);
 $diameter  = mysqli_real_escape_string($link, $_POST['diameter']);
 $length    = mysqli_real_escape_string($link, $_POST['length']);
 $price     = mysqli_real_escape_string($link, $_POST['price']);
 $doubleEnd = mysqli_real_escape_string($link, $_POST['dblEnd']);
+
+
 if($doubleEnd == 'on'){
 	$doubleEnd = 1;
 	$price = $price * 2;
