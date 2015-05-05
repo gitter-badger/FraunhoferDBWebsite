@@ -33,31 +33,31 @@ $countSql = "SELECT SUM(quantity), MAX(line_on_po)
              FROM lineitem l
              WHERE l.po_ID = '$q';";
 $countresult = mysqli_query($link, $countSql);
-
+while($row = mysqli_fetch_array($sumResult)){
+    $overall_price = $row[0];
+}
 while($row = mysqli_fetch_array($topresult)) {
     $POID = $row[0];
-    echo "<div class='col-md-12'>".
-         "<span class='col-md-3'><strong>Customer : </strong>".$row[2]."</span>".
-         "<span class='col-md-3'><strong>Receiving Date : </strong>".$row[1]."</span>".
-         "<span class='col-md-3'><strong>Shipping Date : </strong>".$row[3]."</span></div>".
-         "<div class='col-md-12'>".
-         "<span class='col-md-3'><strong>Turn around time : </strong>".$row[4]." Days</span>".
-         "<span class='col-md-3'><strong>Employee: </strong>".$row[5]."</span>";
+    echo "<div class='col-xs-12' style='font-size:9px'>".
+         "<span class='col-xs-3'><strong>Customer : </strong>".$row[2]."</span>".
+         "<span class='col-xs-3'><strong>Receiving Date : </strong>".$row[1]."</span>".
+         "<span class='col-xs-3'><strong>Shipping Date : </strong>".$row[3]."</span></div>".
+         "<div class='col-xs-12'style='font-size:9px'>".
+         "<span class='col-xs-3'><strong>Turn around time : </strong>".$row[4]." Days</span>".
+         "<span class='col-xs-3'><strong>Employee: </strong>".$row[5]."</span>".
+         "<span class='col-xs-3'><strong>Overall price : </strong>".$row[0]." $</span></div>";
 }
-while($row = mysqli_fetch_array($sumResult)){
 
-    echo "<span class='col-md-3'><strong>Overall price : </strong>".$row[0]." $</span></div>";
-}
 while($row = mysqli_fetch_array($countresult)){
 
-    echo "<div class='col-md-12'><span class='col-md-3'><strong>Number of tools : </strong>".$row[0]."</span>".
-         "<span class='col-md-3'><strong>Number of line items : </strong>".$row[1]."</span></div>";
+    echo "<div class='col-xs-12'><span class='col-xs-3'><strong>Number of tools : </strong>".$row[0]."</span>".
+         "<span class='col-xs-3'><strong>Number of line items : </strong>".$row[1]."</span></div>";
 }
 $newResult = mysqli_query($link, $topsql);
 while($row = mysqli_fetch_array($newResult)){
 
-    echo "<div class='col-md-12'><div class='col-md-6'><strong>PO comment : </strong>".$row[6]."</div>".
-         "<div class='col-md-6'><strong>Final inspection : </strong>".$row[7]."</div></div>";
+    echo "<div class='col-xs-12'><div class='col-xs-6'><strong>PO comment : </strong>".$row[6]."</div>".
+         "<div class='col-xs-6'><strong>Final inspection : </strong>".$row[7]."</div></div>";
 }
          
 

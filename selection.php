@@ -38,7 +38,7 @@
     </div>
   </div>
   <div class='container'>
-    <h1>The database is working and you can use it as much as you want! If you have free time please do</h1>
+    <h1>The database is working...use it</h1>
     <div class='row well well-lg'>
       <div class='col-md-3 btn-group'>
           <!-- <input type="submit" class='btn btn-primary' value="Tooling overview"> -->

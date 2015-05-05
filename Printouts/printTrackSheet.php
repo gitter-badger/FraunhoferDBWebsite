@@ -36,7 +36,7 @@ while($row = mysqli_fetch_array($secResult)){
 </head>
 <body>
   <div class='col-md-10 col-md-offset-1'>
-    <h2>Customer product track for coating</h2>
+    <h5>Customer product track for coating</h5>
     <div>
       <form>
         <label>POID: <select name='POS' onchange='showTrackPrint(this.value)'>

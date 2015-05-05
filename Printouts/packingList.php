@@ -101,20 +101,20 @@ while($row = mysqli_fetch_array($customerResult)){
       <hr style="border-width: 1px;border-style:solid;width:95%;">
     </div>
     <div class="col-xs-offset-1">
-    <h5 class='col-xs-4'>
-      <?php
-      // this displayes the date the right way
-      $sql = "SELECT DATE_FORMAT(shipping_date,'%m/%d/%y')
-              FROM pos
-              WHERE po_ID = '$po_ID';";
-      $result = mysqli_query($link, $sql);
-      while($row = mysqli_fetch_array($result))
-      {
-        $shippingDate = $row[0];
-      }
-      echo "Shipping date: ".$shippingDate;
-      ?>
-    </h5>
+      <h5 class='col-xs-4'>
+        <?php
+        // this displayes the date the right way
+        $sql = "SELECT DATE_FORMAT(shipping_date,'%m/%d/%y')
+                FROM pos
+                WHERE po_ID = '$po_ID';";
+        $result = mysqli_query($link, $sql);
+        while($row = mysqli_fetch_array($result))
+        {
+          $shippingDate = $row[0];
+        }
+        echo "Shipping date: ".$shippingDate;
+        ?>
+      </h5>
     <span><h5 class="col-xs-4"> Purchase Order # : <?php echo $po_number; ?></h5></span>
     <span><h5 class="col-xs-4"> Initial : LH</h5></span>
   </div>

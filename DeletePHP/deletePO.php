@@ -44,13 +44,13 @@ if($user_sec_lvl < 2){
      <div class='row well well-lg'>
       <div class='col-md-12'>
         <h2>Choose the right PO number</h2>
-        <form><select name='POS' onchange='showTools(this.value);showPOTools()'>
+        <form><select name='POS' id='po_sel'onchange='showTools(this.value);showPOTools()'>
           <option value''>Select a PO#: </option>
           <?php 
-          $sql = "SELECT po_ID FROM pos";
+          $sql = "SELECT po_ID, po_number FROM pos";
           $result = mysqli_query($link, $sql);
           while($row = mysqli_fetch_array($result)){
-           echo '<option value="'.$row[0].'">'.$row[0].'</option>';
+           echo '<option value="'.$row[0].'">'.$row[1].'</option>';
          } 
          echo "</select></form>";
          ?>

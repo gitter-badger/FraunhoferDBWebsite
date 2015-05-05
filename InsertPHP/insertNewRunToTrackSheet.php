@@ -14,6 +14,22 @@ $ah_pulses		    = mysqli_real_escape_string($link, $_POST['ah_pulses']);
 $machine  			= mysqli_real_escape_string($link, $_POST['machine']);
 $rcomments			= mysqli_real_escape_string($link, $_POST['rcomments']);
 $run_on_this_po		= mysqli_real_escape_string($link, $_POST['run_on_this_PO']);
+// This checks what character the user inputed and changes that to the right 
+// integer for the database tables.
+if($run_on_this_po == 'a' || $run_on_this_po == 'A'){ $run_on_this_po_int = 1;}
+
+if($run_on_this_po == 'b' || $run_on_this_po == 'B'){ $run_on_this_po_int = 2;}
+
+if($run_on_this_po == 'c' || $run_on_this_po == 'C'){ $run_on_this_po_int = 3;}
+
+if($run_on_this_po == 'd' || $run_on_this_po == 'D'){ $run_on_this_po_int = 4;}
+
+if($run_on_this_po == 'e' || $run_on_this_po == 'E'){ $run_on_this_po_int = 5;}
+
+if($run_on_this_po == 'f' || $run_on_this_po == 'F'){ $run_on_this_po_int = 6;}
+
+if($run_on_this_po == 'g' || $run_on_this_po == 'G'){ $run_on_this_po_int = 7;}
+
 // find the right po id from the po number
 $po_IDsql = "SELECT p.po_ID
              FROM   pos p
@@ -41,7 +57,7 @@ $RID = $machineAcro.$runDate[2].$runDate[3].$runDate[4].$runDate[5].$runDate[6].
 $set_run_date = "SET @run_date = '$runDate';";
 $set_run_date_result = mysqli_query($link, $set_run_date);
 
-$set_run_number_on_po = "SET @run_number_on_po = '$run_on_this_po';";
+$set_run_number_on_po = "SET @run_number_on_po = '$run_on_this_po_int';";
 $set_run_number_on_po_result = mysqli_query($link, $set_run_number_on_po);
 
 $set_run_number_for_machine = "SET @run_number_for_machine = '$machine_run_number';";

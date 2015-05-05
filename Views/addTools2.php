@@ -73,6 +73,7 @@ if($user_sec_lvl < 2){
         <div class='col-md-4'id='changediameter'>
           <label for="diameter">Diameter: </label>
           <select id="diameter" name="diameter" onchange='generatePrice()' onfocus='generatePrice()'>
+            <option value="N/A">N/A</option>
             <option value="1/8">1/8</option>
             <option value="3/16">3/16</option>
             <option value="1/4">1/4</option>
@@ -86,6 +87,7 @@ if($user_sec_lvl < 2){
         <div class='col-md-4' id='changelength'>
           <label for="length">Length: </label>
           <select id="length" name="length" onchange='generatePrice()' onfocus='generatePrice()'>
+            <option value="0">N/A</option>
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>

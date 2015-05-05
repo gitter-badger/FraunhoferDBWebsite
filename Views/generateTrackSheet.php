@@ -95,7 +95,7 @@ if($user_sec_lvl < 2){
     </div>
     <div class='row well well-lg'>
      <div class='col-md-12'>
-      <p class='col-md-12'><strong>Add info about a run. You can add as many runs as you want. Below we will then add tools to each run.</strong></p>
+      <p class='col-md-12'><strong>Add info about a run. You can add runs from a - g. The runID is auto generated</strong></p>
     </div>
     <div class='col-md-12'>
       <p class='col-md-4'>
@@ -117,11 +117,11 @@ if($user_sec_lvl < 2){
         </select>
       </p>
       <p class='col-md-4'>
-        <label for="run_number">Run number on this PO: </label>
-        <input type=" number" name="run_number" id="run_number">
+        <label for="run_number">Run# on this PO: (a,b,c...)</label>
+        <input type="text" name="run_number" id="run_number">
       </p>
       <p class='col-md-4'>
-        <label for="machine_run_number">Run# for machine</label>
+        <label for="machine_run_number">Run# for machine(1,2,3)</label>
         <input type=" number" name="machine_run_number" id="machine_run_number">
       </p>
       <p class='col-md-4'>
@@ -133,19 +133,19 @@ if($user_sec_lvl < 2){
         <select id='machineID'>
           <option value="">Select a machine:</option> 
           <?php
-          $sql = "SELECT machine_ID, machine_acronym FROM machine";
-          $result = mysqli_query($link, $sql);
-          if (!$result) {
-            die("Database query failed: " . mysqli_error($link));
-          }
-          while($row = mysqli_fetch_array($result)){
-            echo '<option value="'.$row['machine_ID'].'">'.$row['machine_acronym'].'</option>';
-          }
+            $sql = "SELECT machine_ID, machine_acronym FROM machine";
+            $result = mysqli_query($link, $sql);
+            if (!$result) {
+              die("Database query failed: " . mysqli_error($link));
+            }
+            while($row = mysqli_fetch_array($result)){
+              echo '<option value="'.$row['machine_ID'].'">'.$row['machine_acronym'].'</option>';
+            }
           ?>
         </select>
       </p>
       <p class='col-md-4'>
-        <label for="runDate">Date: </label>
+        <label for="runDate">Date: (yyyy-mm-dd)</label>
         <input type=" number" name="runDate" id="runDate" value='<?php echo date('Y-m-d'); ?>'>
       </p>
       <p class='col-md-4'>

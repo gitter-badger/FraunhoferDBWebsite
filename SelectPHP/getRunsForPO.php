@@ -42,6 +42,13 @@ if (!$result) {
 //from the coatingResult query
 //then we get the rest of the data
 while($row = mysqli_fetch_array($result)){
+    if($row[2] == 1){ $row[2] = a;}
+    if($row[2] == 2){ $row[2] = b;}
+    if($row[2] == 3){ $row[2] = c;}
+    if($row[2] == 4){ $row[2] = d;}
+    if($row[2] == 5){ $row[2] = e;}
+    if($row[2] == 6){ $row[2] = f;}
+    if($row[2] == 7){ $row[2] = g;}
     echo "<td>".$row[0]."</td>".
          "<td>".$row[1]."</td>". 
          "<td>".$row[2]."</td>".

@@ -52,7 +52,7 @@ function addOldRun(){
      //this fetches the dropdownlist 
      var e       = document.getElementById("runsel");
      //this chooses the selected item from the dropdown list
-     var old_run = e.options[e.selectedIndex].value;                        
+     var old_run = e.options[e.selectedIndex].value;
      $.ajax({
         url : "../InsertPHP/addOldRun.php",
         type: "POST",
@@ -475,13 +475,16 @@ function delRunTool(lineitem, run_number){
     })
  }
 function delPO(){
-    var POID = document.getElementById('POID').innerHTML;
-    console.log(POID);
+     //this fetches the dropdownlist 
+    var e       = document.getElementById("po_sel");
+     //this chooses the selected item from the dropdown list
+    var po_ID = e.options[e.selectedIndex].value; 
+    console.log(po_ID);
     
     $.ajax({
         url : "../DeletePHP/delPOAndTools.php",
         type: "POST",
-        data : {POID  : POID,},
+        data : {po_ID  : po_ID,},
         success: function(data,status, xhr)
         {
             //this refreshes the page after delete
@@ -591,8 +594,6 @@ function changeCustomerAddress(){
 function changeCustomerPhoneNumber(){
      var CID   = $('#input_CID').val();     
      var cPhone = $('#input_phonenumber').val();     
-     console.log(CID);
-     console.log(cPhone);
      if(cPhone === ''){return;}
      //make the postdata
      $.ajax({
@@ -771,7 +772,7 @@ function addRun(){
      success: function(data,status, xhr)
      {
             // increment the run number and update it on the html view
-            run_on_this_PO = parseInt(run_on_this_PO) + 1;
+            // run_on_this_PO = parseInt(run_on_this_PO) + 1;
             $('#run_number').val(run_on_this_PO);
 
             $("#status_text").html(data);
