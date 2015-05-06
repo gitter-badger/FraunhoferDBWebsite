@@ -40,6 +40,26 @@ if($user_sec_lvl < 2){
       </div>
     </div>
     <div class='container'>
+      <div class='row well well-lg'>
+        <!-- This is to fetch the latest po inserted -->
+        <?php
+            $sql = "SELECT po_number, po_ID 
+                    FROM pos
+                    WHERE po_ID = (SELECT MAX(po_ID)
+                                   FROM pos);";
+            $result = mysqli_query($link, $sql);
+
+            while($row = mysqli_fetch_array($result)){
+              $_SESSION["po_number"] = $row[0];
+              $_SESSION["po_ID"] = $row[1];
+            }
+        ?>
+        <input type="hidden" id='mostRecentPo_ID' value="<?php echo $_SESSION["po_ID"]; ?>" />
+        <div class='col-md-12'>
+          <span>The latest inserted po is : <span><strong><?php echo $_SESSION["po_number"];?></strong></span> click if you want to use this one.</span>
+          <button class="btn btn-primary" onclick='showTools(document.getElementById("mostRecentPo_ID").value)'>Click me</button>
+        </div>
+      </div>
      <div class='row well well-lg'>
       <div class='col-md-12'>
         <h2>Choose the right PO number</h2>

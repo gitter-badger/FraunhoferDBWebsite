@@ -72,13 +72,13 @@ function addOldRun(){
     }
     })
 }
- function setSessionID(){
+function setSessionID(){
      //this fetches the dropdownlist 
-     var e       = document.getElementById("packingsel");
-     //this chooses the selected item from the dropdown list
-     var po_ID = e.options[e.selectedIndex].value;
-     console.log(po_ID);
-     $.ajax({
+    var e       = document.getElementById("packingsel");
+    //this chooses the selected item from the dropdown list
+    var po_ID = e.options[e.selectedIndex].value;
+    console.log(po_ID);
+    $.ajax({
         url : "../UpdatePHP/setSessionID.php",
         type: "GET",
         data : {
@@ -89,43 +89,39 @@ function addOldRun(){
         $("#status_text").html(data);
      },
     })
- }
+}
 function addPO(){
-     var POID       = $('#POID').val();     
-     var CID        = $('#CID').val();     
-     var rDate      = $('#rDate').val(); 
-     var iInspect   = $('#iInspect').val();
-     var nrOfLines  = $('#nrOfLines').val();
-     var employeeId = $('#employeeId').val();
-     $.ajax({
-        url : "../InsertPHP/insertNewPO.php",
-        type: "POST",
-        data : {POID      : POID,
-         CID        : CID,
-         rDate      : rDate,
-         iInspect   : iInspect,
-         nrOfLines  : nrOfLines,
-         employeeId : employeeId,
-     },
-
-     success: function(data,status, xhr)
-     {
-        $("#status_text").html(data);
-        $('#POID').val('');
-        $('#CID').val('');
-        $('#rDate').val('');
-        $('#iInspect').val('');
-        $('#nrOfLines').val('');
-        $('#employeeId').val('');
+    var POID       = $('#POID').val();     
+    var CID        = $('#CID').val();     
+    var rDate      = $('#rDate').val(); 
+    var iInspect   = $('#iInspect').val();
+    var nrOfLines  = $('#nrOfLines').val();
+    var employeeId = $('#employeeId').val();
+    $.ajax({
+       url : "../InsertPHP/insertNewPO.php",
+       type: "POST",
+       data : {POID       : POID,
+               CID        : CID,
+               rDate      : rDate,
+               iInspect   : iInspect,
+               nrOfLines  : nrOfLines,
+               employeeId : employeeId,
     },
-    error: function (jqXHR, status, errorThrown)
+    success: function(data,status, xhr)
     {
-        $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
+       $("#status_text").html(data);
+       $('#POID').val('');
+       $('#CID').val('');
+       $('#rDate').val('');
+       $('#iInspect').val('');
+       $('#nrOfLines').val('');
+       $('#employeeId').val('');
+       setSessionIDAfterAddingPO(POID);
     }
-    })
-
- }
+ })
+}
 function showTools(str) {
+    console.log(str);
     if (str == "") {
         document.getElementById("txtHint").innerHTML = "";
         return;
@@ -900,7 +896,7 @@ function logout(){
         // refresh the page on logout with all securty level set to 0
         // this is done so you loose access to the site you are at
         // when you log out.
-        window.location.reload();
+        window.location = "../Login/login.php";
     })
 }
 function changeCoatingType(){
@@ -1100,7 +1096,19 @@ function deleteEmployee(){
         }
     })
 }
-
+function setSessionIDAfterAddingPO(po_ID){
+    $.ajax({
+        url : "../UpdatePHP/setSessionIDWithPONumber.php",
+        type: "GET",
+        data : {
+                    po_ID : po_ID,
+               },
+     success: function(data,status, xhr)
+     {
+        $("#status_text").html(data);
+     },
+    })
+}
 
 
 

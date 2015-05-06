@@ -6,7 +6,6 @@ session_start();
 include '../connection.php';
 
 $po_ID = mysqli_real_escape_string($link, $_GET['po_ID']);
-
 $_SESSION["po_ID"] = $po_ID;
 
 
