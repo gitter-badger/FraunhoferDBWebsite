@@ -19,7 +19,7 @@ while($row = mysqli_fetch_array($secResult)){
   <title>Fraunhofer CCD</title>
   <link href='../css/bootstrap.min.css' rel='stylesheet'>
   <link href='../css/main.css' rel='stylesheet'>
-
+  <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
   <script type="text/javascript" src='../js/passScript.js'></script>
 </head>
 <body>
@@ -68,8 +68,6 @@ while($row = mysqli_fetch_array($secResult)){
           "</tr>";
 
         }
-        mysqli_close($link);
-
         ?>
       </table>
     </div>
@@ -80,10 +78,10 @@ if($user_sec_lvl >=3)
   echo"
     <div class='row well well-lg'>
       <div class='col-md-12'>
-        <h2>Edit Customer ID to change the value in some field of the Customer. The customer ID can not be changed!</h2>
+        <h2>Enter Customer ID to change the value in some field of the Customer. The customer ID can not be changed!</h2>
         <div class='col-md-3'>
           <h3 >Enter the Customer ID Number</h3>
-          <input type='text' id='input_CID' /></br>
+          <input type='number' id='input_CID' /></br>
         </div>
         <div class='col-md-3'>
           <p >Change customers address to:</p>
@@ -121,12 +119,10 @@ if($user_sec_lvl >=3)
             <button type='button'  class='btn btn-default' onclick='deleteCustomer()'>
               <span class='glyphicon glyphicon-trash' aria-hidden='true'></span>
             </button>
-          </p>
-        </div>
-      </div>
-    </div>";
+          </p>";
   }
   ?>
-  <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+  </div>
+  </div>
 </body>
 </html>

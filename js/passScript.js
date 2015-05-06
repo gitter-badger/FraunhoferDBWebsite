@@ -546,10 +546,10 @@ function searchPOCompany() {
 }
 
 function searchPOEmployee() {
-    var searchString    = $("#search_box_employee").val();
-    var data            = 'search='+ searchString;
+    var searchString = $("#search_box_employee").val();
+    var data         = 'search='+ searchString;
     // console.log(searchString);
-            if(searchString) {
+    if(searchString) {
         $.ajax({
             type: "POST",
             url: "../SearchPHP/do_search_employee.php",
@@ -559,9 +559,9 @@ function searchPOEmployee() {
                 $("#searchresults").show();
                 $(".word").html(searchString);
             },
-           success: function(html){
-            $("#results").show();
-            $("#results").append(html);
+            success: function(html){
+                $("#results").show();
+                $("#results").append(html);
         }
     })  
     }
@@ -576,163 +576,132 @@ function changeCustomerAddress(){
         url : "../UpdatePHP/updateCustomerAddress.php",
         type: "POST",
         data : {CID : CID,
-         cAddress : cAddress},
-         success: function(data,status, xhr)
-         {
+        cAddress : cAddress},
+        success: function(data,status, xhr)
+        {
             window.location.reload(true);
             $("#status_text").html(data);
             $("#input_CID").val("");
             $("#input_address").val("");
-         },
-      error: function (jqXHR, status, errorThrown)
-      {
-          $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
-      }
+        }
     })
 }
 
 function changeCustomerPhoneNumber(){
-     var CID   = $('#input_CID').val();     
-     var cPhone = $('#input_phonenumber').val();     
-     if(cPhone === ''){return;}
-     //make the postdata
-     $.ajax({
+    var CID   = $('#input_CID').val();     
+    var cPhone = $('#input_phonenumber').val();     
+    if(cPhone === ''){return;}
+    $.ajax({
         url : "../UpdatePHP/updateCustomerPhone.php",
         type: "POST",
         data : {CID : CID,
-         cPhone : cPhone},
-         success: function(data,status, xhr)
-         {
+                cPhone : cPhone},
+        success: function(data,status, xhr)
+        {
             window.location.reload(true);
             $("#status_text").html(data);
             $("#input_CID").val("");
             $("#input_phonenumber").val("");
           // $('#POID').val('');
-      },
-      error: function (jqXHR, status, errorThrown)
-      {
-            $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
         }
     })
  }
 
 function changeCustomerEmail(){
-     //get the form values
-     var CID   = $('#input_CID').val();     
-     var cEmail = $('#input_email').val();     
-     //console.log(CID);
-     //console.log(cEmail);
-     if(cEmail === ''){return;}
-     //make the postdata
-     
-     $.ajax({
+    //get the form values
+    var CID   = $('#input_CID').val();     
+    var cEmail = $('#input_email').val();      
+    if(cEmail === ''){return;}     
+    $.ajax({
         url : "../UpdatePHP/updateCustomerEmail.php",
         type: "POST",
         data : {CID : CID,
-         cEmail : cEmail},
-         success: function(data,status, xhr)
-         {
+                cEmail : cEmail},
+        success: function(data,status, xhr)
+        {
             window.location.reload(true);
             //if success then just output the text to the status div then clear the form inputs to prepare for new data
             $("#status_text").html(data);
             $("#input_CID").val("");
             $("#input_email").val("");
           // $('#POID').val('');
-      },
-      error: function (jqXHR, status, errorThrown)
-      {
-            //if fail show error and server status
-            $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
         }
     })
 }
 
 function changeCustomerFax(){
-     //get the form values
-     var CID   = $('#input_CID').val();     
-     var cFax = $('#input_faxnumber').val();
-     if(cFax === '')
-     {
-        return;
-     }     
+    //get the form values
+    var CID   = $('#input_CID').val();     
+    var cFax = $('#input_faxnumber').val();
+    if(cFax === '')
+    {
+       return;
+    }     
      //console.log(CID);
     // console.log(cFax);
-     $.ajax({
+    $.ajax({
         url : "../UpdatePHP/updateCustomerFax.php",
         type: "POST",
         data : {CID : CID,
                 cFax : cFax},
-         success: function(data,status, xhr)
-         {
+        success: function(data,status, xhr)
+        {
             window.location.reload(true);
             $("#status_text").html(data);
             $("#input_CID").val("");
             $("#input_faxnumber").val("");
-          // $('#POID').val('');
-      },
-      error: function (jqXHR, status, errorThrown)
-      {
-            //if fail show error and server status
-            $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
+         // $('#POID').val('');
         }
     })
 }
 
 function changeCustomerNotes(){
-     var CID   = $('#input_CID').val();     
-     var cNotes = $('#input_notes').val();
-     if(cNotes === '')
-     {
+    var CID   = $('#input_CID').val();     
+    var cNotes = $('#input_notes').val();
+    if(cNotes === '')
+    {
         return;
     }     
-     $.ajax({
+    $.ajax({
         url : "../UpdatePHP/updateCustomerNotes.php",
         type: "POST",
         data : {CID : CID,
-         cNotes : cNotes},
-         success: function(data,status, xhr)
-         {
+        cNotes : cNotes},
+        success: function(data,status, xhr)
+        {
             window.location.reload(true);
             $("#status_text").html(data);
             $("#input_CID").val("");
             $("#input_notes").val("");
           // $('#POID').val('');
-      },
-      error: function (jqXHR, status, errorThrown)
-      {
-            $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
         }
     })
 }
 function changeCustomerContact(){
-     var CID   = $('#input_CID').val();     
-     var cContact = $('#input_contact').val();
-     if(cContact === '')
-     {
+    var CID   = $('#input_CID').val();     
+    var cContact = $('#input_contact').val();
+    if(cContact === '')
+    {
         return;
     }     
-     $.ajax({
+    $.ajax({
         url : "../UpdatePHP/updateCustomerContact.php",
         type: "POST",
         data : {CID : CID,
-         cContact : cContact},
-         success: function(data,status, xhr)
-         {
+        cContact : cContact},
+        success: function(data,status, xhr)
+        {
             window.location.reload(true);
             $("#status_text").html(data);
             $("#input_CID").val("");
             $("#input_contact").val("");
           // $('#POID').val('');
-      },
-      error: function (jqXHR, status, errorThrown)
-      {
-            $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
         }
     })
 }
 function deleteCustomer(){
-     var CID   = $('#input_CID').val();     
-     $.ajax({
+    var CID   = $('#input_CID').val();     
+    $.ajax({
         url : "../DeletePHP/deleteCustomer.php",
         type: "POST",
         data : {CID : CID},
@@ -741,11 +710,6 @@ function deleteCustomer(){
             window.location.reload(true);
             $("#status_text").html(data);
             $("#input_CID").val("");
-          // $('#POID').val('');
-      },
-      error: function (jqXHR, status, errorThrown)
-      {
-            $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
         }
     })
 }
@@ -937,6 +901,203 @@ function logout(){
         // this is done so you loose access to the site you are at
         // when you log out.
         window.location.reload();
+    })
+}
+function changeCoatingType(){
+    var coating_ID   = $('#input_coating_ID').val();     
+    var coating_type = $('#input_type').val();     
+    $.ajax({
+        url : "../UpdatePHP/updateCoatingType.php",
+        type: "POST",
+        data : {coating_ID : coating_ID,
+                coating_type : coating_type},
+        success: function(data,status, xhr)
+        {
+            window.location.reload(true);
+            $("#status_text").html(data);
+            $("#input_coating_ID").val("");
+            $("#input_type").val("");
+        }
+    })
+}
+function changeCoatingDescription(){
+    var coating_ID          = $('#input_coating_ID').val();     
+    var coating_description = $('#input_coating_description').val();     
+    $.ajax({
+        url : "../UpdatePHP/updateCoatingDescription.php",
+        type: "POST",
+        data : {coating_ID : coating_ID,
+                coating_description : coating_description},
+        success: function(data,status, xhr)
+        {
+            window.location.reload(true);
+            $("#status_text").html(data);
+            $("#input_coating_ID").val("");
+            $("#input_coating_description").val("");
+        }
+    })
+}
+function deleteCoating(){
+    var coating_ID   = $('#input_coating_ID').val();     
+    $.ajax({
+        url : "../DeletePHP/deleteCoating.php",
+        type: "POST",
+        data : {coating_ID : coating_ID},
+        success: function(data,status, xhr)
+        {
+            window.location.reload(true);
+            $("#status_text").html(data);
+            $("#input_coating_ID").val("");
+        }
+    })
+}
+function deleteMachine(){
+    var machine_ID   = $('#input_machine_ID').val();     
+    $.ajax({
+        url : "../DeletePHP/deleteMachine.php",
+        type: "POST",
+        data : {machine_ID : machine_ID},
+        success: function(data,status, xhr)
+        {
+            window.location.reload(true);
+            $("#status_text").html(data);
+            $("#input_machine_ID").val("");
+        }
+    })
+}
+function changeMachineName(){
+    var machine_ID   = $('#input_machine_ID').val();     
+    var machine_name = $('#input_machine_name').val();     
+    $.ajax({
+        url : "../UpdatePHP/updateMachineName.php",
+        type: "POST",
+        data : {machine_ID : machine_ID,
+                machine_name : machine_name},
+        success: function(data,status, xhr)
+        {
+            window.location.reload(true);
+            $("#status_text").html(data);
+            $("#input_machine_ID").val("");
+            $("#input_machine_name").val("");
+        }
+    })
+}
+function changeMachineComment(){
+    var machine_ID      = $('#input_machine_ID').val();     
+    var machine_comment = $('#input_machine_comment').val();     
+    $.ajax({
+        url : "../UpdatePHP/updateMachineComment.php",
+        type: "POST",
+        data : {machine_ID : machine_ID,
+                machine_comment : machine_comment},
+        success: function(data,status, xhr)
+        {
+            window.location.reload(true);
+            $("#status_text").html(data);
+            $("#input_machine_ID").val("");
+            $("#input_machine_comment").val("");
+        }
+    })
+}
+function changeMachineAcronym(){
+    var machine_ID      = $('#input_machine_ID').val();     
+    var machine_acronym = $('#input_machine_acronym').val();     
+    $.ajax({
+        url : "../UpdatePHP/updateMachineAcronym.php",
+        type: "POST",
+        data : {machine_ID : machine_ID,
+                machine_acronym : machine_acronym},
+        success: function(data,status, xhr)
+        {
+            window.location.reload(true);
+            $("#status_text").html(data);
+            $("#input_machine_ID").val("");
+            $("#input_machine_acronym").val("");
+        }
+    })
+}
+function changeEmployeeName(){
+    var employee_ID   = $('#input_employee_ID').val();     
+    var employee_name = $('#input_employee_name').val(); 
+    console.log(employee_ID);
+    console.log(employee_name);    
+    $.ajax({
+        url : "../UpdatePHP/updateEmployeeName.php",
+        type: "POST",
+        data : {employee_ID : employee_ID,
+                employee_name : employee_name},
+        success: function(data,status, xhr)
+        {
+            window.location.reload(true);
+            $("#status_text").html(data);
+            $("#input_employee_ID").val("");
+            $("#input_employee_name").val("");
+        }
+    })
+}
+function changeEmployeeEmail(){
+    var employee_ID    = $('#input_employee_ID').val();     
+    var employee_email = $('#input_employee_email').val();     
+    $.ajax({
+        url : "../UpdatePHP/updateEmployeeEmail.php",
+        type: "POST",
+        data : {employee_ID : employee_ID,
+                employee_email : employee_email},
+        success: function(data,status, xhr)
+        {
+            window.location.reload(true);
+            $("#status_text").html(data);
+            $("#input_employee_ID").val("");
+            $("#input_employee_email").val("");
+        }
+    })
+}
+function changeEmployeePhone(){
+    var employee_ID    = $('#input_employee_ID').val();     
+    var employee_phone = $('#input_employee_phone').val();     
+    $.ajax({
+        url : "../UpdatePHP/updateEmployeePhone.php",
+        type: "POST",
+        data : {employee_ID : employee_ID,
+                employee_phone : employee_phone},
+        success: function(data,status, xhr)
+        {
+            window.location.reload(true);
+            $("#status_text").html(data);
+            $("#input_employee_ID").val("");
+            $("#input_employee_phone").val("");
+        }
+    })
+}
+function changeEmployeeSecurityLevel(){
+    var employee_ID    = $('#input_employee_ID').val();     
+    var security_level = $('#input_security_level').val();     
+    $.ajax({
+        url : "../UpdatePHP/updateEmployeeSecurityLevel.php",
+        type: "POST",
+        data : {employee_ID : employee_ID,
+                security_level : security_level},
+        success: function(data,status, xhr)
+        {
+            window.location.reload(true);
+            $("#status_text").html(data);
+            $("#input_employee_ID").val("");
+            $("#input_security_level").val("");
+        }
+    })
+}
+function deleteEmployee(){
+    var employee_ID   = $('#input_employee_ID').val();     
+    $.ajax({
+        url : "../DeletePHP/deleteEmployee.php",
+        type: "POST",
+        data : {employee_ID : employee_ID},
+        success: function(data,status, xhr)
+        {
+            window.location.reload(true);
+            $("#status_text").html(data);
+            $("#input_employee_ID").val("");
+        }
     })
 }
 

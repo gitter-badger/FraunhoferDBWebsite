@@ -11,6 +11,19 @@ $number_of_tools  = mysqli_real_escape_string($link, $_POST['number_of_tools']);
 $run_number 	  = mysqli_real_escape_string($link, $_POST['runNumber']);
 $lineitem_comment = mysqli_real_escape_string($link, $_POST['final_comment']);
 
+if($run_number == 'a' || $run_number == 'A'){ $run_number_int = 1;}
+
+if($run_number == 'b' || $run_number == 'B'){ $run_number_int = 2;}
+
+if($run_number == 'c' || $run_number == 'C'){ $run_number_int = 3;}
+
+if($run_number == 'd' || $run_number == 'D'){ $run_number_int = 4;}
+
+if($run_number == 'e' || $run_number == 'E'){ $run_number_int = 5;}
+
+if($run_number == 'f' || $run_number == 'F'){ $run_number_int = 6;}
+
+if($run_number == 'g' || $run_number == 'G'){ $run_number_int = 7;}
 /*
 	TODO:
 		1. Get the line_on_po, run_number and the po_number
@@ -48,7 +61,7 @@ if (!$lineitemResult) {
 // Need to find the run that has the right po_ID and the right run_number_on_po in the pos_run table
 $runIDsql = "SELECT run_ID
 			 FROM pos_run posr
-			 WHERE run_number_on_po = '$run_number'
+			 WHERE run_number_on_po = '$run_number_int'
 			 AND po_ID = '$POID';";
 
 $runIDresult = mysqli_query($link, $runIDsql);

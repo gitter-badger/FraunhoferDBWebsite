@@ -184,7 +184,7 @@ if($user_sec_lvl < 2){
       <input type=" number" name="number_of_tools" id="number_of_tools">
     </p>
     <p class='col-md-4'>
-      <label for="runNumber">RunNumber: </label>
+      <label for="runNumber">RunNumber(a,b,c...): </label>
       <input type="text" name="runNumber" id="runNumber">
     </p>
     <p class='col-md-4'>

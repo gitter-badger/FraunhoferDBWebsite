@@ -6,13 +6,14 @@ session_start();
 $user = $_SESSION["username"];
 //find his level of security 
 $secsql = "SELECT security_level
-           FROM employees
+           FROM employee
            WHERE employee_name = '$user'";
 $secResult = mysqli_query($link, $secsql);
 
 while($row = mysqli_fetch_array($secResult)){
   $user_sec_lvl = $row[0];
 }
+
 ?>
 <html>
 <head>
@@ -42,29 +43,59 @@ while($row = mysqli_fetch_array($secResult)){
           <tr>
             <th>Machine ID</th>
             <th>Coating type</th>
-            <th>Something more?</th>
+            <th>Coating Description</th>
           </tr>
           <?php
-          $sql ="SELECT * 
-                 FROM coating";
-          $result = mysqli_query($link, $sql);
-          if (!$result){
-           die("Database query failed: " . mysql_error());
-         }
-         while($row = mysqli_fetch_array($result)){
-          echo "<tr>".
-          "<td>".$row[0]."</td>".
-          "<td>".$row[1]."</td>".
-          "<td>".$row[2]."</td>".
-          "</tr>";
+            $sql ="SELECT * 
+                   FROM coating";
+            $result = mysqli_query($link, $sql);
 
-        }
-
-
+            if (!$result){
+              die("Database query failed: " . mysql_error());
+           }
+           while($row = mysqli_fetch_array($result)){
+              echo "<tr>".
+              "<td>".$row[0]."</td>".
+              "<td>".$row[1]."</td>".
+              "<td>".$row[2]."</td>".
+              "</tr>";
+          }
         ?>
       </table>
     </div>
   </div>
+  <?php
+    if($user_sec_lvl >=3)
+    {
+      echo"
+        <div class='row well well-lg'>
+          <div class='col-md-12'>
+            <h2>Enter Coating ID to insert or change some values in the table. The coating ID can not be changed!</h2>
+            <div class='col-md-3'>
+              <h3 >Enter the Coating ID Number</h3>
+              <input type='number' id='input_coating_ID' /></br>
+            </div>
+            <div class='col-md-3'>
+              <p >Change coating type:</p>
+              <input type='text' id='input_type'/>
+              <input type='submit' value='Submit' onclick='changeCoatingType()' class='btn btn-primary'/>
+            </div>
+            <div class='col-md-3'>
+              <p >Change coating description:</p>
+              <input type='text' id='input_coating_description'/>
+              <input type='submit' value='Submit' onclick='changeCoatingDescription()' class='btn btn-primary'/>
+            </div>
+            <div class='col-md-3'>
+              <p >Delete Coating:
+                <button type='button' class='btn btn-default' onclick='deleteCoating()'>
+                  <span class='glyphicon glyphicon-trash' aria-hidden='true'></span>
+                </button>
+              </p>
+            </div>
+          </div>
+        </div>";
+      }
+  ?>
 </div>
 </body>
 </html>
