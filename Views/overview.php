@@ -154,7 +154,7 @@ while($row = mysqli_fetch_array($secResult)){
         /*
             query that shows the information about line items on the clicked po
         */
-            $toolSql = "SELECT l.line_on_po, l.tool_ID, l.quantity, l.price, SUM(ROUND(l.price * l.quantity, 2)) 
+            $toolSql = "SELECT l.line_on_po, l.tool_ID, l.quantity, l.price, ROUND(l.price * l.quantity, 2) 
                         FROM lineitem l, pos p
                         WHERE l.po_ID = '$po_ID'
                         GROUP BY l.lineitem_ID
