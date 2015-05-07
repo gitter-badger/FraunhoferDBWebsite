@@ -77,7 +77,6 @@ function setSessionID(){
     var e       = document.getElementById("packingsel");
     //this chooses the selected item from the dropdown list
     var po_ID = e.options[e.selectedIndex].value;
-    console.log(po_ID);
     $.ajax({
         url : "../UpdatePHP/setSessionID.php",
         type: "GET",
@@ -121,7 +120,6 @@ function addPO(){
  })
 }
 function showTools(str) {
-    console.log(str);
     if (str == "") {
         document.getElementById("txtHint").innerHTML = "";
         return;
@@ -784,13 +782,12 @@ function addLineItemToRun(){
     Adds a final inspection comment
     and a shipping date to the chosen PO
 */
-
-function addShipDateToPO (line){
+function confirmPO(){
    var POID     = document.getElementById('POID').innerHTML;
    var fInspect = $('#fInspect').val();
    var date     = $('#addShippingDate').val();
   $.ajax({
-    url : "../InsertPHP/insertShipDateToPO.php",
+    url : "../InsertPHP/confirmTrackSheet.php",
     type: "POST",
     data : {POID     : POID,
             fInspect : fInspect,
@@ -799,11 +796,47 @@ function addShipDateToPO (line){
         success: function(data,status, xhr)
         {
             if(data.indexOf("Error") > -1){
-               alert("Error!");
+               alert(data);
+            } else if(data.indexOf("missing") > -1){
+                var r = confirm(data);
+                if(r == true)
+                {
+                    addShipDateToPO();
+                }
+            }else if(data.indexOf("assigned") > -1){
+                var r = confirm(data);
+                if(r == true)
+                {
+                    addShipDateToPO(POID, fInspect, date);
+                }
             }else{
-                alert("Final comment and shipping date added");
-        }
+                var r = confirm("This PO looks good to me. Save the shipping date by clicking OK");
+                if(r == true)
+                {
+                    addShipDateToPO(POID, fInspect, date);
+                }
+            }
 
+        }
+    })
+}
+function addShipDateToPO (POID, fInspect, date){
+    console.log(POID);
+    console.log(fInspect);
+    console.log(date);
+  $.ajax({
+    url : "../InsertPHP/insertShipDateToPO.php",
+    type: "POST",
+    data : {POID     : POID,
+            fInspect : fInspect,
+            date     : date},
+        success: function(data,status, xhr)
+        {
+            if(data.indexOf("Error") > -1){
+                console.log(data)
+            }else{
+                window.location.reload(true);
+            }
         },
     })
 }
@@ -1014,9 +1047,7 @@ function changeMachineAcronym(){
 }
 function changeEmployeeName(){
     var employee_ID   = $('#input_employee_ID').val();     
-    var employee_name = $('#input_employee_name').val(); 
-    console.log(employee_ID);
-    console.log(employee_name);    
+    var employee_name = $('#input_employee_name').val();    
     $.ajax({
         url : "../UpdatePHP/updateEmployeeName.php",
         type: "POST",

@@ -226,7 +226,7 @@ if($user_sec_lvl < 2){
   <input type="text" id="fInspect" name='fInspect'/>
   <label for='addShippingDate' class='col-md-offset-6'>Add Shipping date and a final inspection to this PO</label>
   <input type="text" id="addShippingDate" name='addShippingDate' value='<?php echo date("Y-m-d") ?>'/>
-  <button type='button' id='addShippingDateButton' class='btn btn-primary' onclick='addShipDateToPO(document.getElementById("addShippingDate").value)'>
+  <button type='button' id='addShippingDateButton' class='btn btn-primary' onclick='confirmPO()'>
    <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
  </button>
  <a class='col-md-offset-9' href='../Printouts/printTrackSheet.php' target="_blank">Get a Printable version of the tracksheet</a>

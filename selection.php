@@ -38,7 +38,7 @@
     </div>
   </div>
   <div class='container'>
-    <h1>Goodday all you fine workers</h1>
+    <h1>Fraunhofer CCD</h1>
     <div class='row well well-lg'>
       <div class='col-md-3 btn-group'>
           <!-- <input type="submit" class='btn btn-primary' value="Tooling overview"> -->
@@ -94,16 +94,16 @@
       if($user_sec_lvl >= 4){
         echo
         "<div class='col-md-3 btn-group'>
-        <button type='button' class='btn btn-primary' onclick="."location.href"."='Views/addOrEdit.php'>Financial data</button>
+        <button type='button' class='btn btn-primary'>Financial data</button>
         <button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-expanded='false'>
           <span class='glyphicon glyphicon-euro'></span>
           <span class='sr-only'>Toggle Dropdown</span>
         </button>
         <ul class='dropdown-menu' role='menu'>
-          <li><a href='Views/viewAllCustomers.php'>Money Trees</a></li>
-          <li><a href='Views/viewAllEmployees.php'>Money marbles and chalk</a></li>
-          <li><a href='Views/viewAllMachines.php'>Aint nothing but a 'G' thang</a></li>
-          <li><a href='Views/viewAllMachines.php'>It´s all about the Benjamins</a></li>
+          <li><a>Money Trees</a></li>
+          <li><a>Money marbles and chalk</a></li>
+          <li><a>Aint nothing but a 'G' thang</a></li>
+          <li><a>It´s all about the Benjamins</a></li>
         </ul>
         </div>";
       }

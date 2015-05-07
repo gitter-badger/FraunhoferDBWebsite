@@ -5,11 +5,8 @@ include '../connection.php';
 $po_number 	  = mysqli_real_escape_string($link, $_POST['POID']);
 $date 	  = mysqli_real_escape_string($link, $_POST['date']);
 $fInspect = mysqli_real_escape_string($link, $_POST['fInspect']);
-// if the date or inspection comment is empty we dont insert it to the DB
-if($date == "" OR $fInspect == ""){ 
-	echo "Empty date or inspection comment";
-}
-else{
+
+
 // getting the right po_ID from the po_number
 $po_IDsql = "SELECT p.po_ID
              FROM   pos p
@@ -66,5 +63,4 @@ if(!$result5){
 
 // close connection
 mysqli_close($link);
-}
 ?>
