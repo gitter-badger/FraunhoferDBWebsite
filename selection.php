@@ -75,6 +75,7 @@
           <li><a href='Views/viewAllCustomers.php'>Customer info</a></li>
           <li><a href='Views/viewAllEmployees.php'>Employee info</a></li>
           <li><a href='Views/viewAllMachines.php'>Machine info</a></li>
+          <li><a href='Views/viewAllCoatings.php'>Coating info</a></li>
         </ul>
         </div>";
       }

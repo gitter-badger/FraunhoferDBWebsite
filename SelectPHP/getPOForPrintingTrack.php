@@ -22,7 +22,7 @@ $topsql ="SELECT p.po_ID, p.receiving_date, c.customer_name, p.shipping_date, TI
 $topresult = mysqli_query($link, $topsql);
 
 // the overall price of the PO
-$sumSql ="SELECT SUM(ROUND(l.tPrice * l.quantity, 2)) 
+$sumSql ="SELECT SUM(ROUND(l.price * l.quantity, 2)) 
           FROM lineitem l
           WHERE l.po_ID = '$q'";
 $sumResult = mysqli_query($link, $sumSql);
@@ -38,14 +38,14 @@ while($row = mysqli_fetch_array($sumResult)){
 }
 while($row = mysqli_fetch_array($topresult)) {
     $POID = $row[0];
-    echo "<div class='col-xs-12' style='font-size:9px'>".
+    echo "<div class='col-xs-12'>".
          "<span class='col-xs-3'><strong>Customer : </strong>".$row[2]."</span>".
          "<span class='col-xs-3'><strong>Receiving Date : </strong>".$row[1]."</span>".
          "<span class='col-xs-3'><strong>Shipping Date : </strong>".$row[3]."</span></div>".
-         "<div class='col-xs-12'style='font-size:9px'>".
+         "<div class='col-xs-12'>".
          "<span class='col-xs-3'><strong>Turn around time : </strong>".$row[4]." Days</span>".
          "<span class='col-xs-3'><strong>Employee: </strong>".$row[5]."</span>".
-         "<span class='col-xs-3'><strong>Overall price : </strong>".$row[0]." $</span></div>";
+         "<span class='col-xs-3'><strong>Overall price : </strong>".$overall_price." $</span></div>";
 }
 
 while($row = mysqli_fetch_array($countresult)){
@@ -56,8 +56,8 @@ while($row = mysqli_fetch_array($countresult)){
 $newResult = mysqli_query($link, $topsql);
 while($row = mysqli_fetch_array($newResult)){
 
-    echo "<div class='col-xs-12'><div class='col-xs-6'><strong>PO comment : </strong>".$row[6]."</div>".
-         "<div class='col-xs-6'><strong>Final inspection : </strong>".$row[7]."</div></div>";
+    echo "<div class='col-xs-6'><div class='col-xs-6'><strong>Initial inspection : </strong>".$row[6]."</div>".
+         "<div class='col-xs-6'style='margin-bottom:10px;'><strong>Final inspection : </strong>".$row[7]."</div></div>";
 }
          
 
@@ -87,7 +87,8 @@ $runsql ="SELECT c.coating_type, posr.run_number_on_po, r.ah_pulses, r.run_numbe
           AND posr.po_ID = l.po_ID
           AND posr.run_ID = r.run_ID
           AND r.coating_ID = c.coating_ID
-          GROUP BY r.run_ID;";
+          GROUP BY r.run_ID
+          ORDER BY posr.run_number_on_po;";
 
 $runresult = mysqli_query($link, $runsql);
 
@@ -96,31 +97,31 @@ if(!$runresult){
 }
    echo "<table>";
    echo "<tr>".
-        "<td>Line#</td>".
+        "<td width='60'>Line#</td>".
+        "<td width='120'># of items on PO</td>".
         "<td>ToolID</td>".
-        "<td>Dia</td>".
-        "<td>Len</td>".
-        "<td>DblEnd</td>".  
-        "<td>Quantity of items on PO</td>".
-        "<td>Run Number</td>".
-        "<td>#Of items in run</td>".
-        "<td>Final Comment</td>".
+        "<td width='50'>Dia</td>".
+        "<td width='50'>Len</td>".
+        "<td width='50'>DblEnd</td>".  
+        "<td width='50'>Run Number</td>".
+        "<td width='110'>#Of items in run</td>".
+        "<td>Final inspection</td>".
         "</tr>";
 
 while($row = mysqli_fetch_array($result)) {
    echo "<tr>".
         "<td>".$row[0]."</td>".
+        "<td>".$row[5]."</td>".
         "<td>".$row[1]."</td>".
         "<td>".$row[2]."</td>".
         "<td>".$row[3]."</td>".
         "<td>".$row[4]."</td>".
-        "<td>".$row[5]."</td>".
         "<td>".$row[6]."</td>".
         "<td>".$row[7]."</td>".
         "<td>".$row[8]."</td>".
         "</tr>";
 }
-echo "</table></div><div>RUN INFO<table>";
+echo "</table></div><div style='margin-top: 10px;'>RUN INFO<table>";
 echo "<tr>".
      "<td>"."Coating Type"."</td>".
      "<td>"."Run Number"."</td>".

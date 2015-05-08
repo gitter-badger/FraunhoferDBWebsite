@@ -29,12 +29,12 @@ while($row = mysqli_fetch_array($secResult)){
   <style type="text/css" media="print">
   table { page-break-inside:auto; }
   tr    { page-break-inside:auto; }
-  /*@media print{@page {size: landscape}}*/
+  @media print{@page {size: landscape}}
   </style>
 
 
 </head>
-<body>
+<body style='font-size:9px'>
   <div class='col-md-10 col-md-offset-1'>
     <h5>Customer product track for coating</h5>
     <div>
