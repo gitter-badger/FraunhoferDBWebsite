@@ -15,7 +15,7 @@
 </head>
 <body>
   <div class='col-md-12'>
-    <a href='../selection.php'>Take me home</a>
+  <?php include '../header.php'; ?>
     <h2>Place for feedback</h2>
       <form action="../InsertPHP/addFeedback.php" method="post">
         <h3>Name:</h3> <input type="text" name="name"><br>
