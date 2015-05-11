@@ -17,11 +17,9 @@
   <div class='col-md-12'>
   <?php include '../header.php'; ?>
     <h2>Place for feedback</h2>
-      <form action="../InsertPHP/addFeedback.php" method="post">
-        <h3>Name:</h3> <input type="text" name="name"><br>
-        <h3>Feedback:</h3><textarea name="comment"></textarea><br>
-        <input type="submit">
-      </form>
+        <h3>Name:</h3> <input type="text" id='name'name="name"><br>
+        <h3>Feedback:</h3><textarea id='comment'name="comment"></textarea><br>
+        <input type="submit" onclick='addFeedback()'>
   </div>
   <div class='col-md-12'>
     <h2>These are all the comments</h2>

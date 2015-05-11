@@ -23,7 +23,7 @@ $po_IDresult = mysqli_query($link, $rightpo_IDsql);
 while($row = mysqli_fetch_array($po_IDresult)){
 	$rightPO = $row[0];
 }
-//var_dump($rightPO);
+var_dump($line_item);
 
 
 $sql = "INSERT INTO lineitem(line_on_po, po_ID, quantity, tool_ID, diameter, length, double_end, price) VALUES('$line_item', '$rightPO', '$quantity', '$tool_ID', '$diameter', '$length', '$doubleEnd', '$price')";

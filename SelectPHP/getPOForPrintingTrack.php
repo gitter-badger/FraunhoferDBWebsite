@@ -56,8 +56,8 @@ while($row = mysqli_fetch_array($countresult)){
 $newResult = mysqli_query($link, $topsql);
 while($row = mysqli_fetch_array($newResult)){
 
-    echo "<div class='col-xs-6'><div class='col-xs-6'><strong>Initial inspection : </strong>".$row[6]."</div>".
-         "<div class='col-xs-6'style='margin-bottom:10px;'><strong>Final inspection : </strong>".$row[7]."</div></div>";
+    echo "<div class='col-xs-6'><div class='col-xs-6'><strong>Initial inspection :  </strong>".$row[6]."</div>".
+         "<div class='col-xs-6'style='margin-bottom:10px;padding-left:22px;'><strong>Final inspection : </strong>".$row[7]."</div></div>";
 }
          
 
@@ -97,18 +97,26 @@ if(!$runresult){
 }
    echo "<table>";
    echo "<tr>".
-        "<td width='60'>Line#</td>".
-        "<td width='120'># of items on PO</td>".
+        "<td>Line#</td>".
+        "<td># of items on PO</td>".
         "<td>ToolID</td>".
-        "<td width='50'>Dia</td>".
-        "<td width='50'>Len</td>".
-        "<td width='50'>DblEnd</td>".  
-        "<td width='50'>Run Number</td>".
-        "<td width='110'>#Of items in run</td>".
+        "<td>Dia</td>".
+        "<td>Len</td>".
+        "<td>DblEnd</td>".  
+        "<td>Run#</td>".
+        "<td>#Of items in run</td>".
         "<td>Final inspection</td>".
         "</tr>";
 
 while($row = mysqli_fetch_array($result)) {
+  // display letters not integers for run number
+    if($row[6] == 1){ $row[6] = a;}
+    if($row[6] == 2){ $row[6] = b;}
+    if($row[6] == 3){ $row[6] = c;}
+    if($row[6] == 4){ $row[6] = d;}
+    if($row[6] == 5){ $row[6] = e;}
+    if($row[6] == 6){ $row[6] = f;}
+    if($row[6] == 7){ $row[6] = g;}
    echo "<tr>".
         "<td>".$row[0]."</td>".
         "<td>".$row[5]."</td>".
@@ -124,13 +132,20 @@ while($row = mysqli_fetch_array($result)) {
 echo "</table></div><div style='margin-top: 10px;'>RUN INFO<table>";
 echo "<tr>".
      "<td>"."Coating Type"."</td>".
-     "<td>"."Run Number"."</td>".
+     "<td>"."Run#"."</td>".
      "<td>"."Ah/pulses"."</td>".
      "<td>"."run ID"."</td>".
      "<td>"."Comments"."</td>".
      "</tr>";
 
 while($row = mysqli_fetch_array($runresult)){
+    if($row[1] == 1){ $row[1] = a;}
+    if($row[1] == 2){ $row[1] = b;}
+    if($row[1] == 3){ $row[1] = c;}
+    if($row[1] == 4){ $row[1] = d;}
+    if($row[1] == 5){ $row[1] = e;}
+    if($row[1] == 6){ $row[1] = f;}
+    if($row[1] == 7){ $row[1] = g;}
    echo "<tr>".
         "<td>".$row[0]."</td>".
         "<td>".$row[1]."</td>".

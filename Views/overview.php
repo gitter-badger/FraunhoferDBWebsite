@@ -39,7 +39,6 @@ while($row = mysqli_fetch_array($secResult)){
 </head>
 <body>
 <?php include '../header.php'; ?>
-   <!-- _____________________________________________________________--> 
   <div class='container'>
     <div class='row well well-lg'>
       <div class='col-md-6'>
@@ -52,11 +51,10 @@ while($row = mysqli_fetch_array($secResult)){
         </div>
       </div>
     </div>
-    <!-- _____________________________________________________________-->
     <div class='row well well-lg'>
       <div class='col-md-6'>
         <h2>Print outs</h2>
-        <p class='lead'>Print out Genereal info sheets or track sheets</p>
+        <p class='lead'>Print out General info sheets or track sheets</p>
         <div class='input-group col-md-8'>
           <span class="btn-group">
             <div class='list-group'>
@@ -67,8 +65,6 @@ while($row = mysqli_fetch_array($secResult)){
         </div>
       </div>
     </div>
-    <!-- _____________________________________________________________-->
-
     <div class='row well well-lg'>
       <div class='col-md-12'>
         <h2>Find Existing POS for the company of your choice</h2>
@@ -93,11 +89,10 @@ while($row = mysqli_fetch_array($secResult)){
       <div id="txtHint"><b>PO info will be listed here...</b></div>
     </div>
   </div>
-  <!--________________________________DivSeparator_____________________________-->
   <div class='row well well-lg'>
     <div class='col-md-12'>
       <h2>All active POS</h2>
-      <p class='lead'>These are all our active POS at the moment.(that havent been shipped)</p>
+      <p class='lead'>These are all our active POS at the moment.(that have not been shipped)</p>
       <table id="report">
         <tr>
           <th class='col-md-1'>PO number</th>
@@ -135,8 +130,8 @@ while($row = mysqli_fetch_array($secResult)){
 
             // first we have to find the right po_ID from the po_Number we get from the user
             $po_IDsql = "SELECT p.po_ID
-             FROM   pos p
-             WHERE p.po_number = '$rightRow';";
+                         FROM   pos p
+                         WHERE p.po_number = '$rightRow';";
              $po_IDresult = mysqli_query($link, $po_IDsql);
 
              while($row = mysqli_fetch_array($po_IDresult)){
@@ -159,9 +154,8 @@ while($row = mysqli_fetch_array($secResult)){
             "<td colspan='7'>";
             while ($second = mysqli_fetch_array($toolResult)){
              echo "<div class='col-md-2'> Item: ".$second[0]."</div>".
-             "<div class='col-md-2'> TID : ".$second[1]."</div>".
+             "<div class='col-md-3'> TID : ".$second[1]."</div>".
              "<div class='col-md-2'> Quantity : ".$second[2]."</div>".
-             "<div class='col-md-2'> Est Run# : TODO</div>".
              "<div class='col-md-2'> Unit Price : ".$second[3]."</div>".
              "<div class='col-md-2'> Total price : ".$second[4]."</div>";
            }
