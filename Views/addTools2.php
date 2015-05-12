@@ -49,13 +49,13 @@ while($row = mysqli_fetch_array($result)){
 }
 ?>
 <input type="hidden" id='mostRecentPo_ID' value="<?php echo $_SESSION["po_ID"]; ?>" />
-<div class='col-md-12'>
+<div class='col-xs-12'>
   <span>The latest inserted po is : <span><strong><?php echo $_SESSION["po_number"];?></strong></span> click if you want to use this one.</span>
   <button class="btn btn-primary" onclick='showTools(document.getElementById("mostRecentPo_ID").value)'>Click me</button>
 </div>
 </div>
 <div class='row well well-lg'>
-  <div class='col-md-12'>
+  <div class='col-xs-12'>
     <h2>Choose the right PO number</h2>
     <form>
       <select name='POS' onchange='showTools(this.value)'>
@@ -85,15 +85,15 @@ while($row = mysqli_fetch_array($result)){
     <div class="tab-content">
       <div role="tabpanel" class="tab-pane active" id="normal">
        <p>Add new tools and they will appear on the line below.</p>
-       <div class='col-md-4'>
+       <div class='col-xs-4'>
         <label for="lineItem">Item number: </label>
         <input type="number" name="lineItem" id="lineItem">
       </div>
-      <div class='col-md-4'>
+      <div class='col-xs-4'>
         <label for="toolID">Tool ID Number: </label>
         <input type="text" name="toolID" id="tid">
       </div>
-      <div class='col-md-4'id='changediameter'>
+      <div class='col-xs-4'id='changediameter'>
         <label for="diameter">Diameter: </label>
         <select id="diameter" name="diameter" onchange='generatePrice()' onfocus='generatePrice()'>
           <option value="0">N/A</option>
@@ -107,7 +107,7 @@ while($row = mysqli_fetch_array($result)){
           <option value="1">1</option>
         </select>
       </div>
-      <div class='col-md-4' id='changelength'>
+      <div class='col-xs-4' id='changelength'>
         <label for="length">Length: </label>
         <select id="length" name="length" onchange='generatePrice()' onfocus='generatePrice()'>
           <option value="0">N/A</option>
@@ -118,19 +118,39 @@ while($row = mysqli_fetch_array($result)){
           <option value="6">6</option>
         </select>
       </div>
-      <div class='col-md-4'>
+      <div class='col-xs-4'>
+        <label for="coatingID" class ='col-xs-3'>
+          Coating
+        </label>
+         <select id='coatingSel' onchange='generatePrice()' onfocus='generatePrice()'>
+          <option value="">Select coating type:</option> 
+          <?php
+            $sql = "SELECT coating_ID, coating_type FROM coating ORDER BY coating_type ASC";
+            $result = mysqli_query($link, $sql);
+            if (!$result) 
+            {
+              die("Database query failed: " . mysqli_error($link));
+            }
+            while($row = mysqli_fetch_array($result))
+            {
+              echo '<option value="'.$row['coating_type'].'">'.$row['coating_type'].'</option>';
+            }
+          ?>
+        </select>
+      </div>
+      <div class='col-xs-4'>
         <label for="quantity">Quantity: </label>
         <input type=" number" name="quantity" id="quantity">
       </div>
-      <div class='col-md-4' id='pricediv'>
+      <div class='col-xs-4' id='pricediv'>
         <label for="price">Unit Price: </label>
         <input name="price" id='price' value=''></input>
       </div>
-      <div class='col-md-4'>
+      <div class='col-xs-4'>
         <label for="dblEnd">Double ended? </label>
         <input type="checkbox" name="dlbEnd" id="dblEnd">
       </div>
-      <button type='button'  class='btn btn-default col-md-offset-10' onclick='showPOTools()'>
+      <button type='button'  class='btn btn-default col-xs-offset-10' onclick='showPOTools()'>
         <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
       </button>
       <button type='button'  class='btn btn-default' onclick='addTool()'>
@@ -139,27 +159,47 @@ while($row = mysqli_fetch_array($result)){
     </div>
     <div role="tabpanel" class="tab-pane" id="odd">
      <p>Add new tools and they will appear on the line below.</p>
-     <div class='col-md-4'>
+     <div class='col-xs-4'>
       <label for="lineItem">Item number: </label>
       <input type="number" name="lineItem" id="lineItem">
     </div>
-    <div class='col-md-4'>
+    <div class='col-xs-4'>
       <label for="toolID">Tool ID Number: </label>
       <input type="text" name="toolID" id="tid">
     </div>
-    <div class='col-md-4'>
+      <div class='col-xs-4'>
+        <label for="coatingID" class ='col-xs-3'>
+          Coating
+        </label>
+         <select id='coatingSel' onchange='generatePrice()' onfocus='generatePrice()'>
+          <option value="">Select coating type:</option> 
+          <?php
+            $sql = "SELECT coating_ID, coating_type FROM coating ORDER BY coating_type ASC";
+            $result = mysqli_query($link, $sql);
+            if (!$result) 
+            {
+              die("Database query failed: " . mysqli_error($link));
+            }
+            while($row = mysqli_fetch_array($result))
+            {
+              echo '<option value="'.$row['coating_type'].'">'.$row['coating_type'].'</option>';
+            }
+          ?>
+        </select>
+      </div>
+    <div class='col-xs-4'>
       <label for="quantity">Quantity: </label>
       <input type=" number" name="quantity" id="quantity">
     </div>
-    <div class='col-md-4' id='pricediv'>
+    <div class='col-xs-4' id='pricediv'>
       <label for="price">Unit Price: </label>
       <input name="price" id='price' value=''></input>
     </div>
-    <div class='col-md-4'>
+    <div class='col-xs-4'>
       <label for="dblEnd">Double ended? </label>
       <input type="checkbox" name="dlbEnd" id="dblEnd">
     </div>
-    <button type='button'  class='btn btn-default col-md-offset-10' onclick='showPOTools()'>
+    <button type='button'  class='btn btn-default col-xs-offset-10' onclick='showPOTools()'>
       <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
     </button>
     <button type='button'  class='btn btn-default' onclick='addTool()'>
@@ -172,8 +212,8 @@ while($row = mysqli_fetch_array($result)){
 </div>
 
 <div class='row well well-lg'>
- <div class='col-md-12'>
-  <label for='delitem' class='col-md-offset-8'>Delete Item</label>
+ <div class='col-xs-12'>
+  <label for='delitem' class='col-xs-offset-8'>Delete Item</label>
   <input type="text" id="del_number" name='delitem'/>
   <button type='button' id='delitem' class='btn btn-danger' onclick='delTool(document.getElementById("del_number").value) ; showPOTools()'>
     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
@@ -184,7 +224,7 @@ while($row = mysqli_fetch_array($result)){
 <table id ='txtAdd'>
 </table>
 <div class='navbar navbar-default navbar-static-bottom'>
-  <a class='col-md-offset-9' href='../Printouts/printPO.php' target="_blank">Generate the General information sheet</a>
+  <a class='col-xs-offset-9' href='../Printouts/printPO.php' target="_blank">Generate the General information sheet</a>
 </div>
 </body>
 </html>

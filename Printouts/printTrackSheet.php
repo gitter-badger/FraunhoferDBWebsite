@@ -21,20 +21,8 @@ while($row = mysqli_fetch_array($secResult)){
   <link href='../css/print.css' rel='stylesheet'>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
   <script type="text/javascript" src='../js/passScript.js'></script>
-  <script>
-  $("button").click(function(){
-    $("p").toggle();
-  });
-  </script>
-  <style type="text/css" media="print">
-  table { page-break-inside:auto; }
-  tr    { page-break-inside:auto; }
-  @media print{@page {size: landscape}}
-  </style>
-
-
 </head>
-<body style='font-size:9px'>
+<body>
   <div class='col-md-10 col-md-offset-1'>
     <h5>Customer product track for coating</h5>
     <div>

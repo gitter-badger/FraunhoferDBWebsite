@@ -4,30 +4,44 @@ table {
 }
 
 table, td, th {
-    border: 1px solid black;
+    border: 2px solid black;
     padding: 5px;
-    font-size: small;
+    font-size: medium;
 }
-
-
-
-
+hr {
+    border: 1px solid black;
+    width: 97%;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
 @media print {
+hr{
+    border: 1px solid black;
+    width: 95%;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+body{
+    font-size: x-small;
+}
 table {
     width: 100%;
     border-collapse: collapse;
+    padding:0px;
 }
 
 table, td, th {
     border: 1px solid black;
-    padding: 5px;
+    padding: 0px;
     font-size: x-small;
-}
-
-th {text-align: left;}
 }
 ul, img 
 {
   page-break-inside: avoid;
 }
+.commentHide
+{
+    display:none;
+}
+textarea { border: none; }
 }

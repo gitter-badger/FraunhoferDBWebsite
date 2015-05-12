@@ -95,7 +95,7 @@ if($user_sec_lvl < 2){
         <select id='coatingID'>
           <option value="">Select coating type:</option> 
           <?php
-            $sql = "SELECT coating_ID, coating_type FROM coating";
+            $sql = "SELECT coating_ID, coating_type FROM coating ORDER BY coating_type ASC";
             $result = mysqli_query($link, $sql);
             if (!$result) 
             {

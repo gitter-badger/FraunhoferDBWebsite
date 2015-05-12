@@ -69,12 +69,16 @@ if($user_sec_lvl < 2){
       </div>
       <div class='row well well-lg'>
        <div class='col-md-12'>
-        <p><strong>The run might already be in the database so here you can quickly add it to this PO. This dropdown shows all runs from the last 3 days</strong></p>
+        <h2>Generate a packing list</h2>
+        <p> This dropdown shows the 10 most recent pos. If you want to see a packing list for older pos please use the search function.</p>
         <select name="packingsel" id="packingsel" class='dropdown' onchange="setSessionID()">
           <option value="">Choose a PO number</option> 
           <!-- Drop down list of PO numbers with po_ID as the value -->
           <?php
-          $sql = "SELECT po_ID, po_number FROM pos ORDER BY receiving_date DESC;";
+          $sql = "SELECT po_ID, po_number
+                  FROM pos 
+                  ORDER BY receiving_date DESC
+                  LIMIT 100q;";
           $result = mysqli_query($link, $sql);
 
           if (!$result) {

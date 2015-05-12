@@ -68,7 +68,7 @@ while($row = mysqli_fetch_array($customerResult)){
           <span><h5>Packing list </h5></span>
         </div>
       <div style="margin-top:20px;margin-bottom:-20px;">
-        <hr style="border-width: 1px;border-style:solid; width:95%;">
+        <hr>
       </div>
       <span class='col-xs-12'><strong>Shipped to: </strong></span>
       <span class='col-xs-12'></br></span>
@@ -98,7 +98,7 @@ while($row = mysqli_fetch_array($customerResult)){
     </div>
   </div>
     <div class='col-xs-12' style="margin-top:-19px;margin-bottom:-23px;">
-      <hr style="border-width: 1px;border-style:solid;width:95%;">
+      <hr>
     </div>
     <div class="col-xs-offset-1">
       <h5 class='col-xs-4'>
@@ -115,7 +115,7 @@ while($row = mysqli_fetch_array($customerResult)){
         echo "Shipping date: ".$shippingDate;
         ?>
       </h5>
-    <span><h5 class="col-xs-4"> Purchase Order # : <?php echo $po_number; ?></h5></span>
+    <span><h5 class="col-xs-4"> Purchase Order # :<span id='po_ID'><?php echo $po_number; ?></span></h5></span>
     <span><h5 class="col-xs-4"> Initial : LH</h5></span>
   </div>
     <table class="table">
@@ -134,8 +134,25 @@ while($row = mysqli_fetch_array($customerResult)){
 
       ?>
     </table>
-    <p>Comments: </p>
-
+    <div class='col-md-12'>
+      <p class='col-md-3'>Comments: <span class='commentHide'>(if you enter a new comment it replaces the old one)</span></p>
+      <textarea id='packing_list_comment' rows='2' cols='41'>
+        <?php
+            $sql = "SELECT packinglist_comment
+                    FROM packinglist
+                    WHERE po_ID = '$_SESSION[po_ID]';";
+            $result = mysqli_query($link, $sql);
+            while($row = mysqli_fetch_array($result)){
+              $comment = $row[0];
+            }
+            echo $comment;
+         ?>
+      </textarea>
+    </div>
+    <div class='col-md-offset-5 commentHide'>
+      <button class='btn btn-primary' onclick='storePackingList(<?php echo $_SESSION['po_ID']; ?>)'>Store packing list</button>
+    </div>
+    </div>
 </div>
 </div>
 </body>

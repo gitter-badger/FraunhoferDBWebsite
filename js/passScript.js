@@ -268,11 +268,13 @@ function showRunTools() {
     xmlhttp.send();
     return str;
 }
-}
+}     
 function generatePrice(){
-   var diameter = $('#diameter').val();  
-   var length   = $('#length').val();   
-   var POID     = document.getElementById('POID').innerHTML;
+   var diameter         = $('#diameter').val();  
+   var length           = $('#length').val();   
+   var POID             = document.getElementById('POID').innerHTML;
+   var coating_dropdown = document.getElementById("coatingSel");
+   var coating_ID       = coating_dropdown.options[coating_dropdown.selectedIndex].value;
      $.ajax({
         url : "../SelectPHP/generatePrice.php",
         type: "POST",
@@ -281,15 +283,13 @@ function generatePrice(){
          POID     : POID},
          success: function(data,status, xhr)
          {
-            var html = data;
-            console.log(html);
-            //$("#generatedPrice").html(data);
-            document.getElementById('price').value = html;
-         },
-        error: function (jqXHR, status, errorThrown)
-        {
-            $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
-        }
+            if(coating_ID === "DLC")
+            {
+                data = data * 2;
+            }
+            // output the data recieved from the php file into the price field.
+            document.getElementById('price').value = data;
+         }
     })
  }
 function displayHelper(){
@@ -311,7 +311,6 @@ function addTool(){
   var diameter = $('#diameter').val(); 
   var length   = $('#length').val(); 
   var POID     = document.getElementById('POID').innerHTML;
-  console.log(diameter);
   if($('#dblEnd').is(':checked'))
   {
      var dblEnd   = $('#dblEnd').val();
@@ -821,9 +820,6 @@ function confirmPO(){
     })
 }
 function addShipDateToPO (POID, fInspect, date){
-    console.log(POID);
-    console.log(fInspect);
-    console.log(date);
   $.ajax({
     url : "../InsertPHP/insertShipDateToPO.php",
     type: "POST",
@@ -1155,6 +1151,22 @@ function addFeedback(){
      },
     })
 }
+function storePackingList(po_ID){
+    var comment = $('#packing_list_comment').val();
+    $.ajax({
+        url : "../InsertPHP/addPackingList.php",
+        type: "POST",
+        data : {
+                 po_ID : po_ID,
+                 comment : comment},
+     success: function(data,status, xhr)
+     {
+     }
+    })
+}
+
+
+
 
 
 

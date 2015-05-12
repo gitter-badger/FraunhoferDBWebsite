@@ -75,7 +75,7 @@ if($user_sec_lvl < 2){
             </p>
             <p class='col-md-6'>
               <label for="rDate" class='col-md-3'>Receiving Date:</label>
-              <input type="rDate" value="<?php echo date('Y-m-d'); ?>" name='rDate' id='rDate'>
+              <input type="date" value="<?php echo date('Y-m-d'); ?>" name='rDate' id='rDate'>
             </p>
             <p class='col-md-6'>
               <label for="iInspect" class='col-md-3'>Initial Inspection:</label>
