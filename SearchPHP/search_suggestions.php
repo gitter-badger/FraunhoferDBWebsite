@@ -1,13 +1,15 @@
 <?php
-
+/*
+	This file searches for pos with the data from the user
+*/
 include '../connection.php';
 session_start();
 
-$input = mysqli_real_escape_string($link, $_POST['po_number']);
+$input       = mysqli_real_escape_string($link, $_POST['po_number']);
 $customer_ID = mysqli_real_escape_string($link, $_POST['customer_ID']);
-$first_date = mysqli_real_escape_string($link, $_POST['first_date']);
-$last_date = mysqli_real_escape_string($link, $_POST['last_date']);
-
+$first_date  = mysqli_real_escape_string($link, $_POST['first_date']);
+$last_date   = mysqli_real_escape_string($link, $_POST['last_date']);
+// put a wildcard char after the po_number so it displays everything that starts with this string
 $stringInput = $input . '%';
 
 $sql = "SELECT po_ID, po_number, customer_ID, receiving_date, nr_of_lines, shipping_date, final_price
