@@ -90,21 +90,24 @@ function setSessionID(){
     })
 }
 function addPO(){
-    var POID       = $('#POID').val();     
-    var CID        = $('#CID').val();     
-    var rDate      = $('#rDate').val(); 
-    var iInspect   = $('#iInspect').val();
-    var nrOfLines  = $('#nrOfLines').val();
-    var employeeId = $('#employeeId').val();
+    var POID          = $('#POID').val();     
+    var CID           = $('#CID').val();     
+    var rDate         = $('#rDate').val(); 
+    var iInspect      = $('#iInspect').val();
+    var nrOfLines     = $('#nrOfLines').val();
+    var employeeId    = $('#employeeId').val();
+    var e             = document.getElementById("shipping_sel");
+    var shipping_info = e.options[e.selectedIndex].value;
     $.ajax({
        url : "../InsertPHP/insertNewPO.php",
        type: "POST",
-       data : {POID       : POID,
-               CID        : CID,
-               rDate      : rDate,
-               iInspect   : iInspect,
-               nrOfLines  : nrOfLines,
-               employeeId : employeeId,
+       data : {POID          : POID,
+               CID           : CID,
+               rDate         : rDate,
+               iInspect      : iInspect,
+               nrOfLines     : nrOfLines,
+               employeeId    : employeeId,
+               shipping_info : shipping_info
     },
     success: function(data,status, xhr)
     {
@@ -163,7 +166,6 @@ function showToolsPrint(str) {
 }
 }
 function showTrackPrint(str) {
-    console.log(str);
     if (str == "") {
         document.getElementById("txtHint").innerHTML = "";
         return;
@@ -273,7 +275,7 @@ function generatePrice(){
    var diameter         = $('#diameter').val();  
    var length           = $('#length').val();   
    var POID             = document.getElementById('POID').innerHTML;
-   var coating_dropdown = document.getElementById("coatingSel");
+   var coating_dropdown = document.getElementById("coating_sel");
    var coating_ID       = coating_dropdown.options[coating_dropdown.selectedIndex].value;
      $.ajax({
         url : "../SelectPHP/generatePrice.php",
@@ -305,12 +307,15 @@ function displayHelper(){
     })
 }
 function addTool(){
-  var toolID   = $('#tid').val();     
-  var lineItem = $('#lineItem').val();     
-  var quantity = $('#quantity').val(); 
-  var diameter = $('#diameter').val(); 
-  var length   = $('#length').val(); 
-  var POID     = document.getElementById('POID').innerHTML;
+  var toolID     = $('#tid').val();     
+  var lineItem   = $('#lineItem').val();     
+  var quantity   = $('#quantity').val(); 
+  var diameter   = $('#diameter').val(); 
+  var length     = $('#length').val(); 
+  var POID       = document.getElementById('POID').innerHTML;
+  var e          = document.getElementById('coating_sel');
+  var coating_ID = e.options[e.selectedIndex].value;
+
   if($('#dblEnd').is(':checked'))
   {
      var dblEnd   = $('#dblEnd').val();
@@ -319,14 +324,16 @@ function addTool(){
   $.ajax({
      url : "../InsertPHP/insertNewToolToPo.php",
      type: "POST",
-     data : {toolID  : toolID,
-      lineItem : lineItem,
-      quantity : quantity,
-      diameter : diameter,
-      length   : length,
-      price    : price,
-      dblEnd   : dblEnd,
-      POID     : POID},
+     data : {toolID     : toolID,
+             lineItem   : lineItem,
+             coating_ID : coating_ID,
+             quantity   : quantity,
+             diameter   : diameter,
+             length     : length,
+             price      : price,
+             dblEnd     : dblEnd,
+             POID       : POID
+      },
       success: function(data,status, xhr)
       {
          lineItem = parseInt(lineItem) + 1;
@@ -336,10 +343,40 @@ function addTool(){
          $('#quantity').val('');
          $('#POID').val('');
          showPOTools();
-     },
-     error: function (jqXHR, status, errorThrown)
-     {
-         $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
+     }
+ })
+}
+function addToolOdd(){
+  var toolID     = $('#tidOdd').val();     
+  var lineItem   = $('#lineItemOdd').val();     
+  var quantity   = $('#quantityOdd').val(); 
+  var POID       = document.getElementById('POID').innerHTML;
+  var e          = document.getElementById('coating_sel_odd');
+  var coating_ID = e.options[e.selectedIndex].value; 
+  if($('#dblEndOdd').is(':checked'))
+  {
+     var dblEnd   = $('#dblEndOdd').val();
+  }
+  var price = document.getElementById('priceOdd').value;
+  $.ajax({
+     url : "../InsertPHP/insertNewToolToPo.php",
+     type: "POST",
+     data : {   toolID  : toolID,
+             coating_ID : coating_ID,
+               lineItem : lineItem,
+               quantity : quantity,
+               price    : price,
+               dblEnd   : dblEnd,
+               POID     : POID},
+      success: function(data,status, xhr)
+      {
+         lineItem = parseInt(lineItem) + 1;
+         $("#status_text").html(data);
+         $('#toolID').val('');
+         $('#lineItem').val(lineItem);
+         $('#quantity').val('');
+         $('#POID').val('');
+         showPOTools();
      }
  })
 }

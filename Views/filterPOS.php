@@ -33,7 +33,7 @@ while($row = mysqli_fetch_array($secResult)){
       </div>
       <div class='col-md-3'>
         <p>Pick a customer</p>
-         <select id='customer_select' onchange='suggestions()' onfocus='suggestions()'>
+         <select id='customer_select' onchange='suggestions()'>
           <option value="">All customers: </option> 
           <?php
             $sql = "SELECT customer_ID, customer_name FROM customer;";

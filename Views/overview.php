@@ -43,10 +43,10 @@ while($row = mysqli_fetch_array($secResult)){
     <div class='row well well-lg'>
       <div class='col-md-6'>
         <h2>View Existing POS</h2>
-        <p class='lead'>Here you can search by POS by Number, Customer, maybe some other features later? Runs Machines etc</p>
+        <p class='lead'>Here you can filter all our POS</p>
         <div class='input-group col-md-8'>
           <span class="btn-group">
-            <a href='viewExistingPO.php' class='btn btn-primary btn-lg' type='submit'>Enter</a>
+            <a href='filterPOS.php' class='btn btn-primary btn-lg' type='submit'>Enter</a>
           </span>
         </div>
       </div>

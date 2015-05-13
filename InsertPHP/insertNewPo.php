@@ -8,13 +8,14 @@ $rDate 		 = mysqli_real_escape_string($link, $_POST['rDate']);
 $iInspect	 = mysqli_real_escape_string($link, $_POST['iInspect']);
 $nrOfLines   = mysqli_real_escape_string($link, $_POST['nrOfLines']);
 $employeeId  = mysqli_real_escape_string($link, $_POST['employeeId']);
+$shipping_info  = mysqli_real_escape_string($link, $_POST['shipping_info']);
 // if the po_number is empty
 if($po_number == ""){
 	echo "You need to give the PO an ID";
 }
  else{
 // inserts the PO in the database
-$sql = "INSERT INTO pos(po_number, customer_ID, receiving_date, initial_inspection, nr_of_lines) VALUES ('$po_number', '$CID', '$rDate', '$iInspect', '$nrOfLines')";
+$sql = "INSERT INTO pos(po_number, customer_ID, receiving_date, initial_inspection, nr_of_lines, shipping_info) VALUES ('$po_number', '$CID', '$rDate', '$iInspect', '$nrOfLines', '$shipping_info')";
 $result = mysqli_query($link, $sql);
 if($result){
     echo ("PO was stored");

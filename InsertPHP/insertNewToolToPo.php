@@ -8,6 +8,7 @@ $diameter  = mysqli_real_escape_string($link, $_POST['diameter']);
 $length    = mysqli_real_escape_string($link, $_POST['length']);
 $price     = mysqli_real_escape_string($link, $_POST['price']);
 $doubleEnd = mysqli_real_escape_string($link, $_POST['dblEnd']);
+$coating_ID = mysqli_real_escape_string($link, $_POST['coating_ID']);
 
 
 if($doubleEnd == 'on'){
@@ -23,10 +24,8 @@ $po_IDresult = mysqli_query($link, $rightpo_IDsql);
 while($row = mysqli_fetch_array($po_IDresult)){
 	$rightPO = $row[0];
 }
-var_dump($line_item);
 
-
-$sql = "INSERT INTO lineitem(line_on_po, po_ID, quantity, tool_ID, diameter, length, double_end, price) VALUES('$line_item', '$rightPO', '$quantity', '$tool_ID', '$diameter', '$length', '$doubleEnd', '$price')";
+$sql = "INSERT INTO lineitem(line_on_po, po_ID, quantity, tool_ID, diameter, length, double_end, price, coating_ID) VALUES('$line_item', '$rightPO', '$quantity', '$tool_ID', '$diameter', '$length', '$doubleEnd', '$price', '$coating_ID')";
 
 $result = mysqli_query($link, $sql);
 if (!$result) {

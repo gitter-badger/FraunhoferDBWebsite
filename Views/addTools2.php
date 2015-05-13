@@ -80,7 +80,6 @@ while($row = mysqli_fetch_array($result)){
       <li role="presentation" class="active"><a href="#normal" aria-controls="home" role="tab" data-toggle="tab">Round Tools</a></li>
       <li role="presentation"><a href="#odd" aria-controls="odd" role="tab" data-toggle="tab">Odd shaped tools</a></li>
     </ul>
-
     <!-- Tab panes -->
     <div class="tab-content">
       <div role="tabpanel" class="tab-pane active" id="normal">
@@ -122,7 +121,7 @@ while($row = mysqli_fetch_array($result)){
         <label for="coatingID" class ='col-xs-3'>
           Coating
         </label>
-         <select id='coatingSel' onchange='generatePrice()' onfocus='generatePrice()'>
+         <select id='coating_sel' onchange='generatePrice()' onfocus='generatePrice()'>
           <option value="">Select coating type:</option> 
           <?php
             $sql = "SELECT coating_ID, coating_type FROM coating ORDER BY coating_type ASC";
@@ -133,7 +132,7 @@ while($row = mysqli_fetch_array($result)){
             }
             while($row = mysqli_fetch_array($result))
             {
-              echo '<option value="'.$row['coating_type'].'">'.$row['coating_type'].'</option>';
+              echo '<option value="'.$row['coating_ID'].'">'.$row['coating_type'].'</option>';
             }
           ?>
         </select>
@@ -157,21 +156,22 @@ while($row = mysqli_fetch_array($result)){
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
       </button>
     </div>
+    <!---_______________________________________ -->
     <div role="tabpanel" class="tab-pane" id="odd">
      <p>Add new tools and they will appear on the line below.</p>
      <div class='col-xs-4'>
-      <label for="lineItem">Item number: </label>
-      <input type="number" name="lineItem" id="lineItem">
+      <label for="lineItemOdd">Item number: </label>
+      <input type="number" name="lineItemOdd" id="lineItemOdd">
     </div>
     <div class='col-xs-4'>
-      <label for="toolID">Tool ID Number: </label>
-      <input type="text" name="toolID" id="tid">
+      <label for="toolIDOdd">Tool ID Number: </label>
+      <input type="text" name="toolIDOdd" id="tidOdd">
     </div>
       <div class='col-xs-4'>
-        <label for="coatingID" class ='col-xs-3'>
+        <label for="coatingIDOdd" class ='col-xs-3'>
           Coating
         </label>
-         <select id='coatingSel' onchange='generatePrice()' onfocus='generatePrice()'>
+         <select id='coating_sel_odd' onchange='generatePrice()' onfocus='generatePrice()'>
           <option value="">Select coating type:</option> 
           <?php
             $sql = "SELECT coating_ID, coating_type FROM coating ORDER BY coating_type ASC";
@@ -182,27 +182,27 @@ while($row = mysqli_fetch_array($result)){
             }
             while($row = mysqli_fetch_array($result))
             {
-              echo '<option value="'.$row['coating_type'].'">'.$row['coating_type'].'</option>';
+              echo '<option value="'.$row['coating_ID'].'">'.$row['coating_type'].'</option>';
             }
           ?>
         </select>
       </div>
     <div class='col-xs-4'>
-      <label for="quantity">Quantity: </label>
-      <input type=" number" name="quantity" id="quantity">
+      <label for="quantityOdd">Quantity: </label>
+      <input type=" number" name="quantityOdd" id="quantityOdd">
     </div>
     <div class='col-xs-4' id='pricediv'>
-      <label for="price">Unit Price: </label>
-      <input name="price" id='price' value=''></input>
+      <label for="priceOdd">Unit Price: </label>
+      <input name="priceOdd" id='priceOdd' value=''></input>
     </div>
     <div class='col-xs-4'>
-      <label for="dblEnd">Double ended? </label>
-      <input type="checkbox" name="dlbEnd" id="dblEnd">
+      <label for="dblEndOdd">Double ended? </label>
+      <input type="checkbox" name="dblEndOdd" id="dblEndOdd">
     </div>
     <button type='button'  class='btn btn-default col-xs-offset-10' onclick='showPOTools()'>
       <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
     </button>
-    <button type='button'  class='btn btn-default' onclick='addTool()'>
+    <button type='button'  class='btn btn-default' onclick='addToolOdd()'>
       <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
     </button>
 

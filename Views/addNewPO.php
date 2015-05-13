@@ -85,7 +85,17 @@ if($user_sec_lvl < 2){
               <label for="nrOfLines" class='col-md-3'>Number of Lines:</label>
               <input type="number" name='nrOfLines' id='nrOfLines'>
             </p>
-
+            <p class='col-md-6'>
+              <label for="shipping_sel" class='col-md-3'>Shipping info:</label>
+              <select id='shipping_sel'>
+                <option value='Ground'>Ground</option>
+                <option value='3 day'>3 day</option>
+                <option value='2 day'>2 day</option>
+                <option value='next day'>Next day</option>
+                <option value='fedex'>Fedex</option>
+                <option value='other'>Other</option>
+              </select>
+            </p>
             <input class='col-md-offset-4' type="submit" id="btn_submit" onclick='addPO()' value="Add PO">
           </form>
           <br/>
