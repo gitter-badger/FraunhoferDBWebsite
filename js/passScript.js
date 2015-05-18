@@ -139,12 +139,22 @@ function showTools(str) {
             document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
         }
     }
+    setSessionIDPrint(str);
     xmlhttp.open("GET","../SelectPHP/getPosForToolMenu.php?q="+str,true);
     xmlhttp.send();
+
 
     return str;
 }
 }
+function setSessionIDPrint(po_ID){
+    console.log(po_ID);
+    $.ajax({
+        url : "../UpdatePHP/setSessionID.php",
+        type: "POST",
+        data : {po_ID : po_ID},
+    })
+} 
 function showToolsPrint(str) {
     if (str == "") {
         document.getElementById("txtHint").innerHTML = "";
@@ -509,7 +519,6 @@ function delPO(){
     var e       = document.getElementById("po_sel");
      //this chooses the selected item from the dropdown list
     var po_ID = e.options[e.selectedIndex].value; 
-    console.log(po_ID);
     
     $.ajax({
         url : "../DeletePHP/delPOAndTools.php",
@@ -1169,7 +1178,7 @@ function setSessionIDAfterAddingPO(po_ID){
                },
      success: function(data,status, xhr)
      {
-        $("#status_text").html(data);
+        $("#test").html(data);
      },
     })
 }

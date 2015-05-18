@@ -18,7 +18,7 @@ while($row = mysqli_fetch_array($secResult)){
 <head>
   <title>Fraunhofer CCD</title>
   <link href='../css/bootstrap.min.css' rel='stylesheet'>
-  <link href='../css/main.css' rel='stylesheet'>
+  <!-- <link href='../css/main.css' rel='stylesheet'> -->
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
   <script type="text/javascript" src='../js/searchScript.js'></script>
 </head>
@@ -58,12 +58,14 @@ while($row = mysqli_fetch_array($secResult)){
         <input type="date" name="datelast" id="search_box_date_last" onchange='suggestions()'/>
       </div>
     </div>
-
-    <table>
+    <div id='test'><span></span></div>
+    <table class='table table-striped'>
     </table>
 
     <table id='output'>
     </table>
-  </div>    
+  </div>   
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
 </body>
 </html>

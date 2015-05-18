@@ -17,3 +17,14 @@ function suggestions(){
      }
     })
 }   
+function setSessionID(po_ID){
+    console.log(po_ID);
+    $.ajax({
+        url : "../UpdatePHP/setSessionID.php",
+        type: "POST",
+        data : {po_ID : po_ID},
+     success: function(data,status, xhr)
+     {
+     }
+    })
+}   

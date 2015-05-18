@@ -11,7 +11,7 @@ include '../connection.php';
 $q = mysqli_real_escape_string($link, $_GET['q']);
 
 // finds the right info from that po_ID
-$sql = "SELECT p.po_ID, p.receiving_date, c.customer_name,  p.shipping_date, p.nr_of_lines 
+$sql = "SELECT p.po_ID, p.receiving_date, c.customer_name,  p.shipping_date, p.shipping_info, p.initial_inspection 
         FROM pos p, customer c
         WHERE p.customer_ID = c.customer_ID
         AND po_ID = '$q'";
@@ -34,10 +34,13 @@ $sumresult = mysqli_query($link, $sumSql);
 
 while($row = mysqli_fetch_array($result)) {
     $POID = $row[0];
-    echo "<p>".'Reciving Date :    ' . $row[1] ."</p>";
-    echo "<p>".'Customer :    ' .$row[2] ."</p>";
-    echo "<p>". 'Shipping Date :    ' . $row[3] ."</p>";
-    echo "<p>". 'Number of Lines :    ' . $row[4] ."</p>";
+    echo "<div class='col-xs-12'>";
+    echo "<span class='col-xs-6'>".'Reciving Date : '.$row[1]."</span>";
+    echo "<span class='col-xs-6'>".'Customer : '.$row[2]."</span>";
+    // echo "<span class='col-xs-6'>". 'Shipping Date : '. $row[3]."</span>";
+    echo "<span class='col-xs-6'>". 'Shipping Info : '.$row[4]."</span>";
+    echo "<span class='col-xs-6'>". 'Initial inspection : '.$row[5]."</span>";
+    echo "</div>";
 }
 
 echo "<table>";

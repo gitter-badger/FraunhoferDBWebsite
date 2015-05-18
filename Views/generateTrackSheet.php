@@ -222,7 +222,7 @@ if($user_sec_lvl < 2){
   <button type='button' id='addShippingDateButton' class='btn btn-primary' onclick='confirmPO()'>
    <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
  </button>
- <a class='col-xs-offset-9' href='../Printouts/printTrackSheet.php' target="_blank">Get a Printable version of the tracksheet</a>
+ <a class='col-xs-offset-9' href='../Printouts/trackSheet.php' target="_blank">View tracksheet for this PO</a>
 </div>
 </div>
 <div id='runTools'></div>
