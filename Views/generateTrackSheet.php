@@ -30,7 +30,6 @@ if($user_sec_lvl < 2){
 
 </head>
 <body>
-<body>
 <?php include '../header.php'; ?>
     <div class='container'>
      <div class='row well well-lg'>
