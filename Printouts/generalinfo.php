@@ -1,3 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fraunhofer CCD</title>
+  <link href='../css/bootstrap.min.css' rel='stylesheet'>
+  <!-- <link href='../css/main.css' rel='stylesheet'> -->
+  <link href='../css/print.css' rel='stylesheet'>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+  <script type="text/javascript" src='../js/searchScript.js'></script>
+</head>
+<body>
+	<h4>General information sheet</h4>
 <?php
 /*
         This page generates all the info needed
@@ -5,13 +17,12 @@
         The user picks the ponumber but we are using the ID here  so we can access other tables via foreign keys
 
 */
-
+session_start();
 include '../connection.php';
 // the po_ID the user picked from the dropdown list
-$q = mysqli_real_escape_string($link, $_GET['q']);
-
+$q = $_SESSION["po_ID"];
 // finds the right info from that po_ID
-$sql = "SELECT p.po_ID, p.receiving_date, c.customer_name,  p.shipping_date, p.shipping_info, p.initial_inspection 
+$sql = "SELECT p.po_number, p.receiving_date, c.customer_name,  p.shipping_date, p.shipping_info, p.initial_inspection 
         FROM pos p, customer c
         WHERE p.customer_ID = c.customer_ID
         AND po_ID = '$q'";
@@ -35,11 +46,12 @@ $sumresult = mysqli_query($link, $sumSql);
 while($row = mysqli_fetch_array($result)) {
     $POID = $row[0];
     echo "<div class='col-xs-12'>";
-    echo "<span class='col-xs-6'>".'Reciving Date : '.$row[1]."</span>";
-    echo "<span class='col-xs-6'>".'Customer : '.$row[2]."</span>";
+    echo "<span class='col-xs-4'>".'PO number : '.$row[0]."</span>";
+    echo "<span class='col-xs-4'>".'Reciving Date : '.$row[1]."</span>";
+    echo "<span class='col-xs-4'>".'Customer : '.$row[2]."</span>";
     // echo "<span class='col-xs-6'>". 'Shipping Date : '. $row[3]."</span>";
-    echo "<span class='col-xs-6'>". 'Shipping Info : '.$row[4]."</span>";
-    echo "<span class='col-xs-6'>". 'Initial inspection : '.$row[5]."</span>";
+    echo "<span class='col-xs-4'>". 'Shipping Info : '.$row[4]."</span>";
+    echo "<span class='col-xs-4'>". 'Initial inspection : '.$row[5]."</span>";
     echo "</div>";
 }
 
@@ -93,3 +105,6 @@ while($frow = mysqli_fetch_array($totalPriceResult)){
 
 mysqli_close($link);
 ?>
+
+</body>
+</html>

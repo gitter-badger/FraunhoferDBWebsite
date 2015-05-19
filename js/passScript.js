@@ -79,7 +79,7 @@ function setSessionID(){
     var po_ID = e.options[e.selectedIndex].value;
     $.ajax({
         url : "../UpdatePHP/setSessionID.php",
-        type: "GET",
+        type: "POST",
         data : {
                     po_ID : po_ID,
                },
@@ -148,7 +148,6 @@ function showTools(str) {
 }
 }
 function setSessionIDPrint(po_ID){
-    console.log(po_ID);
     $.ajax({
         url : "../UpdatePHP/setSessionID.php",
         type: "POST",
@@ -1204,26 +1203,23 @@ function storePackingList(po_ID){
         type: "POST",
         data : {
                  po_ID : po_ID,
+                 comment : comment}
+    })
+}
+function updateRunComment(run_ID){
+    var comment = $('#new_comment').val();
+    $.ajax({
+        url : "../UpdatePHP/updateRunComment.php",
+        type: "POST",
+        data : {
+                 run_ID : run_ID,
                  comment : comment},
      success: function(data,status, xhr)
      {
+        showPORuns();
      }
     })
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

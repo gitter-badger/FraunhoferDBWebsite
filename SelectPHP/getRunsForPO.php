@@ -13,16 +13,16 @@ while($row = mysqli_fetch_array($po_IDresult)){
     $POID = $row[0];
 }
 // display the table
-echo         "<tr>".
-"<td>Coating type</td>".
-"<td>AH/Pulses</td>".
-"<td>runNumber</td>".                
-"<td>Run ID</td>".
-"<td>Comments</td>".
-"</tr>";
+echo "<tr>".
+        "<td>Run ID</td>".
+        "<td>Coating type</td>".
+        "<td>AH/Pulses</td>".
+        "<td>runNumber</td>".                
+        "<td>Comments</td>".
+     "</tr>";
 
 // select all the info about the run we need
-$sql = "SELECT c.coating_type, r.ah_pulses, posr.run_number_on_po, r.run_number, r.run_comment 
+$sql = "SELECT r.run_ID, r.run_number, c.coating_type, r.ah_pulses, posr.run_number_on_po, r.run_comment 
         FROM run r, pos_run posr, coating c
         WHERE r.run_ID = posr.run_ID
         AND posr.po_ID = '$POID'
@@ -49,12 +49,32 @@ while($row = mysqli_fetch_array($result)){
     if($row[2] == 5){ $row[2] = e;}
     if($row[2] == 6){ $row[2] = f;}
     if($row[2] == 7){ $row[2] = g;}
-    echo "<td>".$row[0]."</td>".
-         "<td>".$row[1]."</td>". 
-         "<td>".$row[2]."</td>".
+    echo "<td><a href='#' data-toggle='modal' data-target='#".$row[0]."'>".$row[1]."</td>".
+         "<td>".$row[2]."</td>". 
          "<td>".$row[3]."</td>".
          "<td>".$row[4]."</td>".
+         "<td>".$row[5]."</td>".
          "</tr>";
+
+    echo "<div class='modal fade' id='".$row[0]."' tabindex='-1' role='dialog' aria-labelledby='".$row[0]."' aria-hidden='true'>
+              <div class='modal-dialog'>
+                <div class='modal-content'>
+                  <div class='modal-header'>
+                    <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+                    <h4 class='modal-title' id='myModalLabel'>Run number : ".$row[1]."</h4>
+                  </div>
+                  <div class='modal-body'>
+                    <h3>Add or edit run comment</h3>
+                    <p>This is the current comment</p>
+                    <textarea id='new_comment'>".$row[5]."</textarea>
+                  </div>
+                  <div class='modal-footer'>
+                    <button type='button' class='btn btn-default' onclick='showPOTools()' data-dismiss='modal'>Close</button>
+                    <button type='button' class='btn btn-success' onclick='updateRunComment(".$row[0].")'>Save changes</button>
+                  </div>
+                </div>
+              </div>
+           </div>";
 }
 ?>
 

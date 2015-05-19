@@ -38,9 +38,9 @@ if($user_sec_lvl < 2){
       <!-- This is to fetch the latest po inserted -->
       <?php
       $sql = "SELECT po_number, po_ID 
-      FROM pos
-      WHERE po_ID = (SELECT MAX(po_ID)
-       FROM pos);";
+              FROM pos
+              WHERE po_ID = (SELECT MAX(po_ID)
+                             FROM pos);";
 $result = mysqli_query($link, $sql);
 
 while($row = mysqli_fetch_array($result)){
@@ -61,7 +61,10 @@ while($row = mysqli_fetch_array($result)){
       <select name='POS' onchange='showTools(this.value)'>
        <option value''>Select a PO#: </option>
        <?php 
-          $sql = "SELECT po_ID, po_number FROM pos WHERE shipping_date is NULL";
+          $sql = "SELECT po_ID, po_number
+                  FROM pos
+                  ORDER BY receiving_date DESC
+                  LIMIT 12";
           $result = mysqli_query($link, $sql);
           while($row = mysqli_fetch_array($result))
           {
@@ -224,7 +227,7 @@ while($row = mysqli_fetch_array($result)){
 <table id ='txtAdd'>
 </table>
 <div class='navbar navbar-default navbar-static-bottom'>
-  <a class='col-xs-offset-9' href='../Printouts/printPO.php' target="_blank">Generate the General information sheet</a>
+  <a class='col-xs-offset-9' href='../Printouts/generalinfo.php' target="_blank">Generate the General information sheet</a>
 </div>
 </body>
 </html>

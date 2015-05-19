@@ -32,7 +32,7 @@ if(!empty($last_date)){
 	$sql .= "AND receiving_date < '$last_date' ";
 }
 $sql .= "GROUP BY p.po_ID ";
-$sql .= "ORDER BY p.receiving_date;";
+$sql .= "ORDER BY p.receiving_date DESC;";
 $result = mysqli_query($link, $sql);
 
 if(!$result){echo mysqli_error($link);}
@@ -54,7 +54,7 @@ echo "<table id='output' class='table table-striped table-bordered'>
 */
 while($row = mysqli_fetch_array($result)){
 	echo "<tr class='output'>".
-			"<td><a href='#'' class='btn btn-lg btn-primary' data-toggle='modal' onclick='setSessionID(".$row[0].")' data-target='#".$row[0]."'>".$row[1]."</td>".
+			"<td><a href='#' data-toggle='modal' onclick='setSessionID(".$row[0].")' data-target='#".$row[0]."'>".$row[1]."</td>".
 			"<td>".$row[2]."</td>".
 			"<td>".$row[3]."</td>".
 			"<td>".$row[4]."</td>".
@@ -63,22 +63,24 @@ while($row = mysqli_fetch_array($result)){
 		  "</tr>";
 
 	echo "<div class='modal fade' id='".$row[0]."' tabindex='-1' role='dialog' aria-labelledby='".$row[0]."' aria-hidden='true'>
-	  <div class='modal-dialog'>
-	    <div class='modal-content'>
-	      <div class='modal-header'>
-	        <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
-	        <h4 class='modal-title' id='myModalLabel'>PO number : ".$row[1]."</h4>
-	      </div>
-	      <div class='modal-body'>
-	        <h3>PO information.<h3>
-	        <a class='btn btn-primary' href='../Printouts/tracksheet.php'>Tracksheet</a>
-	      </div>
-	      <div class='modal-footer'>
-	        <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
-	      </div>
-	    </div>
-	  </div>
-</div>";
+			  <div class='modal-dialog'>
+			    <div class='modal-content'>
+			      <div class='modal-header'>
+			        <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+			        <h4 class='modal-title' id='myModalLabel'>PO number : ".$row[1]."</h4>
+			      </div>
+			      <div class='modal-body'>
+			        <h3>PO information.<h3>
+			        <a class='btn btn-primary' href='../Printouts/tracksheet.php'>Tracksheet</a>
+			        <a class='btn btn-primary' href='../Printouts/generalinfo.php'>General info</a>
+			        <a class='btn btn-primary' href='../Printouts/packingList.php'>Packing list</a>
+			      </div>
+			      <div class='modal-footer'>
+			        <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
+			      </div>
+			    </div>
+			  </div>
+		   </div>";
 }
 echo "</table";
 ?>

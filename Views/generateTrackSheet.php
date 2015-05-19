@@ -48,11 +48,8 @@ if($user_sec_lvl < 2){
            */
           $sql = "SELECT po_ID, po_number
                   FROM pos
-                  WHERE shipping_date IS NULL
-                  UNION
-                  SELECT po_ID, po_number
-                  FROM pos
-                  where shipping_date LIKE date_format(0000-00-00, '%Y-%m-%d');";
+                  ORDER BY receiving_date DESC
+                  LIMIT 12";
           $result = mysqli_query($link, $sql);
           while($row = mysqli_fetch_array($result)){
            echo '<option value="'.$row[0].'">'.$row[1].'</option>';

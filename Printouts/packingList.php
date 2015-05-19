@@ -5,7 +5,6 @@ session_start();
 //find the current user
 $user = $_SESSION["username"];
 $po_ID = $_SESSION["po_ID"];
-
 //find his level of security 
 $secsql = "SELECT sec_lvl
            FROM Employees
@@ -21,7 +20,9 @@ $po_IDsql = "SELECT p.po_number
              FROM   pos p
              WHERE p.po_ID = '$po_ID';";
 $po_IDresult = mysqli_query($link, $po_IDsql);
-
+if(!$po_IDresult){
+  mysqli_error($link);
+}
 while($row = mysqli_fetch_array($po_IDresult)){
     $po_number = $row[0];
 }
@@ -34,12 +35,17 @@ $sql = "SELECT l.tool_ID, SUM(lir.number_of_items_in_run), l.quantity, c.coating
         GROUP BY lir.lineitem_ID
         ORDER BY lir.lineitem_ID";
 $tableresult = mysqli_query($link, $sql);
-
+if(!$tableresult){
+  mysqli_error($link);
+}
 $customerSql = "SELECT c.customer_name, c.customer_address, c.customer_phone, c.customer_fax
                 FROM customer c, pos p
                 WHERE p.customer_ID = c.customer_ID
                 AND p.po_ID = '$po_ID';";
 $customerResult = mysqli_query($link, $customerSql);
+if(!$customerResult){
+  mysqli_error($link);
+}
 while($row = mysqli_fetch_array($customerResult)){
   $customer_name    = $row[0];
   $customer_address = $row[1];
@@ -108,6 +114,9 @@ while($row = mysqli_fetch_array($customerResult)){
                 FROM pos
                 WHERE po_ID = '$po_ID';";
         $result = mysqli_query($link, $sql);
+        if(!$result){
+          mysqli_error($link);
+        }
         while($row = mysqli_fetch_array($result))
         {
           $shippingDate = $row[0];
@@ -142,6 +151,9 @@ while($row = mysqli_fetch_array($customerResult)){
                     FROM packinglist
                     WHERE po_ID = '$_SESSION[po_ID]';";
             $result = mysqli_query($link, $sql);
+            if(!$result){
+              mysqli_error($link);
+            }
             while($row = mysqli_fetch_array($result)){
               $comment = $row[0];
             }

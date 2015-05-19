@@ -78,7 +78,7 @@ if($user_sec_lvl < 2){
           $sql = "SELECT po_ID, po_number
                   FROM pos 
                   ORDER BY receiving_date DESC
-                  LIMIT 100q;";
+                  LIMIT 10;";
           $result = mysqli_query($link, $sql);
 
           if (!$result) {
