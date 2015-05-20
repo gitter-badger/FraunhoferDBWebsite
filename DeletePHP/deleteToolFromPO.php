@@ -14,7 +14,24 @@ $po_IDresult = mysqli_query($link, $po_IDsql);
 while($row = mysqli_fetch_array($po_IDresult)){
     $po_ID = $row[0];
 }
+// Find the right lineitem_ID
 
+$lineitemSql = "SELECT lineitem_ID
+				FROM lineitem
+				WHERE po_ID = '$po_ID'
+				AND line_on_po = '$line_item'";
+$lineitemResult = mysqli_query($link, $lineitemSql);
+while($row = mysqli_fetch_array($lineitemResult)){
+	$lineitem_ID = $row[0];
+}
+// first we delete the tool from the regulartool and the odd tool table
+$toolSql = "DELETE FROM regulartool
+			WHERE lineitem_ID = '$lineitem_ID'";
+$toolResult = mysqli_query($link, $toolSql);
+
+$toolSql = "DELETE FROM oddshapedtool
+			WHERE lineitem_ID = '$lineitem_ID'";
+$toolResult = mysqli_query($link, $toolSql);
 // then we delete the item that has the right line nubmer on the right PO
 $sql = "DELETE FROM lineitem 
 		WHERE po_ID = '$po_ID'

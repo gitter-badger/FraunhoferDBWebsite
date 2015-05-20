@@ -42,9 +42,9 @@ if($user_sec_lvl < 2){
 		datasets : [
 			{
 				label : "Company 1",
-					fillColor : "rgba(55,220,220,0)",
+					fillColor : "rgba(55,220,220,0.2)",
 					strokeColor : "rgba(220,220,220,1)",
-					pointColor : "rgba(220,220,220,1)",
+					pointColor : "rgba(11,220,220,1)",
 					pointStrokeColor : "#fff",
 					pointHighlightFill : "#fff",
 					pointHighlightStroke : "rgba(220,220,220,1)",
@@ -52,9 +52,9 @@ if($user_sec_lvl < 2){
 			},
 			{
 					label : "Company 2",
-					fillColor : "rgba(220,55,220,0)",
+					fillColor : "rgba(220,55,220,0.2)",
 					strokeColor : "rgba(220,220,220,1)",
-					pointColor : "rgba(220,220,220,1)",
+					pointColor : "rgba(89,220,220,1)",
 					pointStrokeColor : "#fff",
 					pointHighlightFill : "#fff",
 					pointHighlightStroke : "rgba(220,220,220,1)",
@@ -62,9 +62,9 @@ if($user_sec_lvl < 2){
 			},
 			{
 					label : "Company 3",
-					fillColor : "rgba(220,220,55,0)",
+					fillColor : "rgba(220,220,55,0.2)",
 					strokeColor : "rgba(220,220,220,1)",
-					pointColor : "rgba(220,220,220,1)",
+					pointColor : "rgba(220,7,220,1)",
 					pointStrokeColor : "#fff",
 					pointHighlightFill : "#fff",
 					pointHighlightStroke : "rgba(220,220,220,1)",
@@ -72,9 +72,9 @@ if($user_sec_lvl < 2){
 			},
 			{
 					label : "Company 4",
-					fillColor : "rgba(220,110,220,0)",
+					fillColor : "rgba(220,110,220,0.2)",
 					strokeColor : "rgba(220,220,220,1)",
-					pointColor : "rgba(220,220,220,1)",
+					pointColor : "rgba(220,220,13,1)",
 					pointStrokeColor : "#fff",
 					pointHighlightFill : "#fff",
 					pointHighlightStroke : "rgba(220,220,220,1)",
