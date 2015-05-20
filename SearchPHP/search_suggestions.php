@@ -59,7 +59,7 @@ while($row = mysqli_fetch_array($result)){
 			"<td>".$row[3]."</td>".
 			"<td>".$row[4]."</td>".
 			"<td>".$row[5]."</td>".
-			"<td>".$row[6]."</td>".
+			"<td>$".$row[6]."</td>".
 		  "</tr>";
 
 	echo "<div class='modal fade' id='".$row[0]."' tabindex='-1' role='dialog' aria-labelledby='".$row[0]."' aria-hidden='true'>
@@ -74,6 +74,7 @@ while($row = mysqli_fetch_array($result)){
 			        <a class='btn btn-primary' href='../Printouts/tracksheet.php'>Tracksheet</a>
 			        <a class='btn btn-primary' href='../Printouts/generalinfo.php'>General info</a>
 			        <a class='btn btn-primary' href='../Printouts/packingList.php'>Packing list</a>
+			        <a class='btn btn-primary' href='../Views/editPO.php'>Edit this PO</a>
 			      </div>
 			      <div class='modal-footer'>
 			        <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>

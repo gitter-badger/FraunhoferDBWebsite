@@ -70,7 +70,7 @@ if($user_sec_lvl < 2){
       <div class='row well well-lg'>
        <div class='col-md-12'>
         <h2>Generate a packing list</h2>
-        <p> This dropdown shows the 10 most recent pos. If you want to see a packing list for older pos please use the search function.</p>
+        <p> This dropdown shows the 10 most recent pos. If you want to see a packing list click<a href='filterPOS.php'> here </a>.</p>
         <select name="packingsel" id="packingsel" class='dropdown' onchange="setSessionID()">
           <option value="">Choose a PO number</option> 
           <!-- Drop down list of PO numbers with po_ID as the value -->

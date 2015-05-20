@@ -17,7 +17,7 @@
 session_start();
 include '../connection.php';
 $q = $_SESSION["po_ID"];
-var_dump($_SESSION["po_ID"]);
+
 
 // all the basic info for the header of the printout. The timestamp is the turnaround time(difference between receive and shipping date)
 $topsql ="SELECT p.po_number, p.receiving_date, c.customer_name, p.shipping_date, TIMESTAMPDIFF(DAY, receiving_date, shipping_date), e.employee_name, p.initial_inspection, p.final_inspection

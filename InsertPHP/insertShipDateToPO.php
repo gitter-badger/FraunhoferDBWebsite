@@ -2,9 +2,9 @@
 include '../connection.php';
 // Escape user inputs for security
 
-$po_number 	  = mysqli_real_escape_string($link, $_POST['POID']);
-$date 	  = mysqli_real_escape_string($link, $_POST['date']);
-$fInspect = mysqli_real_escape_string($link, $_POST['fInspect']);
+$po_number = mysqli_real_escape_string($link, $_POST['POID']);
+$date 	   = mysqli_real_escape_string($link, $_POST['date']);
+$fInspect  = mysqli_real_escape_string($link, $_POST['fInspect']);
 
 
 // getting the right po_ID from the po_number

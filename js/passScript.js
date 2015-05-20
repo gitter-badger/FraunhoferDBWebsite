@@ -417,11 +417,7 @@ function addCustomer(){
            $('#cFax').val('');
            $('#cContact').val('');
            $('#cNotes').val('');
-       },
-       error: function (jqXHR, status, errorThrown)
-       {
-            $("#status_text").html('there was an error ' + errorThrown + ' with status ');
-        }
+       }
     })
 }
 function addEmployee(){
@@ -451,12 +447,8 @@ function addEmployee(){
             $('#eEmail').val('');
             $('#ePass').val('');
             $('#ePassAgain').val('');
-        },
-        error: function (jqXHR, status, errorThrown)
-        {
-            $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
         }
-    });
+    })
  }
 function delTool(line){
     var POID = document.getElementById('POID').innerHTML;
@@ -469,10 +461,6 @@ function delTool(line){
          {
             $("#status_text").html(data);
             //alert("Tool deleted successfully");
-        },
-        error: function (jqXHR, status, errorThrown)
-        {
-            $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
         }
     })
  }
@@ -487,10 +475,6 @@ function delRun(line){
          {
             $("#status_text").html(data);
             //alert("Run deleted successfully");
-        },
-        error: function (jqXHR, status, errorThrown)
-        {
-            $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
         }
     })
  }
@@ -506,11 +490,7 @@ function delRunTool(lineitem, run_number){
          {
             showPORuns();
             $("#status_text").html(data);
-         },
-        error: function (jqXHR, status, errorThrown)
-        {
-            $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
-        }
+         }
     })
  }
 function delPO(){
@@ -527,10 +507,6 @@ function delPO(){
         {
             //this refreshes the page after delete
             window.location.reload(true);
-        },
-        error: function (jqXHR, status, errorThrown)
-        {
-            $("#status_text").html('there was an error ' + errorThrown + ' with status ' + textStatus);
         }
     })
 }
@@ -955,19 +931,12 @@ function authenticate(){
     }
     })
 }
-/*
-    Function that logs the user out.
-    Calls a php script that logs you out 
-    and then reloads the page so you loose 
-    all your privlages
-*/
 function logout(){
-    //console.log('eg er her');
   $.ajax({
     url : "../Login/logout.php",
     type: "POST"
     }).done(function(){
-        // refresh the page on logout with all securty level set to 0
+        // redirect the user to the login page
         // this is done so you loose access to the site you are at
         // when you log out.
         window.location = "../Login/login.php";
@@ -1193,7 +1162,7 @@ function addFeedback(){
      success: function(data,status, xhr)
      {
         window.location.reload(true);
-     },
+     }
     })
 }
 function storePackingList(po_ID){
@@ -1204,7 +1173,7 @@ function storePackingList(po_ID){
         data : {
                  po_ID : po_ID,
                  comment : comment}
-    })
+        })
 }
 function updateRunComment(run_ID){
     var comment = $('#new_comment').val();
@@ -1220,7 +1189,104 @@ function updateRunComment(run_ID){
      }
     })
 }
-
+function changeLineitemQuantity(po_ID){
+    var line     = $('#line').val();
+    var quantity = $('#input_quantity').val();
+    $.ajax({
+        url : "../UpdatePHP/updateLineitemQuantity.php",
+        type: "POST",
+        data : { po_ID    : po_ID,
+                 line     : line,
+                 quantity : quantity},
+     success: function(data,status, xhr)
+     {
+        window.location.reload(true);
+     }
+    })
+}
+function changeLineitemPrice(po_ID){
+    var line  = $('#line').val();
+    var price = $('#input_price').val();
+    $.ajax({
+        url : "../UpdatePHP/updateLineitemPrice.php",
+        type: "POST",
+        data : { po_ID : po_ID,
+                 line  : line,
+                 price : price},
+     success: function(data,status, xhr)
+     {
+        window.location.reload(true);
+     }
+    })
+}
+function changeLineitemTool(po_ID){
+    var line = $('#line').val();
+    var tool = $('#input_tool').val();
+    console.log(line);
+    console.log(tool);
+    console.log(po_ID);
+    $.ajax({
+        url : "../UpdatePHP/updateLineitemTool.php",
+        type: "POST",
+        data : { po_ID    : po_ID,
+                 line     : line,
+                 tool : tool},
+     success: function(data,status, xhr)
+     {
+        window.location.reload(true);
+     }
+    })
+}
+function changeLineitemDiameter(po_ID){
+    var line     = $('#line').val();
+    var diameter = $('#input_diameter').val();
+    $.ajax({
+        url : "../UpdatePHP/updateLineitemDiameter.php",
+        type: "POST",
+        data : { po_ID    : po_ID,
+                 line     : line,
+                 diameter : diameter},
+     success: function(data,status, xhr)
+     {
+        window.location.reload(true);
+     }
+    })
+}
+function changeLineitemLength(po_ID){
+    var line   = $('#line').val();
+    var length = $('#input_length').val();
+    $.ajax({
+        url : "../UpdatePHP/updateLineitemLength.php",
+        type: "POST",
+        data : { po_ID  : po_ID,
+                 line   : line,
+                 length : length},
+     success: function(data,status, xhr)
+     {
+        window.location.reload(true);
+     }
+    })
+}
+function changeLineitemDoubleEnd(po_ID){
+    var line = $('#line').val();
+    var end  = $('#input_end').val();
+    $.ajax({
+        url : "../UpdatePHP/updateLineitemEnd.php",
+        type: "POST",
+        data : { po_ID : po_ID,
+                 line  : line,
+                 end   : end},
+     success: function(data,status, xhr)
+     {
+        if(data.indexOf("Error") > -1)
+        {
+            alert("Value must be either 1 or 0");
+        }else{
+            window.location.reload(true);
+        }
+     }
+    })
+}
 
 
 

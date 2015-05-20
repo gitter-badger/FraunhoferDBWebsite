@@ -34,7 +34,6 @@ if($user_sec_lvl < 2){
       <div class='row well well-lg'>
         <div class='col-md-12'>
           <p>This is the add new po view</p>
-          <form onsubmit='return false'>
             <p class='col-md-6'>
               <label for="POID" class='col-md-3'>POID:</label>
               <input type="text" name="POID" id="POID">
@@ -97,11 +96,10 @@ if($user_sec_lvl < 2){
               </select>
             </p>
             <input class='col-md-offset-4' type="submit" id="btn_submit" onclick='addPO()' value="Add PO">
-          </form>
           <br/>
-          <form class='col-md-offset-10' action="addTools2.php">
-            <input type="submit" value="Add Tools to PO!">
-          </form>
+          <div class='col-md-offset-10'>
+            <button type='button' onclick="location.href='addTools2.php'">Add tools to PO</a></button>
+          </div>
         </div>
       </div>
     </div>
