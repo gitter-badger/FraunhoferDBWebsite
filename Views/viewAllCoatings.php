@@ -13,14 +13,12 @@ $secResult = mysqli_query($link, $secsql);
 while($row = mysqli_fetch_array($secResult)){
   $user_sec_lvl = $row[0];
 }
-
 ?>
 <html>
 <head>
   <title>Fraunhofer CCD</title>
   <link href='../css/bootstrap.min.css' rel='stylesheet'>
   <link href='../css/main.css' rel='stylesheet'>
-
   <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
   <script src='../js/bootstrap.min.js'></script>
   <script type="text/javascript" src='../js/passScript.js'></script>

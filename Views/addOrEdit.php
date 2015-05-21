@@ -28,7 +28,7 @@ if($user_sec_lvl < 2){
   <link href='../css/main.css' rel='stylesheet'>
 </head>
 <body>
-<?php include '../header.php'; ?>
+  <?php include '../header.php'; ?>
   <div class='container'>
     <div class='row well well-lg'>
       <div class='col-md-12'>
@@ -54,7 +54,7 @@ if($user_sec_lvl < 2){
         <h2>Employe info</h2>
         <p class='lead'>Employee menu</p>
         <div class='btn-group'>
-        <?php
+          <?php
           if($user_sec_lvl >= 3)
           { 
             echo "<a href='addNewEmployee.php' class='btn btn-primary btn-lg'>Add new Employee</a>";
@@ -71,7 +71,7 @@ if($user_sec_lvl < 2){
         <h2>Machine info</h2>
         <p class='lead'>Machine Menu</p>
         <div class='btn-group'>
-        <?php
+          <?php
           if($user_sec_lvl >= 3)
           { 
             echo "<a href='addNewMachine.php' class='btn btn-primary btn-lg' >Add new Machine</a>";
@@ -88,7 +88,7 @@ if($user_sec_lvl < 2){
         <h2>Coating info</h2>
         <p class='lead'>Coating Menu</p>
         <div class='btn-group'>
-        <?php
+          <?php
           if($user_sec_lvl >= 3)
           { 
             echo "<a href='addNewCoating.php' class='btn btn-primary btn-lg' >Add new Coating</a>";

@@ -23,13 +23,12 @@ while($row = mysqli_fetch_array($secResult)){
   <script src='../js/bootstrap.min.js'></script>
 </head>
 <body>
-<?php include '../header.php'; ?>
+  <?php include '../header.php'; ?>
   <div class='container'>
     <div class='row well well-lg'>
       <div class='col-md-12'>
         <h2>Dont use your real password!!!!!</h2>
         <p>This is the add new Employee view</p>
-
         <form onsubmit='return false'>
           <p class='col-md-6'>
             <label for="eName">Employee name: </label>
@@ -61,8 +60,6 @@ while($row = mysqli_fetch_array($secResult)){
       </div>
     </div>
   </div>
-
-
 </body>
 </html>
 

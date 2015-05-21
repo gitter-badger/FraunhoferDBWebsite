@@ -43,20 +43,17 @@ while($row = mysqli_fetch_array($secResult)){
           $result = mysqli_query($link, $sql);
           if (!$result){
            die("Database query failed: " . mysql_error());
-         }
+          }
          while($row = mysqli_fetch_array($result)){
-          echo "<tr>".
-          "<td>".$row[0]."</td>".
-          "<td>".$row[1]."</td>".
-          "<td>"."<a href='mailto:$row[2]'>".$row[2]."</a>".
-          "</td>".
-          "<td>".$row[3]."</td>".
-          "<td>".$row[4]."</td>".
-          "</tr>";
-
-        }
-
-
+            echo "<tr>".
+                    "<td>".$row[0]."</td>".
+                    "<td>".$row[1]."</td>".
+                    "<td>"."<a href='mailto:$row[2]'>".$row[2]."</a>".
+                    "</td>".
+                    "<td>".$row[3]."</td>".
+                    "<td>".$row[4]."</td>".
+                "</tr>";
+         }
         ?>
       </table>
     </div>

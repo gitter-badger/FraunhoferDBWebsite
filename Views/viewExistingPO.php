@@ -21,8 +21,6 @@ while($row = mysqli_fetch_array($secResult)){
   <link href='../css/main.css' rel='stylesheet'>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
   <script type="text/javascript" src='../js/passScript.js'></script>
-
-
 </head>
 <body>
   <?php include '../header.php'; ?>
@@ -53,8 +51,5 @@ while($row = mysqli_fetch_array($secResult)){
 </div>    
 <ul id="results" class="update">
 </ul>
-
-</div>
-
 </body>
 </html>

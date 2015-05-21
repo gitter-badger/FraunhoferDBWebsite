@@ -43,16 +43,16 @@ if($user_sec_lvl < 2){
           <select id='CID'>
             <option value="">Select a company:</option> 
             <?php
-              $sql = "SELECT customer_ID, customer_name 
-                      FROM customer";
-              $result = mysqli_query($link, $sql);
+            $sql = "SELECT customer_ID, customer_name 
+                    FROM customer";
+            $result = mysqli_query($link, $sql);
 
-              if (!$result) {
-                die("Database query failed: " . mysqli_error($link));
-              }
-              while($row = mysqli_fetch_array($result)){
-                echo '<option value="'.$row['customer_ID'].'">'.$row['customer_name'].'</option>';
-              }
+            if (!$result) {
+              die("Database query failed: " . mysqli_error($link));
+            }
+            while($row = mysqli_fetch_array($result)){
+              echo '<option value="'.$row['customer_ID'].'">'.$row['customer_name'].'</option>';
+            }
             ?>
           </select>
         </p>
@@ -62,7 +62,7 @@ if($user_sec_lvl < 2){
             <option value="">Select a employee:</option> 
             <?php
             $sql = "SELECT employee_ID, employee_name 
-                    FROM employee";
+            FROM employee";
             $result = mysqli_query($link, $sql);
 
             if (!$result) {

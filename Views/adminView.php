@@ -15,15 +15,15 @@ while($row = mysqli_fetch_array($secResult)){
 }
 ?>
 <html>
-	<head>
-		<title>Fraunhofer CCD</title>
-		<link href='../css/bootstrap.min.css' rel='stylesheet'>
-    	<link href='../css/main.css' rel='stylesheet'>
-	</head>
-	<body>
-    <?php include '../header.php'; ?>
-<p>This is the Admin page. This will be password Protected. But do we really need it? Wouldnt it be better to have a whole different website?</p>
-    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
-    <script src='js/bootstrap.min.js'></script>
-	</body>
+<head>
+  <title>Fraunhofer CCD</title>
+  <link href='../css/bootstrap.min.css' rel='stylesheet'>
+  <link href='../css/main.css' rel='stylesheet'>
+</head>
+<body>
+  <?php include '../header.php'; ?>
+  <p>This is the Admin page. This will be password Protected. But do we really need it? Wouldnt it be better to have a whole different website?</p>
+  <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+  <script src='js/bootstrap.min.js'></script>
+</body>
 </html>

@@ -37,7 +37,7 @@ while($row = mysqli_fetch_array($secResult)){
           <option value="">All customers: </option> 
           <?php
           $sql = "SELECT customer_ID, customer_name 
-          FROM customer;";
+                  FROM customer;";
           $result = mysqli_query($link, $sql);
           if (!$result) 
           {
@@ -62,7 +62,6 @@ while($row = mysqli_fetch_array($secResult)){
     <div id='test'><span></span></div>
     <table class='table table-striped'>
     </table>
-
     <table id='output'>
     </table>
   </div>   

@@ -27,7 +27,6 @@ if($user_sec_lvl < 2){
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src='../js/bootstrap.min.js'></script>
-
 </head>
 <body>
   <?php include '../header.php'; ?>
@@ -52,10 +51,9 @@ if($user_sec_lvl < 2){
           $result = mysqli_query($link, $sql);
           while($row = mysqli_fetch_array($result)){
            echo '<option value="'.$row[0].'">'.$row[1].'</option>';
-          } 
+         } 
          echo "</select></form>";
          ?>
-
          <br><div id="txtHint"><b>PO info will be listed here...</b></div>
        </div>
      </div>
@@ -93,7 +91,9 @@ if($user_sec_lvl < 2){
         <select id='coatingID'>
           <option value="">Select coating type:</option> 
           <?php
-          $sql = "SELECT coating_ID, coating_type FROM coating ORDER BY coating_type ASC";
+          $sql = "SELECT coating_ID, coating_type 
+                  FROM coating 
+                  ORDER BY coating_type ASC";
           $result = mysqli_query($link, $sql);
           if (!$result) 
           {
@@ -123,7 +123,8 @@ if($user_sec_lvl < 2){
         <select id='machineID'>
           <option value="">Select a machine:</option> 
           <?php
-          $sql = "SELECT machine_ID, machine_acronym FROM machine";
+          $sql = "SELECT machine_ID, machine_acronym 
+                  FROM machine";
           $result = mysqli_query($link, $sql);
           if (!$result) {
             die("Database query failed: " . mysqli_error($link));
@@ -159,7 +160,6 @@ if($user_sec_lvl < 2){
       </table>
     </div>
   </div>
-
   <div class='row well well-lg'>
    <div class='col-xs-12'>
     <p>Asign runs to tools by using the right line item from the general information sheet.</p>
@@ -185,7 +185,6 @@ if($user_sec_lvl < 2){
     <button type='button'  class='btn btn-default' onclick='addLineItemToRun()'>
       <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
     </button>
-
     <table id ='txtAddToolToRun'>
     </table>
     <div id="status_text2"></div>
@@ -197,7 +196,6 @@ if($user_sec_lvl < 2){
     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
   </button>
 </div>
-
 <div class='row well well-lg'>
   <label for='poHelper' class='col-xs-offset-8'>Click button to see the tools on this PO</label>
   <button type='button' id='poHelperBtn' class='btn btn-primary' onclick='displayHelper()'>

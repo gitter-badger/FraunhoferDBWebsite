@@ -34,8 +34,8 @@ if($user_sec_lvl < 2){
   // getting the right po_number from the Session po_ID
   $po_ID = $_SESSION["po_ID"];
   $sql = "SELECT po_number
-  FROM pos
-  WHERE po_ID = '$po_ID'";
+          FROM pos
+          WHERE po_ID = '$po_ID'";
   $result = mysqli_query($link, $sql);
   while($row = mysqli_fetch_array($result)){
     $po_number = $row[0];
@@ -57,8 +57,8 @@ if($user_sec_lvl < 2){
           <option value="">Select coating type:</option> 
           <?php
           $sql = "SELECT coating_ID, coating_type 
-          FROM coating 
-          ORDER BY coating_type ASC";
+                  FROM coating 
+                  ORDER BY coating_type ASC";
           $result = mysqli_query($link, $sql);
           if (!$result) 
           {

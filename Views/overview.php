@@ -21,21 +21,17 @@ while($row = mysqli_fetch_array($secResult)){
   <link href='../css/main.css' rel='stylesheet'>
   <script type="text/javascript" src='../js/passScript.js'></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-
   <script type="text/javascript">  
   $(document).ready(function(){
     $("#report tr:odd").addClass("odd");
     $("#report tr:not(.odd)").hide();
     $("#report tr:first-child").show();
-    
-    $("#report tr.odd").click(function(){
-      $(this).next("tr").toggle();
-      $(this).find(".arrow").toggleClass("up");
+        $("#report tr.odd").click(function(){
+          $(this).next("tr").toggle();
+          $(this).find(".arrow").toggleClass("up");
+        });
     });
-            //$("#report").jExpand();
-          });
   </script>  
-
 </head>
 <body>
 <?php include '../header.php'; ?>
@@ -161,14 +157,11 @@ while($row = mysqli_fetch_array($secResult)){
            }
            echo "</td>"."</tr>";
          }
-
        ?>
      </div>
    </div>
  </div>
-
 </div>
-
 <script>
 $(function() {
   $('.nav-tabs a').click(function (e) {
@@ -177,10 +170,8 @@ $(function() {
   });
 });
 </script>
-
 </body>
 </html>
-
 <?php
 mysql_close($link);
 ?>

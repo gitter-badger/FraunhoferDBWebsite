@@ -20,7 +20,6 @@ if($user_sec_lvl < 2){
 ?>
 <html>
 <head>
-
   <title>Fraunhofer CCD</title>
   <link href='../css/bootstrap.min.css' rel='stylesheet'>
   <link href='../css/main.css' rel='stylesheet'>
@@ -29,7 +28,6 @@ if($user_sec_lvl < 2){
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src='../js/bootstrap.min.js'></script>
-
 </head>
 <body>
   <?php include '../header.php'; ?>
@@ -62,15 +60,15 @@ while($row = mysqli_fetch_array($result)){
       <select name='POS' onchange='showTools(this.value)'>
        <option value''>Select a PO#: </option>
        <?php 
-          $sql = "SELECT po_ID, po_number
-                  FROM pos
-                  ORDER BY receiving_date DESC
-                  LIMIT 12";
-          $result = mysqli_query($link, $sql);
-          while($row = mysqli_fetch_array($result))
-          {
-             echo '<option value="'.$row[0].'">'.$row[1].'</option>';
-          }	
+       $sql = "SELECT po_ID, po_number
+               FROM pos
+               ORDER BY receiving_date DESC
+               LIMIT 12";
+       $result = mysqli_query($link, $sql);
+       while($row = mysqli_fetch_array($result))
+       {
+         echo '<option value="'.$row[0].'">'.$row[1].'</option>';
+       }	
        ?>
      </select>
    </form>
@@ -125,21 +123,21 @@ while($row = mysqli_fetch_array($result)){
         <label for="coatingID" class ='col-xs-3'>
           Coating
         </label>
-         <select id='coating_sel' onchange='generatePrice()' onfocus='generatePrice()'>
+        <select id='coating_sel' onchange='generatePrice()' onfocus='generatePrice()'>
           <option value="">Select coating type:</option> 
           <?php
-            $sql = "SELECT coating_ID, coating_type 
-                    FROM coating 
-                    ORDER BY coating_type ASC";
-            $result = mysqli_query($link, $sql);
-            if (!$result) 
-            {
-              die("Database query failed: " . mysqli_error($link));
-            }
-            while($row = mysqli_fetch_array($result))
-            {
-              echo '<option value="'.$row['coating_ID'].'">'.$row['coating_type'].'</option>';
-            }
+          $sql = "SELECT coating_ID, coating_type 
+                  FROM coating 
+                  ORDER BY coating_type ASC";
+          $result = mysqli_query($link, $sql);
+          if (!$result) 
+          {
+            die("Database query failed: " . mysqli_error($link));
+          }
+          while($row = mysqli_fetch_array($result))
+          {
+            echo '<option value="'.$row['coating_ID'].'">'.$row['coating_type'].'</option>';
+          }
           ?>
         </select>
       </div>
@@ -173,28 +171,28 @@ while($row = mysqli_fetch_array($result)){
       <label for="toolIDOdd">Tool ID Number: </label>
       <input type="text" name="toolIDOdd" id="tidOdd">
     </div>
-      <div class='col-xs-4'>
-        <label for="coatingIDOdd" class ='col-xs-3'>
-          Coating
-        </label>
-         <select id='coating_sel_odd' onchange='generatePrice()' onfocus='generatePrice()'>
-          <option value="">Select coating type:</option> 
-          <?php
-            $sql = "SELECT coating_ID, coating_type 
-                    FROM coating 
-                    ORDER BY coating_type ASC";
-            $result = mysqli_query($link, $sql);
-            if (!$result) 
-            {
-              die("Database query failed: " . mysqli_error($link));
-            }
-            while($row = mysqli_fetch_array($result))
-            {
-              echo '<option value="'.$row['coating_ID'].'">'.$row['coating_type'].'</option>';
-            }
-          ?>
-        </select>
-      </div>
+    <div class='col-xs-4'>
+      <label for="coatingIDOdd" class ='col-xs-3'>
+        Coating
+      </label>
+      <select id='coating_sel_odd' onchange='generatePrice()' onfocus='generatePrice()'>
+        <option value="">Select coating type:</option> 
+        <?php
+        $sql = "SELECT coating_ID, coating_type 
+                FROM coating 
+                ORDER BY coating_type ASC";
+        $result = mysqli_query($link, $sql);
+        if (!$result) 
+        {
+          die("Database query failed: " . mysqli_error($link));
+        }
+        while($row = mysqli_fetch_array($result))
+        {
+          echo '<option value="'.$row['coating_ID'].'">'.$row['coating_type'].'</option>';
+        }
+        ?>
+      </select>
+    </div>
     <div class='col-xs-4'>
       <label for="quantityOdd">Quantity: </label>
       <input type=" number" name="quantityOdd" id="quantityOdd">
@@ -213,7 +211,6 @@ while($row = mysqli_fetch_array($result)){
     <button type='button'  class='btn btn-default' onclick='addToolOdd()'>
       <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
     </button>
-
   </div>
 </div>
 </div>

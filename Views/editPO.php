@@ -61,14 +61,14 @@ while($row = mysqli_fetch_array($secResult)){
           }
           while($row = mysqli_fetch_array($result)){
             echo "<tr>".
-                    "<td>".$row[0]."</td>".
-                    "<td>".$row[1]."</td>".
-                    "<td>".$row[2]."</td>".
-                    "<td>".$row[3]."</td>".
-                    "<td>".$row[4]."</td>".
-                    "<td>".$row[5]."</td>".
-                    "<td>".$row[6]."</td>".
-                  "</tr>";
+            "<td>".$row[0]."</td>".
+            "<td>".$row[1]."</td>".
+            "<td>".$row[2]."</td>".
+            "<td>".$row[3]."</td>".
+            "<td>".$row[4]."</td>".
+            "<td>".$row[5]."</td>".
+            "<td>".$row[6]."</td>".
+            "</tr>";
           }
           ?>
         </table>
