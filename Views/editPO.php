@@ -29,14 +29,14 @@ while($row = mysqli_fetch_array($secResult)){
       <div class='col-md-12'>
         <!-- Getting the po_number from the po_ID -->
         <?php 
-            $po_ID = $_SESSION["po_ID"];
-            $sql = "SELECT po_number
-                    FROM pos
-                    WHERE po_ID = '$po_ID'";
-            $result = mysqli_query($link, $sql);
-            while($row = mysqli_fetch_array($result)){
-              $po_number = $row[0];
-            }
+        $po_ID = $_SESSION["po_ID"];
+        $sql = "SELECT po_number
+                FROM pos
+                WHERE po_ID = '$po_ID'";
+        $result = mysqli_query($link, $sql);
+        while($row = mysqli_fetch_array($result)){
+          $po_number = $row[0];
+        }
         ?>
         <h1><?php echo $po_number; ?></h1>
         <h2>Here are the lineitems for this PO</h2>
@@ -59,60 +59,60 @@ while($row = mysqli_fetch_array($secResult)){
           if (!$result){
             die("Database query failed: " . mysql_error());
           }
-         while($row = mysqli_fetch_array($result)){
-          echo "<tr>".
-          "<td>".$row[0]."</td>".
-          "<td>".$row[1]."</td>".
-          "<td>".$row[2]."</td>".
-          "<td>".$row[3]."</td>".
-          "<td>".$row[4]."</td>".
-          "<td>".$row[5]."</td>".
-          "<td>".$row[6]."</td>".
-          "</tr>";
+          while($row = mysqli_fetch_array($result)){
+            echo "<tr>".
+                    "<td>".$row[0]."</td>".
+                    "<td>".$row[1]."</td>".
+                    "<td>".$row[2]."</td>".
+                    "<td>".$row[3]."</td>".
+                    "<td>".$row[4]."</td>".
+                    "<td>".$row[5]."</td>".
+                    "<td>".$row[6]."</td>".
+                  "</tr>";
           }
-        ?>
-      </table>
-    </div>
-  </div>
-  <div class='row well well-lg'>
-    <div class='col-md-12'>
-      <h2>Enter the line number to edit. THIS IS NOT READY</h2>
-      <div class='col-md-3'>
-        <h4>Enter the line on the po you want to change</h4>
-        <input type='number' id='line' /></br>
-      </div>
-      <div class='col-md-3'>
-        <p>Change the quantity</p>
-        <input type='number' id='input_quantity'/>
-        <input type='submit' value='Submit' onclick='changeLineitemQuantity(<?php echo $po_ID;?>)' class='btn btn-primary'/>
-      </div>
-      <div class='col-md-3'>
-        <p>Change the price</p>
-        <input type='text' id='input_price'/>
-        <input type='submit' value='Submit' onclick='changeLineitemPrice(<?php echo $po_ID;?>)' class='btn btn-primary'/>
-      </div>
-      <div class='col-md-3'>
-        <p >Change the tool ID</p>
-        <input type='text' id='input_tool'/>
-        <input type='submit' value='Submit' onclick='changeLineitemTool(<?php echo $po_ID;?>)' class='btn btn-primary'/>
-      </div>
-      <div class='col-md-3'>
-        <p>Change the diameter</p>
-        <input type='text' id='input_diameter'/>
-        <input type='submit' value='Submit' onclick='changeLineitemDiameter(<?php echo $po_ID;?>)' class='btn btn-primary'/>
-      </div>
-      <div class='col-md-3'>
-        <p >Change the length</p>
-        <input type='text' id='input_length'/>
-        <input type='submit' value='Submit' onclick='changeLineitemLength(<?php echo $po_ID;?>)' class='btn btn-primary'/>
-      </div>
-      <div class='col-md-3'>
-        <p >Change double end (Enter 1 to change to double end. Enter 0 to change to single end)</p>
-        <input type='text' id='input_end'/>
-        <input type='submit' value='Submit' onclick='changeLineitemDoubleEnd(<?php echo $po_ID;?>)' class='btn btn-primary'/>
+          ?>
+        </table>
       </div>
     </div>
+    <div class='row well well-lg'>
+      <div class='col-md-12'>
+        <h2>Enter the line number to edit.</h2>
+        <div class='col-md-3'>
+          <h4>Enter the line on the po you want to change</h4>
+          <input type='number' id='line' /></br>
+        </div>
+        <div class='col-md-3'>
+          <p>Change the quantity</p>
+          <input type='number' id='input_quantity'/>
+          <input type='submit' value='Submit' onclick='changeLineitemQuantity(<?php echo $po_ID;?>)' class='btn btn-primary'/>
+        </div>
+        <div class='col-md-3'>
+          <p>Change the price</p>
+          <input type='text' id='input_price'/>
+          <input type='submit' value='Submit' onclick='changeLineitemPrice(<?php echo $po_ID;?>)' class='btn btn-primary'/>
+        </div>
+        <div class='col-md-3'>
+          <p >Change the tool ID</p>
+          <input type='text' id='input_tool'/>
+          <input type='submit' value='Submit' onclick='changeLineitemTool(<?php echo $po_ID;?>)' class='btn btn-primary'/>
+        </div>
+        <div class='col-md-3'>
+          <p>Change the diameter</p>
+          <input type='text' id='input_diameter'/>
+          <input type='submit' value='Submit' onclick='changeLineitemDiameter(<?php echo $po_ID;?>)' class='btn btn-primary'/>
+        </div>
+        <div class='col-md-3'>
+          <p >Change the length</p>
+          <input type='text' id='input_length'/>
+          <input type='submit' value='Submit' onclick='changeLineitemLength(<?php echo $po_ID;?>)' class='btn btn-primary'/>
+        </div>
+        <div class='col-md-3'>
+          <p >Change double end (Enter 1 to change to double end. Enter 0 to change to single end)</p>
+          <input type='text' id='input_end'/>
+          <input type='submit' value='Submit' onclick='changeLineitemDoubleEnd(<?php echo $po_ID;?>)' class='btn btn-primary'/>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
-  </body>
-  </html>
+</body>
+</html>

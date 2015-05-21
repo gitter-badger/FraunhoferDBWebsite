@@ -39,7 +39,7 @@
           <ul class="dropdown-menu" role="menu">
             <li><a href="Printouts/printPO.php" target="_blank">Print out General overviews</a></li>
             <li><a href="Printouts/printTrackSheet.php" target="_blank">Print out track sheet</a></li>
-            <li><a href="Views/viewExistingPO.php">Search for POS</a></li>
+            <li><a href="Views/filterPOS.php">Search for POS</a></li>
           </ul>
       </div>
       <?php 

@@ -30,58 +30,21 @@ if($user_sec_lvl < 2){
 
 </head>
 <body>
+  <?php
+  // getting the right po_number from the Session po_ID
+  $po_ID = $_SESSION["po_ID"];
+  $sql = "SELECT po_number
+  FROM pos
+  WHERE po_ID = '$po_ID'";
+  $result = mysqli_query($link, $sql);
+  while($row = mysqli_fetch_array($result)){
+    $po_number = $row[0];
+  }
+  ?>
   <?php include '../header.php'; ?>
   <div class='container'>
-   <div class='row well well-lg'>
-    <div class='col-xs-6'>
-      <h2>Choose the right PO number</h2>
-      <form><select name='POS' onchange='showTools(this.value)'>
-        <option value''>Select a PO#: </option>
-        <?php 
-          /*
-           *  dropdown list for po numbers
-           *  We pick all the pos that have shipping date not set
-           *  but we also want to get all the POS that have had invalid 
-           *  dates inserted to them. invalid dates show up as 0000-00-00
-           *  this way the user can easily fix the wrong date.
-           */
-          $sql = "SELECT po_ID, po_number
-                  FROM pos
-                  ORDER BY receiving_date DESC
-                  LIMIT 12";
-          $result = mysqli_query($link, $sql);
-          while($row = mysqli_fetch_array($result)){
-           echo '<option value="'.$row[0].'">'.$row[1].'</option>';
-          } 
-         echo "</select></form>";
-         ?>
-
-         <br><div id="txtHint"><b>PO info will be listed here...</b></div>
-       </div>
-     </div>
-     <div class='row well well-lg'>
-       <div class='col-xs-12'>
-        <p><strong>The run might already be in the database so here you can quickly add it to this PO. This dropdown shows all runs from the last 3 days</strong></p>
-        <select name="runsel" id="runsel" class='dropdown'>
-          <option value="">Choose an run number</option> 
-          <?php
-          $sql = "SELECT run_ID, run_Number 
-                  FROM run 
-                  WHERE run_date >= DATE_ADD(CURDATE(), INTERVAL -3 DAY);";
-          $result = mysqli_query($link, $sql);
-
-          if (!$result) 
-          {
-            die("Database query failed: " . mysqli_error($link));
-          }
-          while($row = mysqli_fetch_array($result))
-          {
-            echo '<option id="'.$row['run_ID'].'" value="'.$row['run_ID'].'">'.$row['run_Number'].'</option>';
-          }
-          ?>
-        </select>
-        <button type='button' id='old_run_btn' class='btn btn-primary'onclick="addOldRun()">Add run</button>
-      </div>
+    <div class='row well well-lg'>
+      <span>You are editing PO number </span><span id='POID'><?php echo $po_number;?></span>
     </div>
     <div class='row well well-lg'>
      <div class='col-xs-12'>
@@ -93,7 +56,9 @@ if($user_sec_lvl < 2){
         <select id='coatingID'>
           <option value="">Select coating type:</option> 
           <?php
-          $sql = "SELECT coating_ID, coating_type FROM coating ORDER BY coating_type ASC";
+          $sql = "SELECT coating_ID, coating_type 
+          FROM coating 
+          ORDER BY coating_type ASC";
           $result = mysqli_query($link, $sql);
           if (!$result) 
           {

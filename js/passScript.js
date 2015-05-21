@@ -240,6 +240,7 @@ function showPOTools() {
 
 function showPORuns() {
     var str = document.getElementById('POID').innerHTML;
+    console.log(str);
     if (str == "") {
         document.getElementById("txtAddRun").innerHTML = "";
         return;

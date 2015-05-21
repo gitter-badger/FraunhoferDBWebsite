@@ -23,27 +23,27 @@ while($row = mysqli_fetch_array($secResult)){
   <script src='../js/bootstrap.min.js'></script>
 </head>
 <body>
-<?php include '../header.php'; ?>
-    <div class='container'>
-      <div class='row well well-lg'>
-        <div class='col-md-12'>
-          <p>Add new coating to the database</p>
-              <p class='col-md-6'>
-                <label for="coatingType">Coating type</label>
-                <input type="text" name="coatingType" id="coatingType">
-                Fx. AlTin
-              </p>
-              <p class='col-md-6'>
-                <label for="coatingDesc">Coating Description</label>
-                <input type="text" name="coatingDesc" id="coatingDesc">
-                Fx. 60% Aluminum 40% titanium
-              </p>
-              <input class='col-md-offset-1'type="button" value="Add coating to database" onclick='addCoating()'>
-          </div>
-        </div>
-        <div>
-          <p id='errormsg'></p>
-        </div>
+  <?php include '../header.php'; ?>
+  <div class='container'>
+    <div class='row well well-lg'>
+      <div class='col-md-12'>
+        <p>Add new coating to the database</p>
+        <p class='col-md-6'>
+          <label for="coatingType">Coating type</label>
+          <input type="text" name="coatingType" id="coatingType">
+          Fx. AlTin
+        </p>
+        <p class='col-md-6'>
+          <label for="coatingDesc">Coating Description</label>
+          <input type="text" name="coatingDesc" id="coatingDesc">
+          Fx. 60% Aluminum 40% titanium
+        </p>
+        <input class='col-md-offset-1'type="button" value="Add coating to database" onclick='addCoating()'>
       </div>
-    </body>
-    </html>
+    </div>
+    <div>
+      <p id='errormsg'></p>
+    </div>
+  </div>
+</body>
+</html>

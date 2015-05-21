@@ -9,6 +9,7 @@ $sql = "UPDATE lineitem
         SET quantity = '$quantity'
         WHERE po_ID = $po_ID
         AND line_on_po = '$line'";   
+        
 $result = mysqli_query($link, $sql);
 if (!$result) {
     $message  = 'Error: ' . mysql_error();

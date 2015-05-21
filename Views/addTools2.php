@@ -46,9 +46,10 @@ $result = mysqli_query($link, $sql);
 while($row = mysqli_fetch_array($result)){
   $_SESSION["po_number"] = $row[0];
   $_SESSION["po_ID"] = $row[1];
+  $po_ID = $row[1];
 }
 ?>
-<input type="hidden" id='mostRecentPo_ID' value="<?php echo $_SESSION["po_ID"]; ?>" />
+<input type="hidden" id='mostRecentPo_ID' value="<?php echo $po_ID; ?>" />
 <div class='col-xs-12'>
   <span>The latest inserted po is : <span><strong><?php echo $_SESSION["po_number"];?></strong></span> click if you want to use this one.</span>
   <button class="btn btn-primary" onclick='showTools(document.getElementById("mostRecentPo_ID").value)'>Click me</button>
@@ -127,7 +128,9 @@ while($row = mysqli_fetch_array($result)){
          <select id='coating_sel' onchange='generatePrice()' onfocus='generatePrice()'>
           <option value="">Select coating type:</option> 
           <?php
-            $sql = "SELECT coating_ID, coating_type FROM coating ORDER BY coating_type ASC";
+            $sql = "SELECT coating_ID, coating_type 
+                    FROM coating 
+                    ORDER BY coating_type ASC";
             $result = mysqli_query($link, $sql);
             if (!$result) 
             {
@@ -177,7 +180,9 @@ while($row = mysqli_fetch_array($result)){
          <select id='coating_sel_odd' onchange='generatePrice()' onfocus='generatePrice()'>
           <option value="">Select coating type:</option> 
           <?php
-            $sql = "SELECT coating_ID, coating_type FROM coating ORDER BY coating_type ASC";
+            $sql = "SELECT coating_ID, coating_type 
+                    FROM coating 
+                    ORDER BY coating_type ASC";
             $result = mysqli_query($link, $sql);
             if (!$result) 
             {

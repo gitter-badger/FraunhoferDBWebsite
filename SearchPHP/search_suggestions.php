@@ -37,16 +37,17 @@ $result = mysqli_query($link, $sql);
 
 if(!$result){echo mysqli_error($link);}
 
-
-echo "<table id='output' class='table table-striped table-bordered'>
-		<tr>
-      		<th>PO number</th>
-	        <th>Customer</th>
-      		<th>Receiving Date</th>
-      		<th>Number of tools</th>
-  		    <th>Shipping date</th>
-      		<th>Final Price</th>
-      	<tr>";
+?>
+<table id='output' class='table table-striped table-bordered'>
+	<tr>
+		<th>PO number</th>
+		<th>Customer</th>
+		<th>Receiving Date</th>
+		<th>Number of tools</th>
+	    <th>Shipping date</th>
+		<th>Final Price</th>
+	<tr>
+<?php
 /*
 *	This while loops generates buttons on each line in the table
 *	And a modal page for every PO number
@@ -74,7 +75,8 @@ while($row = mysqli_fetch_array($result)){
 			        <a class='btn btn-primary' href='../Printouts/tracksheet.php'>Tracksheet</a>
 			        <a class='btn btn-primary' href='../Printouts/generalinfo.php'>General info</a>
 			        <a class='btn btn-primary' href='../Printouts/packingList.php'>Packing list</a>
-			        <a class='btn btn-primary' href='../Views/editPO.php'>Edit this PO</a>
+			        <a class='btn btn-primary' href='../Views/editPO.php'>Edit PO</a>
+			        <a class='btn btn-primary' href='../Views/editPOTrack.php'>Edit PO tracksheet.</a>
 			      </div>
 			      <div class='modal-footer'>
 			        <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
@@ -83,5 +85,5 @@ while($row = mysqli_fetch_array($result)){
 			  </div>
 		   </div>";
 }
-echo "</table";
+echo "</table>";
 ?>

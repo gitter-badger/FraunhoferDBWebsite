@@ -26,7 +26,7 @@ while($row = mysqli_fetch_array($secResult)){
 
 </head>
 <body>
-<?php include '../header.php'; ?>
+    <?php include '../header.php'; ?>
     <div class='container'>
         <div class='row well well-lg'>
             <div class='col-md-12'>
