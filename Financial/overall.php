@@ -38,7 +38,7 @@ if($user_sec_lvl < 2){
 
 	<script>
 	<?php 
-		$bigQuery = "SELECT ROUND(SUM(quantity * price),2), c.customer_name
+		$bigQuery = "SELECT ROUND(SUM(quantity * price),2), c.customer_name, CONCAT(ROUND(SUM(quantity * price),2), '$') AS 'Test' , c.customer_name
 					 FROM lineitem l, pos p, customer c
 					 WHERE l.po_ID = p.po_ID
 					 AND p.customer_ID = c.customer_ID

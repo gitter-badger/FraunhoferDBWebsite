@@ -42,7 +42,7 @@ function timerIncrement() {
   <div class='col-md-12'>
     <h2>These are all the comments</h2>
     <?php 
-    $sql = "SELECT * FROM Feedback";
+    $sql = "SELECT * FROM Feedback ORDER BY FID DESC";
     $result = mysqli_query($link, $sql);
     if(!$result){mysqli_error($link);}
     while($row = mysqli_fetch_array($result)){

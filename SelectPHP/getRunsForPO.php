@@ -1,7 +1,7 @@
 <?php
 
 include '../connection.php';
-
+session_start();
 // getting the right POID from the html side
 $q = mysqli_real_escape_string($link, $_GET['q']);
 $po_IDsql = "SELECT p.po_ID
@@ -49,7 +49,7 @@ while($row = mysqli_fetch_array($result)){
     if($row[2] == 5){ $row[2] = e;}
     if($row[2] == 6){ $row[2] = f;}
     if($row[2] == 7){ $row[2] = g;}
-    echo "<td><a href='#' data-toggle='modal' data-target='#".$row[0]."'>".$row[1]."</td>".
+    echo "<tr><td><a href='#' data-toggle='modal' data-target='#".$row[0]."'>".$row[1]."</td>".
          "<td>".$row[2]."</td>". 
          "<td>".$row[3]."</td>".
          "<td>".$row[4]."</td>".

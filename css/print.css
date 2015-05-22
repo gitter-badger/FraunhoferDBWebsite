@@ -1,5 +1,5 @@
 .bottomrow{
-    background-color: gray;
+    background-color: #E1E1E0;
 }
 .headerinfo{
     margin-bottom:10px;    
@@ -23,7 +23,7 @@ hr {
 @media print {
 
 .bottomrow{
-    background-color: gray !important;
+    background-color: #E1E1E0 !important;
      -webkit-print-color-adjust: exact; 
 }
 .headerinfo{

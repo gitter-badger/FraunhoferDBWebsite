@@ -47,7 +47,7 @@ while($row = mysqli_fetch_array($result)) {
     $POID = $row[0];
     echo "<div class='col-xs-12'>";
     echo "<span class='col-xs-4'>".'PO number : '.$row[0]."</span>";
-    echo "<span class='col-xs-4'>".'Reciving Date : '.$row[1]."</span>";
+    echo "<span class='col-xs-4'>".'Receiving Date : '.$row[1]."</span>";
     echo "<span class='col-xs-4'>".'Customer : '.$row[2]."</span>";
     // echo "<span class='col-xs-6'>". 'Shipping Date : '. $row[3]."</span>";
     echo "<span class='col-xs-4'>". 'Shipping Info : '.$row[4]."</span>";
@@ -56,17 +56,17 @@ while($row = mysqli_fetch_array($result)) {
 }
 
 echo "<table>";
-echo    "<tr>".
-            "<td>Line#</td>".
-            "<td>Quantity</td>".  
-            "<td>ToolID</td>".
-            "<td>Coating</td>".
-            "<td>diameter</td>".
-            "<td>length</td>".
-            "<td>double end</td>".
-            "<td>unit price</td>".
-            "<td>total unit price</td>".
-        "</tr>";
+echo    "<tr>
+            <td>Line#</td>
+            <td>Quantity</td>  
+            <td>ToolID</td>
+            <td>Coating</td>
+            <td>diameter</td>
+            <td>length</td>
+            <td>double end</td>
+            <td>unit price</td>
+            <td>total unit price</td>
+        </tr>";
 while($row = mysqli_fetch_array($tresult)) {
     $line = $row[8];
     $coatingSql = "SELECT c.coating_type
