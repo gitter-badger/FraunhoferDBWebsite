@@ -32,15 +32,6 @@
       <div class='col-md-3 btn-group'>
           <!-- <input type="submit" class='btn btn-primary' value="Tooling overview"> -->
           <button type='button' class='btn btn-primary' onclick="location.href='Views/overview.php'">Tooling overview</button>
-          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-            <span class="caret"></span>
-            <span class="sr-only">Toggle Dropdown</span>
-          </button>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="Printouts/printPO.php" target="_blank">Print out General overviews</a></li>
-            <li><a href="Printouts/printTrackSheet.php" target="_blank">Print out track sheet</a></li>
-            <li><a href="Views/filterPOS.php">Search for POS</a></li>
-          </ul>
       </div>
       <?php 
       if($user_sec_lvl >= 2){
@@ -61,42 +52,31 @@
         </div>";
       }
       ?>
-
       <?php 
-      if($user_sec_lvl >= 1){
-        echo 
-        "<div class='col-md-3 btn-group'>
-        <button type='button' class='btn btn-primary' onclick="."location.href"."='Views/addOrEdit.php'>General information</button>
-        <button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-expanded='false'>
-          <span class='caret'></span>
-          <span class='sr-only'>Toggle Dropdown</span>
-        </button>
-        <ul class='dropdown-menu' role='menu'>
-          <li><a href='Views/viewAllCustomers.php'>Customer info</a></li>
-          <li><a href='Views/viewAllEmployees.php'>Employee info</a></li>
-          <li><a href='Views/viewAllMachines.php'>Machine info</a></li>
-          <li><a href='Views/viewAllCoatings.php'>Coating info</a></li>
-        </ul>
-        </div>";
-      }
+        if($user_sec_lvl >= 1){
+          echo 
+          "<div class='col-md-3 btn-group'>
+          <button type='button' class='btn btn-primary' onclick="."location.href"."='Views/addOrEdit.php'>General information</button>
+          <button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-expanded='false'>
+            <span class='caret'></span>
+            <span class='sr-only'>Toggle Dropdown</span>
+          </button>
+          <ul class='dropdown-menu' role='menu'>
+            <li><a href='Views/viewAllCustomers.php'>Customer info</a></li>
+            <li><a href='Views/viewAllEmployees.php'>Employee info</a></li>
+            <li><a href='Views/viewAllMachines.php'>Machine info</a></li>
+            <li><a href='Views/viewAllCoatings.php'>Coating info</a></li>
+          </ul>
+          </div>";
+        }
       ?>
       <?php
-      if($user_sec_lvl >= 4){
-        echo
-        "<div class='col-md-3 btn-group'>
-        <button type='button' class='btn btn-primary'>Financial data</button>
-        <button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-expanded='false'>
-          <span class='glyphicon glyphicon-euro'></span>
-          <span class='sr-only'>Toggle Dropdown</span>
-        </button>
-        <ul class='dropdown-menu' role='menu'>
-          <li><a>Money Trees</a></li>
-          <li><a>Money marbles and chalk</a></li>
-          <li><a>Aint nothing but a 'G' thang</a></li>
-          <li><a>It´s all about the Benjamins</a></li>
-        </ul>
-        </div>";
-      }
+        if($user_sec_lvl >= 4){
+          echo
+          "<div class='col-md-3 btn-group'>
+          <button type='button' class='btn btn-primary' onclick="."location.href"."='Financial/overall.php'>Financial data</button>
+          </div>";
+        }
       ?>
     </div>
   </div>

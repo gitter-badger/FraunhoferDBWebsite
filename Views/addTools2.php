@@ -49,8 +49,7 @@ while($row = mysqli_fetch_array($result)){
 ?>
 <input type="hidden" id='mostRecentPo_ID' value="<?php echo $po_ID; ?>" />
 <div class='col-xs-12'>
-  <span>The latest inserted po is : <span><strong><?php echo $_SESSION["po_number"];?></strong></span> click if you want to use this one.</span>
-  <button class="btn btn-primary" onclick='showTools(document.getElementById("mostRecentPo_ID").value)'>Click me</button>
+  <span>The latest inserted po is : <span><strong><?php echo $_SESSION["po_number"];?></strong></span> <button onclick='showTools(document.getElementById("mostRecentPo_ID").value)'>click</button> if you want to use this one.</span>
 </div>
 </div>
 <div class='row well well-lg'>

@@ -1,3 +1,9 @@
+.bottomrow{
+    background-color: gray;
+}
+.headerinfo{
+    margin-bottom:10px;    
+}
 table {
     width: 100%;
     border-collapse: collapse;
@@ -15,6 +21,14 @@ hr {
     margin-bottom: 25px;
 }
 @media print {
+
+.bottomrow{
+    background-color: gray !important;
+     -webkit-print-color-adjust: exact; 
+}
+.headerinfo{
+    margin-bottom:10px;    
+}
 hr{
     border: 1px solid black;
     width: 95%;

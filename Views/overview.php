@@ -48,20 +48,6 @@ while($row = mysqli_fetch_array($secResult)){
       </div>
     </div>
     <div class='row well well-lg'>
-      <div class='col-md-6'>
-        <h2>Print outs</h2>
-        <p class='lead'>Print out General info sheets or track sheets</p>
-        <div class='input-group col-md-8'>
-          <span class="btn-group">
-            <div class='list-group'>
-              <a class='list-group-item list-group-item-info' href='../Printouts/printPO.php' target="_blank">Print PO</a>
-              <a class='list-group-item list-group-item-info' href='../Printouts/printTrackSheet.php' target="_blank">Print tracksheet</a>
-            </div>
-          </span>
-        </div>
-      </div>
-    </div>
-    <div class='row well well-lg'>
       <div class='col-md-12'>
         <h2>Find Existing POS for the company of your choice</h2>
         <p class='lead'>Choose the company to see their active POS Thought of this as a quick look if a customer calls and asks about an old PO. </p>

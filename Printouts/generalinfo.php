@@ -29,7 +29,7 @@ $sql = "SELECT p.po_number, p.receiving_date, c.customer_name,  p.shipping_date,
 $result = mysqli_query($link, $sql);
 
 // finds all the line items for that PO
-$tsql = "SELECT l.line_on_po, l.quantity, l.tool_ID, l.diameter, l.length, IF(l.double_end = 0, 'NO', 'YES') AS 'Double End' ,l.price, SUM(ROUND(l.price * l.quantity, 2)) 
+$tsql = "SELECT l.line_on_po, l.quantity, l.tool_ID, l.diameter, l.length, IF(l.double_end = 0, 'NO', 'YES') AS 'Double End' ,l.price, SUM(ROUND(l.price * l.quantity, 2)), l.lineitem_ID
          FROM pos p, lineitem l
          WHERE l.po_ID = '$q'
          AND l.po_ID = p.po_ID
@@ -60,18 +60,31 @@ echo    "<tr>".
             "<td>Line#</td>".
             "<td>Quantity</td>".  
             "<td>ToolID</td>".
+            "<td>Coating</td>".
             "<td>diameter</td>".
             "<td>length</td>".
             "<td>double end</td>".
             "<td>unit price</td>".
             "<td>total unit price</td>".
         "</tr>";
-
 while($row = mysqli_fetch_array($tresult)) {
-     echo "<tr>".
+    $line = $row[8];
+    $coatingSql = "SELECT c.coating_type
+                   FROM coating c, lineitem l, lineitem_run lir, run r
+                   WHERE l.lineitem_ID = '$line'
+                   AND lir.lineitem_ID = l.lineitem_ID
+                   AND lir.run_ID = r.run_ID
+                   AND c.coating_ID = r.coating_ID;";
+    $coatingResult = mysqli_query($link, $coatingSql);
+
+    while($coat = mysqli_fetch_array($coatingResult)){
+      $coating = $coat[0];
+    }
+    echo "<tr>".
             "<td>".$row[0]."</td>".
             "<td>".$row[1]."</td>".
             "<td>".$row[2]."</td>".
+            "<td>".$coating."</td>".
             "<td>".$row[3]."</td>".
             "<td>".$row[4]."</td>".
             "<td>".$row[5]."</td>".
@@ -88,23 +101,22 @@ $totalPricesql = "SELECT SUM(ROUND(l.price * l.quantity, 2))
 $totalPriceResult = mysqli_query($link, $totalPricesql);
 
 while($row = mysqli_fetch_array($sumresult)){
-    echo "<tr>".
-    "<td>Total: </td>".
-    "<td>".$row[0]."</td>".
-    "<td></td>".
-    "<td></td>".
-    "<td></td>".
-    "<td></td>";
+    echo 
+      "<tr class='bottomrow'>".
+        "<td>Total: </td>".
+        "<td>".$row[0]."</td>".
+        "<td></td>".
+        "<td></td>".
+        "<td></td>".
+        "<td></td>".
+        "<td></td>";
 }
 while($frow = mysqli_fetch_array($totalPriceResult)){
     echo "<td>Total price:</td>".
     "<td>$".$frow[0]."</td>".
     "</tr>";
 }
-
-
 mysqli_close($link);
 ?>
-
 </body>
 </html>
