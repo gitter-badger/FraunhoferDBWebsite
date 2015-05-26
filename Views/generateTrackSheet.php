@@ -63,7 +63,8 @@ if($user_sec_lvl < 2){
           <?php
           $sql = "SELECT run_ID, run_Number 
                   FROM run 
-                  WHERE run_date >= DATE_ADD(CURDATE(), INTERVAL -3 DAY);";
+                  ORDER BY run_date DESC
+                  LIMIT 6;";
           $result = mysqli_query($link, $sql);
 
           if (!$result) 

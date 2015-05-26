@@ -278,6 +278,7 @@ function showRunTools() {
     }
     xmlhttp.open("GET","../SelectPHP/getToolsForRun.php?q="+str,true);
     xmlhttp.send();
+
     return str;
 }
 }     

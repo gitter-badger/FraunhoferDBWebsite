@@ -31,38 +31,44 @@ if($user_sec_lvl < 2){
 	<body>
 		<?php include '../header.php'; ?>
 		<div style="width: 50%" class='col-md-12 col-md-offset-3'>
-			<h2>$Total for each company</h2>
+			<h2>The status of the database in numbers</h2>
 			<canvas id="canvas" height="450" width="600"></canvas>
 		</div>
-
-
 	<script>
 	<?php 
-		$bigQuery = "SELECT ROUND(SUM(quantity * price),2), c.customer_name, CONCAT(ROUND(SUM(quantity * price),2), '$')
-					 FROM lineitem l, pos p, customer c
-					 WHERE l.po_ID = p.po_ID
-					 AND p.customer_ID = c.customer_ID
-					 GROUP BY p.customer_ID;";
+		$lineitemSql = "SELECT COUNT(lineitem_ID)
+						FROM lineitem;";
+		$lineitemResult = mysqli_query($link, $lineitemSql);
+
+		$runSql = "SELECT COUNT(run_ID)
+				   FROM run;";
+		$runResult = mysqli_query($link, $runSql);
+
+		$poSql = "SELECT COUNT(po_ID)
+				  FROM pos;";
+		$poResult = mysqli_query($link, $poSql);
+
+		while($row = mysqli_fetch_array($lineitemResult)){
+			$lineitems = $row[0];
+		}
+
+		while($row = mysqli_fetch_array($poResult)){
+			$pos = $row[0];
+		}
+
+		while($row = mysqli_fetch_array($runResult)){
+			$runs = $row[0];
+		}
 	?>
 	var myData = {
-		labels : [<?php 
-					$labels = mysqli_query($link, $bigQuery);
-					while($row = mysqli_fetch_array($labels)){
-							echo '"'.$row[1].'",';
-						}
-				  ?>],
+		labels : ["Lineitem", "Pos", "Runs"],
 		datasets : [
 			{
 				fillColor : "rgba(151,187,205,0.5)",
 				strokeColor : "rgba(151,187,205,0.8)",
 				highlightFill : "rgba(151,187,205,0.75)",
 				highlightStroke : "rgba(151,187,205,1)",
-				data : [<?php
-							$data = mysqli_query($link, $bigQuery);
-							while($row = mysqli_fetch_array($data)){
-								echo $row[0].",";
-							}
-					   ?>]
+				data : [<?php echo $lineitems;?>, <?php echo $pos;?>, <?php echo $runs;?>]
 			}
 		]
 	}

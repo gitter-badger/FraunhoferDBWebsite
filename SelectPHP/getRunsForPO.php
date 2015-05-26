@@ -70,7 +70,7 @@ while($row = mysqli_fetch_array($result)){
                   </div>
                   <div class='modal-footer'>
                     <button type='button' class='btn btn-default' onclick='showPOTools()' data-dismiss='modal'>Close</button>
-                    <button type='button' class='btn btn-success' onclick='updateRunComment(".$row[0].")'>Save changes</button>
+                    <button type='button' class='btn btn-success' onclick='updateRunComment(".$row[0].")'data-dismiss='modal'>Save changes</button>
                   </div>
                 </div>
               </div>

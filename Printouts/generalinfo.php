@@ -29,11 +29,12 @@ $sql = "SELECT p.po_number, p.receiving_date, c.customer_name,  p.shipping_date,
 $result = mysqli_query($link, $sql);
 
 // finds all the line items for that PO
-$tsql = "SELECT l.line_on_po, l.quantity, l.tool_ID, l.diameter, l.length, IF(l.double_end = 0, 'NO', 'YES') AS 'Double End' ,l.price, SUM(ROUND(l.price * l.quantity, 2)), l.lineitem_ID
-         FROM pos p, lineitem l
-         WHERE l.po_ID = '$q'
-         AND l.po_ID = p.po_ID
-         GROUP BY l.line_on_po";
+$tsql = "SELECT l.line_on_po, l.quantity, l.tool_ID, IF(l.coating_ID IS NULL, 'empty', c.coating_type) AS 'Coating', l.diameter, l.length, IF(l.double_end = 0, 'NO', 'YES') AS 'Double End' ,l.price, SUM(ROUND(l.price * l.quantity, 2))
+FROM lineitem l 
+  LEFT JOIN coating c
+    ON l.coating_ID = c.coating_ID
+WHERE l.po_ID = '$q'
+GROUP BY l.line_on_po;";
 $tresult = mysqli_query($link, $tsql);
 
 // the sum of all the tools from all the line items on that PO
@@ -68,28 +69,16 @@ echo    "<tr>
             <td>total unit price</td>
         </tr>";
 while($row = mysqli_fetch_array($tresult)) {
-    $line = $row[8];
-    $coatingSql = "SELECT c.coating_type
-                   FROM coating c, lineitem l, lineitem_run lir, run r
-                   WHERE l.lineitem_ID = '$line'
-                   AND lir.lineitem_ID = l.lineitem_ID
-                   AND lir.run_ID = r.run_ID
-                   AND c.coating_ID = r.coating_ID;";
-    $coatingResult = mysqli_query($link, $coatingSql);
-
-    while($coat = mysqli_fetch_array($coatingResult)){
-      $coating = $coat[0];
-    }
     echo "<tr>".
             "<td>".$row[0]."</td>".
             "<td>".$row[1]."</td>".
             "<td>".$row[2]."</td>".
-            "<td>".$coating."</td>".
             "<td>".$row[3]."</td>".
             "<td>".$row[4]."</td>".
             "<td>".$row[5]."</td>".
             "<td>".$row[6]."</td>".
-            "<td>".$row[7]."</td>".
+            "<td>$".$row[7]."</td>".
+            "<td>$".$row[8]."</td>".
           "</tr>";
 }
 // Finds the price of all the tools on that po
