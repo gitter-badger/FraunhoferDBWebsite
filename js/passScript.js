@@ -823,7 +823,7 @@ function confirmPO(){
                 var r = confirm(data);
                 if(r == true)
                 {
-                    addShipDateToPO();
+                    addShipDateToPO(POID, fInspect, date);
                 }
             }else if(data.indexOf("assigned") > -1){
                 var r = confirm(data);

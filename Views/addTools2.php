@@ -105,6 +105,8 @@ while($row = mysqli_fetch_array($result)){
           <option value="5/8">5/8</option>
           <option value="3/4">3/4</option>
           <option value="1">1</option>
+          <option value="1 1/4">1 1/4</option>
+          <option value="1 3/8">1 3/8</option>
         </select>
       </div>
       <div class='col-xs-4' id='changelength'>
@@ -116,6 +118,9 @@ while($row = mysqli_fetch_array($result)){
           <option value="4">4</option>
           <option value="5">5</option>
           <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
         </select>
       </div>
       <div class='col-xs-4'>

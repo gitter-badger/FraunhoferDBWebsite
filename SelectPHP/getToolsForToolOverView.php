@@ -14,13 +14,12 @@ while($row = mysqli_fetch_array($po_IDresult)){
     $po_ID = $row[0];
 }
 //sql for table data
-$sql = "SELECT l.line_on_po, l.quantity, l.tool_ID, l.diameter, l.length, l.double_end, l.price, ROUND(l.price * l.quantity, 2) 
+$sql = "SELECT l.line_on_po, l.quantity, l.tool_ID, l.diameter, l.length, IF(l.double_end = 1, 'Yes', 'No'), l.price, ROUND(l.price * l.quantity, 2) 
         FROM lineitem l, POS p   
         WHERE l.po_ID = '$po_ID'
         GROUP BY l.lineitem_ID
         ORDER BY l.line_on_po";
 $result = mysqli_query($link, $sql);
-
 
 //sql for bottom row
 $sumSql = "SELECT COUNT('lineitem_ID'), SUM(quantity)

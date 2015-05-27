@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php
   include '../connection.php';
+  session_start();
 ?>
 <script type="text/javascript">
 var idleTime = 0;

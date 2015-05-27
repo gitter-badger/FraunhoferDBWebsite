@@ -68,7 +68,6 @@ function drawMarkersMap() {
 
   var chart = new google.visualization.GeoChart(document.getElementById('chart_div'));
   chart.draw(data, options);
-  document.title = 'Hello!'; // New title :)
 };
 </script>
 </body>
