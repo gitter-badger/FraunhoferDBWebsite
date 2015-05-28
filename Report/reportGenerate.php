@@ -73,7 +73,7 @@ while($row = mysqli_fetch_array($poResult)){
 	echo "<tr>";
 	echo "<td>".$row[0]."</td>";// month
 	echo "<td>".$row[1]."</td>";// # of pos
-	echo "<td>".$row[2]."</td>";// AVG po price
+	echo "<td>$".$row[2]."</td>";// AVG po price
 	echo "<td>".$row[3]."</td>";// AVG turn around time
 	echo "<td>".$linearray[$lineItterate]."</td>";// Number of tools
 	$lineItterate = $lineItterate + 1;

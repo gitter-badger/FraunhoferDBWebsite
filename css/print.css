@@ -27,6 +27,9 @@ hr {
 #tableDiv{
     padding-bottom:30px;
 }
+.packingTable{
+    border:none;
+}
 @media print {
 
 .bottomrow{
@@ -39,6 +42,7 @@ hr {
 #tableDiv{
     padding-bottom: 30px;
 }
+
 hr{
     border: 1px solid black;
     width: 95%;
@@ -66,6 +70,7 @@ ul, img {
     display:none;
 }
 .packingTable{
+    border:none;
 }
 #aboveTable{
     margin: 2px;
