@@ -26,10 +26,10 @@ if(!empty($customer_ID))
 	$sql .= "AND p.customer_ID = '$customer_ID' ";
 }
 if(!empty($first_date)){
-	$sql .= "AND receiving_date > '$first_date' ";
+	$sql .= "AND receiving_date >= '$first_date' ";
 }
 if(!empty($last_date)){
-	$sql .= "AND receiving_date < '$last_date' ";
+	$sql .= "AND receiving_date <= '$last_date' ";
 }
 $sql .= "GROUP BY p.po_ID ";
 $sql .= "ORDER BY p.receiving_date DESC;";
