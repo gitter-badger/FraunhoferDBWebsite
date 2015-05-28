@@ -20,7 +20,7 @@ while($row = mysqli_fetch_array($custResult)){
 	Query that fetches most of the info needed.
 	We do not want to include POS that have not been shipped.
 */
-$poSql = "SELECT  MONTHNAME(receiving_date), count(p.po_ID), ROUND(AVG(final_price), 2), ROUND(AVG(DATEDIFF(shipping_date, receiving_date)), 2), ROUND(SUM(p.final_price), 2)
+$poSql = "SELECT  MONTHNAME(receiving_date), count(p.po_ID), ROUND(AVG(final_price), 2), ROUND(AVG(TOTAL_WEEKDAYS(shipping_date, receiving_date)), 2), ROUND(SUM(p.final_price), 2)
 		  FROM pos p, customer c
 		  WHERE p.customer_ID = c.customer_ID
 		  AND c.customer_ID = '$customer'

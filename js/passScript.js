@@ -1289,7 +1289,21 @@ function changeLineitemDoubleEnd(po_ID){
      }
     })
 }
-
+function deleteLineitem(POID){
+    var line = $('#line').val();
+     $.ajax({
+        url : "../DeletePHP/deleteToolFromPO.php",
+        type: "POST",
+        data : {POID  : POID,
+                line : line},
+         success: function(data,status, xhr)
+         {
+            window.location.reload(true);
+            $("#status_text").html(data);
+            //alert("Tool deleted successfully");
+        }
+    })
+ }
 
 
 

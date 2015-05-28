@@ -111,6 +111,10 @@ while($row = mysqli_fetch_array($secResult)){
           <input type='text' id='input_end'/>
           <input type='submit' value='Submit' onclick='changeLineitemDoubleEnd(<?php echo $po_ID;?>)' class='btn btn-primary'/>
         </div>
+        <div class='col-md-3'>
+          <p>Delete lineitem</p>
+          <input type='submit' value='Submit' onclick='deleteLineitem(<?php echo $po_ID;?>)' class='btn btn-danger'/>
+        </div>
       </div>
     </div>
   </div>

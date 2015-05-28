@@ -74,7 +74,7 @@ $address_line_2 = $addressArray[1].$addressArray[2];
       <img src="../images/iso.jpg" alt="ISO logo" style="float:right; width:70px; height:auto; margin-top:10px;"/>
       <img src="../images/fraunhoferlogo.jpg" alt="Fraunhofer Logo" style="float:left; width:220px; height:auto; margin-top:10px;"/>
     </div>
-    <div style="font-size:12px">
+    <div style="font-size:13px">
       <div class="col-xs-12"> 
         <div class='col-xs-12'>
           <h5>Packing list </h5>
@@ -92,17 +92,17 @@ $address_line_2 = $addressArray[1].$addressArray[2];
           <span class="col-xs-12">Fax <?php echo $customer_fax;?></span>
         </div>
         <div class="col-xs-6">
-          <span class="col-xs-12 col-xs-offset-1">Fraunhofer USA</span>
-          <span class="col-xs-12 col-xs-offset-1">Center for Coatings and Diamond Technologies</span>
+          <span class="col-xs-12 col-xs-offset-2">Fraunhofer USA</span>
+          <span class="col-xs-12 col-xs-offset-2">Center for Coatings and Diamond Technologies</span>
           <span class='col-xs-12'></br></span>
-          <span class="col-xs-12 col-xs-offset-1">1449 Engineering Reasearch Court</span>
-          <span class="col-xs-12 col-xs-offset-1">Michigan State University</span>
-          <span class="col-xs-12 col-xs-offset-1">East Lansing, MI, 48824</span>
-          <span class="col-xs-12 col-xs-offset-1"></br></span>
-          <span class="col-xs-12 col-xs-offset-1">Lars Haubold</span>
-          <span class="col-xs-12 col-xs-offset-1">Ph. 1-517-432-8179</span>
-          <span class="col-xs-12 col-xs-offset-1">Fax. 1-517-432-8167</span>
-          <span class="col-xs-12 col-xs-offset-1">Email: lhaubold@fraunhofer.org</span>
+          <span class="col-xs-12 col-xs-offset-2">1449 Engineering Reasearch Court</span>
+          <span class="col-xs-12 col-xs-offset-2">Michigan State University</span>
+          <span class="col-xs-12 col-xs-offset-2">East Lansing, MI, 48824</span>
+          <span class="col-xs-12 col-xs-offset-2"></br></span>
+          <span class="col-xs-12 col-xs-offset-2">Lars Haubold</span>
+          <span class="col-xs-12 col-xs-offset-2">Ph. 1-517-432-8179</span>
+          <span class="col-xs-12 col-xs-offset-2">Fax. 1-517-432-8167</span>
+          <span class="col-xs-12 col-xs-offset-2">Email: lhaubold@fraunhofer.org</span>
         </div>
       </div>
       <div class='col-xs-12'>
