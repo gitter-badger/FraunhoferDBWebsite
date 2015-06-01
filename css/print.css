@@ -27,9 +27,10 @@ hr {
 #tableDiv{
     padding-bottom:30px;
 }
+/*
 .packingTable{
     border:none;
-}
+}*/
 @media print {
 
 .bottomrow{
@@ -50,7 +51,7 @@ hr{
     margin-bottom: 25px;
 }
 body{
-    font-size: x-small;
+    font-size: small;
 }
 table {
     width: 100%;
@@ -61,7 +62,7 @@ table {
 table, td, th {
     border: 1px solid black;
     padding: 0px;
-    font-size: x-small;
+
 }
 ul, img {
   page-break-inside: avoid;
@@ -71,6 +72,7 @@ ul, img {
 }
 .packingTable{
     border:none;
+     font-size: small;
 }
 #aboveTable{
     margin: 2px;

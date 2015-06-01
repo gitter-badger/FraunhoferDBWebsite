@@ -42,21 +42,21 @@ if (!$result) {
 //from the coatingResult query
 //then we get the rest of the data
 while($row = mysqli_fetch_array($result)){
-    if($row[2] == 1){ $row[2] = a;}
-    if($row[2] == 2){ $row[2] = b;}
-    if($row[2] == 3){ $row[2] = c;}
-    if($row[2] == 4){ $row[2] = d;}
-    if($row[2] == 5){ $row[2] = e;}
-    if($row[2] == 6){ $row[2] = f;}
-    if($row[2] == 7){ $row[2] = g;}
-    echo "<tr><td><a href='#' data-toggle='modal' data-target='#".$row[0]."'>".$row[1]."</td>".
+    if($row[4] == 1){ $row[4] = a;}
+    if($row[4] == 2){ $row[4] = b;}
+    if($row[4] == 3){ $row[4] = c;}
+    if($row[4] == 4){ $row[4] = d;}
+    if($row[4] == 5){ $row[4] = e;}
+    if($row[4] == 6){ $row[4] = f;}
+    if($row[4] == 7){ $row[4] = g;}
+    echo "<tr><td><a href='#' data-toggle='modal' data-target='#".$row[1]."'>".$row[1]."</td>".
          "<td>".$row[2]."</td>". 
          "<td>".$row[3]."</td>".
          "<td>".$row[4]."</td>".
          "<td>".$row[5]."</td>".
          "</tr>";
 
-    echo "<div class='modal fade' id='".$row[0]."' tabindex='-1' role='dialog' aria-labelledby='".$row[0]."' aria-hidden='true'>
+    echo "<div class='modal fade' id='".$row[1]."' tabindex='-1' role='dialog' aria-labelledby='".$row[1]."' aria-hidden='true'>
               <div class='modal-dialog'>
                 <div class='modal-content'>
                   <div class='modal-header'>
@@ -66,23 +66,17 @@ while($row = mysqli_fetch_array($result)){
                   <div class='modal-body'>
                     <h3>Add or edit run comment</h3>
                     <p>This is the current comment</p>
-                    <textarea id='new_comment'>".$row[5]."</textarea>
+                    <textarea  class='new_comment'>".$row[5]."</textarea>
+                    <button type='button' class='btn btn-success comment_button' onclick='updateRunComment(".$row[0].")'>Save changes</button>
+                    <button type='button' class='btn btn-default' onclick='showPOTools()' data-dismiss='modal'>Close</button>
                   </div>
                   <div class='modal-footer'>
-                    <button type='button' class='btn btn-default' onclick='showPOTools()' data-dismiss='modal'>Close</button>
-                    <button type='button' class='btn btn-success' onclick='updateRunComment(".$row[0].")'data-dismiss='modal'>Save changes</button>
                   </div>
                 </div>
               </div>
            </div>";
 }
 ?>
-
-
-
-
-
-
 
 
 

@@ -67,7 +67,11 @@ $totalSumSql = "SELECT SUM(ROUND(l.price * l.quantity, 2))
                 FROM lineitem l   
                 WHERE l.po_ID = '$po_ID'";
 $totalSumResult = mysqli_query($link, $totalSumSql);
-
+if (!$totalSumResult) {
+    $message  = 'Invalid query result query: ' . mysql_error() . "\n";
+    $message .= 'Whole query: ' . $query;
+    die($message);
+}
 
 while($row = mysqli_fetch_array($sumresult)){
     echo "<tr>".

@@ -25,6 +25,8 @@ if($user_sec_lvl < 2){
   <link href='../css/main.css' rel='stylesheet'>
   <script type="text/javascript" src='../js/passScript.js'></script>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="../js/bootstrap.min.js"></script>
 </head>
 <body>
   <?php include '../header.php'; ?>
@@ -154,11 +156,12 @@ if($user_sec_lvl < 2){
       <button type='button' id='del_button' class='btn btn-danger' onclick='delRun(document.getElementById("delitem").value) ; showPORuns()'>
         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
       </button>
-      <div id="status_text"></div>
+      <div id="status_text">
       <table id='txtAddRun'>
       </table>
     </div>
   </div>
+</div>
   <div class='row well well-lg'>
    <div class='col-xs-12'>
     <p>Asign runs to tools by using the right line item from the general information sheet.</p>
@@ -216,10 +219,10 @@ if($user_sec_lvl < 2){
      <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
    </button>
    <a class='col-xs-offset-9' href='../Printouts/trackSheet.php' target="_blank">View tracksheet for this PO</a>
+   <a class='col-xs-offset-9' href='../Printouts/packingList.php' target="_blank">View packinglist for this PO</a>
  </div>
 </div>
 <div id='runTools'></div>
-  <script src="https://code.jquery.com/jquery.js"></script>
-  <script src="../js/bootstrap.min.js"></script>
+
 </body>
 </html>

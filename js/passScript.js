@@ -217,6 +217,7 @@ function showToolsTrack(str) {
 }
 function showPOTools() {
     var str = document.getElementById('POID').innerHTML;
+    console.log(str);
     if (str == "") {
         document.getElementById("txtAdd").innerHTML = "";
         return;
@@ -240,7 +241,6 @@ function showPOTools() {
 
 function showPORuns() {
     var str = document.getElementById('POID').innerHTML;
-    console.log(str);
     if (str == "") {
         document.getElementById("txtAddRun").innerHTML = "";
         return;
@@ -347,13 +347,14 @@ function addTool(){
       },
       success: function(data,status, xhr)
       {
-         lineItem = parseInt(lineItem) + 1;
-         $("#status_text").html(data);
-         $('#toolID').val('');
-         $('#lineItem').val(lineItem);
-         $('#quantity').val('');
-         $('#POID').val('');
-         showPOTools();
+        alert(data);
+        lineItem = parseInt(lineItem) + 1;
+        $("#status_text").html(data);
+        $('#toolID').val('');
+        $('#lineItem').val(lineItem);
+        $('#quantity').val('');
+        $('#POID').val('');
+        showPOTools();
      }
  })
 }
@@ -814,7 +815,6 @@ function confirmPO(){
     data : {POID     : POID,
             fInspect : fInspect,
             date     : date},
-
         success: function(data,status, xhr)
         {
             if(data.indexOf("Error") > -1){
@@ -880,8 +880,6 @@ function addCoating (line){
 function addNewMachine (line){
    var mname   = $('#mname').val();
    var macro = $('#macro').val();
-   //console.log(mname);
-   //console.log(macro);
   $.ajax({
     url : "../InsertPHP/insertNewMachine.php",
     type: "POST",
@@ -904,8 +902,6 @@ function addNewMachine (line){
 function authenticate(){
     var userID   = $('#userID').val();
     var password   = $('#password').val();
-    //console.log(userID);
-    //console.log(password);
   $.ajax({
     url : "../Login/logincheck.php",
     type: "POST",
@@ -1177,20 +1173,7 @@ function storePackingList(po_ID){
                  comment : comment}
         })
 }
-function updateRunComment(run_ID){
-    var comment = $('#new_comment').val();
-    $.ajax({
-        url : "../UpdatePHP/updateRunComment.php",
-        type: "POST",
-        data : {
-                 run_ID : run_ID,
-                 comment : comment},
-     success: function(data,status, xhr)
-     {
-        showPORuns();
-     }
-    })
-}
+
 function changeLineitemQuantity(po_ID){
     var line     = $('#line').val();
     var quantity = $('#input_quantity').val();
@@ -1224,9 +1207,6 @@ function changeLineitemPrice(po_ID){
 function changeLineitemTool(po_ID){
     var line = $('#line').val();
     var tool = $('#input_tool').val();
-    console.log(line);
-    console.log(tool);
-    console.log(po_ID);
     $.ajax({
         url : "../UpdatePHP/updateLineitemTool.php",
         type: "POST",
@@ -1291,7 +1271,7 @@ function changeLineitemDoubleEnd(po_ID){
 }
 function deleteLineitem(POID){
     var line = $('#line').val();
-     $.ajax({
+    $.ajax({
         url : "../DeletePHP/deleteToolFromPO.php",
         type: "POST",
         data : {POID  : POID,
@@ -1304,6 +1284,43 @@ function deleteLineitem(POID){
         }
     })
  }
+ function updateRunToolComment(lineitem_ID, run_ID){
+    $('textarea').select(); //select text inside
+    comment = window.getSelection().toString();
+    $.ajax({
+        url : "../UpdatePHP/updateRunToolComment.php",
+        type: "POST",
+        data : {lineitem_ID  : lineitem_ID,
+                run_ID : run_ID,
+                comment : comment},
+         success: function(data,status, xhr)
+         {
+            showRunTools();
+         }
+    })
+ }
+ function updateRunComment(run_ID){
+    $('textarea').select(); //select text inside
+    comment = window.getSelection().toString();
+    $.ajax({
+        url : "../UpdatePHP/updateRunComment.php",
+        type: "POST",
+        data : {run_ID : run_ID,
+                comment : comment},
+     success: function(data,status, xhr)
+     {
+        showPORuns();
+     }
+    })
+}
+
+
+
+
+
+
+
+
 
 
 

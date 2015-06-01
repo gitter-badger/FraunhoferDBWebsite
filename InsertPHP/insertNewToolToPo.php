@@ -1,4 +1,7 @@
 <?php
+/*
+	This file inserts a new lineitem and links it to a PO
+*/
 include '../connection.php';
 $po_ID     = mysqli_real_escape_string($link, $_POST['POID']);
 $tool_ID   = mysqli_real_escape_string($link, $_POST['toolID']);
@@ -25,7 +28,41 @@ while($row = mysqli_fetch_array($po_IDresult)){
 	$rightPO = $row[0];
 }
 
-$sql = "INSERT INTO lineitem(line_on_po, po_ID, quantity, tool_ID, diameter, length, double_end, price, coating_ID) VALUES('$line_item', '$rightPO', '$quantity', '$tool_ID', '$diameter', '$length', '$doubleEnd', '$price', '$coating_ID')";
+if($diameter == "1/8"){
+	$est_run_number = $quantity * 0.33;
+	$est_run_number = $est_run_number / 159;
+	echo "1";
+	var_dump($est_run_number);
+}
+
+if($diameter == "3/16" || $diameter == "1/4"){
+	$est_run_number = $quantity * 0.5;
+	$est_run_number = $est_run_number / 159;
+	echo "2";
+	var_dump($est_run_number);
+}
+
+if($diameter == "3/8" || $diameter == "1/2"){
+	$est_run_number = $quantity * 1;
+	$est_run_number = $est_run_number / 159;
+	echo "3";
+	var_dump($est_run_number);
+}
+
+if($diameter == "5/8" || $diameter == "3/4"){
+	$est_run_number = $quantity * 2;
+	$est_run_number = $est_run_number / 159;
+	echo "4";
+	var_dump($est_run_number);
+}
+
+if($diameter == "1" || $diameter == "1 1/4" || $diameter == "1 3/8"){
+	$est_run_number = $quantity * 3;
+	$est_run_number = $est_run_number / 159;
+	echo "4";
+	var_dump($est_run_number);
+}
+$sql = "INSERT INTO lineitem(line_on_po, po_ID, quantity, tool_ID, diameter, length, double_end, price, coating_ID, est_run_number) VALUES('$line_item', '$rightPO', '$quantity', '$tool_ID', '$diameter', '$length', '$doubleEnd', '$price', '$coating_ID', '$est_run_number')";
 
 $result = mysqli_query($link, $sql);
 if (!$result) {

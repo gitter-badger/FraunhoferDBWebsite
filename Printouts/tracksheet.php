@@ -19,7 +19,7 @@ include '../connection.php';
 $q = $_SESSION["po_ID"];
 
 // all the basic info for the header of the printout. The timestamp is the turnaround time(difference between receive and shipping date)
-$topsql ="SELECT p.po_number, p.receiving_date, c.customer_name, p.shipping_date, TIMESTAMPDIFF(DAY, receiving_date, shipping_date), e.employee_name, p.initial_inspection, p.final_inspection
+$topsql ="SELECT p.po_number, p.receiving_date, c.customer_name, p.shipping_date, TOTAL_WEEKDAYS(shipping_date, receiving_date), e.employee_name, p.initial_inspection, p.final_inspection
           FROM customer c, pos p, employee e, employee_pos w
           WHERE c.customer_ID   = p.customer_ID
           AND p.po_ID    = '$q'
@@ -69,7 +69,7 @@ while($row = mysqli_fetch_array($newResult)){
 }
 // All the info for the lineitems on this PO
 // ordered by what line on the PO they are
-$sql = "SELECT l.line_on_po, l.tool_ID, l.diameter, l.length, IF(l.double_end = 0, 'NO', 'YES') AS 'Double End', l.quantity, posr.run_number_on_po, lr.number_of_items_in_run, lr.lineitem_run_comment
+$sql = "SELECT l.line_on_po, l.tool_ID, l.diameter, l.length, IF(l.double_end = 0, 'NO', 'YES') AS 'Double End', l.quantity, posr.run_number_on_po, lr.number_of_items_in_run, lr.lineitem_run_comment, ROUND(l.est_run_number, 2)
         FROM lineitem l, lineitem_run lr, pos_run posr, run r
         WHERE l.po_ID = '$q'
         AND posr.po_ID = l.po_ID
@@ -103,15 +103,16 @@ if(!$runresult){
 }
    echo "<table>";
    echo "<tr>".
-        "<td>Line#</td>".
-        "<td># of items on PO</td>".
-        "<td>ToolID</td>".
-        "<td>Dia</td>".
-        "<td>Len</td>".
-        "<td>DblEnd</td>".  
-        "<td>Run#</td>".
-        "<td>#Of items in run</td>".
-        "<td>Final inspection</td>".
+          "<td>Line#</td>".
+          "<td># of items on PO</td>".
+          "<td>ToolID</td>".
+          "<td>Dia</td>".
+          "<td>Len</td>".
+          "<td>est. run#</td>".
+          "<td>DblEnd</td>".  
+          "<td>Run#</td>".
+          "<td>#Of items in run</td>".
+          "<td>Final inspection</td>".
         "</tr>";
 
 while($row = mysqli_fetch_array($result)) {
@@ -129,6 +130,7 @@ while($row = mysqli_fetch_array($result)) {
         "<td>".$row[1]."</td>".
         "<td>".$row[2]."</td>".
         "<td>".$row[3]."</td>".
+        "<td>".$row[9]."</td>".
         "<td>".$row[4]."</td>".
         "<td>".$row[6]."</td>".
         "<td>".$row[7]."</td>".

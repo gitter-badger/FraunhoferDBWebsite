@@ -24,10 +24,8 @@ if($user_sec_lvl < 2){
   <link href='../css/bootstrap.min.css' rel='stylesheet'>
   <link href='../css/main.css' rel='stylesheet'>
   <script type="text/javascript" src='../js/passScript.js'></script>
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src='../js/bootstrap.min.js'></script>
-
 </head>
 <body>
   <?php

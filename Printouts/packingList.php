@@ -74,7 +74,7 @@ $address_line_2 = $addressArray[1].$addressArray[2];
       <img src="../images/iso.jpg" alt="ISO logo" style="float:right; width:70px; height:auto; margin-top:10px;"/>
       <img src="../images/fraunhoferlogo.jpg" alt="Fraunhofer Logo" style="float:left; width:220px; height:auto; margin-top:10px;"/>
     </div>
-    <div style="font-size:13px">
+    <div>
       <div class="col-xs-12"> 
         <div class='col-xs-12'>
           <h5>Packing list </h5>
@@ -129,7 +129,7 @@ $address_line_2 = $addressArray[1].$addressArray[2];
         <span><h5 class="col-xs-6"> Purchase Order # :<span id='po_ID'><?php echo $po_number; ?></span></h5></span>
         <span><h5 class="col-xs-2"> Initial : LH</h5></span>
       </div>
-      <div class="col-xs-12 col-xs-offset-1" id="tableDiv">
+      <div class="col-xs-12" id="tableDiv">
         <table class="packingTable col-xs-12">
           <tr class="packingTable"> 
             <th class="packingTable">Tool type</th>
@@ -138,6 +138,12 @@ $address_line_2 = $addressArray[1].$addressArray[2];
           </tr>
           <?php 
           while($row = mysqli_fetch_array($tableresult)){
+            // If we have coated more tools then we got then
+            // we recoated some tools. If there are some broken tools
+            // the user puts in a comment but we still ship them all back.
+            if($row[1] > $row[2]){
+              $row[1] = $row[2];
+            }
             echo "<tr class='packingTable'>".
             "<td class='packingTable'>".$row[0]."</td>".
             "<td class='packingTable'>".$row[1]."/".$row[2]."</td>".
