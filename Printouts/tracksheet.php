@@ -18,7 +18,7 @@ session_start();
 include '../connection.php';
 $q = $_SESSION["po_ID"];
 
-// all the basic info for the header of the printout. The timestamp is the turnaround time(difference between receive and shipping date)
+// all the basic info for the header of the printout. TOTAL_WEEKDAYS is a function that calculates the turn around time without weekends
 $topsql ="SELECT p.po_number, p.receiving_date, c.customer_name, p.shipping_date, TOTAL_WEEKDAYS(shipping_date, receiving_date), e.employee_name, p.initial_inspection, p.final_inspection
           FROM customer c, pos p, employee e, employee_pos w
           WHERE c.customer_ID   = p.customer_ID
@@ -136,6 +136,25 @@ while($row = mysqli_fetch_array($result)) {
         "<td>".$row[7]."</td>".
         "<td>".$row[8]."</td>".
         "</tr>";
+}
+$bottomSql = "SELECT ROUND(SUM(est_run_number), 2), SUM(quantity)
+              FROM lineitem 
+              WHERE po_ID = '$q';";
+$bottomResult = mysqli_query($link, $bottomSql);
+
+while($row = mysqli_fetch_array($bottomResult)){
+      echo "<tr class='bottomrow'>".
+              "<td>Total: </td>".
+              "<td></td>".
+              "<td></td>".
+              "<td></td>".
+              "<td></td>".
+              "<td>".$row[0]."</td>".
+              "<td></td>".
+              "<td></td>".
+              "<td>".$row[1]."</td>".
+              "<td></td>".
+            "</tr>";
 }
 echo "</table></div><div style='margin-top: 10px;'>RUN INFO<table>";
 echo "<tr>".
