@@ -21,10 +21,10 @@ $q = $_SESSION["po_ID"];
 // all the basic info for the header of the printout. TOTAL_WEEKDAYS is a function that calculates the turn around time without weekends
 $topsql ="SELECT p.po_number, p.receiving_date, c.customer_name, p.shipping_date, TOTAL_WEEKDAYS(shipping_date, receiving_date), e.employee_name, p.initial_inspection, p.final_inspection
           FROM customer c, pos p, employee e, employee_pos w
-          WHERE c.customer_ID   = p.customer_ID
-          AND p.po_ID    = '$q'
-          AND w.po_ID    = p.po_ID
-          AND e.employee_ID     = w.employee_ID;";
+          WHERE c.customer_ID = p.customer_ID
+          AND p.po_ID = '$q'
+          AND w.po_ID = p.po_ID
+          AND e.employee_ID = w.employee_ID;";
 $topresult = mysqli_query($link, $topsql);
 
 // the overall price of the PO
@@ -45,31 +45,31 @@ while($row = mysqli_fetch_array($sumResult)){
 while($row = mysqli_fetch_array($topresult)) {
     $POID = $row[0];
     echo "<div class='col-xs-12'>".
-           "<span class='col-xs-4'><strong>PO number : </strong>".$row[0]."</span>".
-           "<span class='col-xs-4'><strong>Customer : </strong>".$row[2]."</span>".
+           "<span class='col-xs-4'><strong>PO number : </strong>"     .$row[0]."</span>".
+           "<span class='col-xs-4'><strong>Customer : </strong>"      .$row[2]."</span>".
            "<span class='col-xs-4'><strong>Receiving Date : </strong>".$row[1]."</span></div>".
          "<div class='col-xs-12'>".
-           "<span class='col-xs-4'><strong>Shipping Date : </strong>".$row[3]."</span>".
+           "<span class='col-xs-4'><strong>Shipping Date : </strong>"   .$row[3]."</span>".
            "<span class='col-xs-4'><strong>Turn around time : </strong>".$row[4]." Days</span>".
-           "<span class='col-xs-4'><strong>Employee: </strong>".$row[5]."</span></div>".
+           "<span class='col-xs-4'><strong>Employee: </strong>"         .$row[5]."</span></div>".
          "<div class='col-xs-12'>".
            "<span class='col-xs-4'><strong>Overall price : </strong>$".$overall_price."</span>";
 }
 
 while($row = mysqli_fetch_array($countresult)){
 
-    echo "<span class='col-xs-4'><strong>Number of tools : </strong>".$row[0]."</span>".
+    echo "<span class='col-xs-4'><strong>Number of tools : </strong>"     .$row[0]."</span>".
          "<span class='col-xs-4'><strong>Number of line items : </strong>".$row[1]."</span></div>";
 }
 $newResult = mysqli_query($link, $topsql);
 while($row = mysqli_fetch_array($newResult)){
 
-    echo "<div class='col-xs-12'><div class='col-xs-4'><strong>Initial inspection :  </strong>".$row[6]."</div>".
+    echo "<div class='col-xs-12'><div class='col-xs-4'><strong>Initial inspection :  </strong>" .$row[6]."</div>".
          "<div class='col-xs-4'style='margin-bottom:10px;'><strong>Final inspection : </strong>".$row[7]."</div></div>";
 }
 // All the info for the lineitems on this PO
 // ordered by what line on the PO they are
-$sql = "SELECT l.line_on_po, l.tool_ID, l.diameter, l.length, IF(l.double_end = 0, 'NO', 'YES') AS 'Double End', l.quantity, posr.run_number_on_po, lr.number_of_items_in_run, lr.lineitem_run_comment, ROUND(l.est_run_number, 2)
+$sql = "SELECT l.line_on_po, l.tool_ID, l.diameter, l.length, IF(l.double_end = 0, 'NO', 'YES'), l.quantity, posr.run_number_on_po, lr.number_of_items_in_run, lr.lineitem_run_comment, ROUND(l.est_run_number, 2)
         FROM lineitem l, lineitem_run lr, pos_run posr, run r
         WHERE l.po_ID = '$q'
         AND posr.po_ID = l.po_ID
@@ -125,16 +125,16 @@ while($row = mysqli_fetch_array($result)) {
     if($row[6] == 6){ $row[6] = f;}
     if($row[6] == 7){ $row[6] = g;}
    echo "<tr>".
-        "<td>".$row[0]."</td>".
-        "<td>".$row[5]."</td>".
-        "<td>".$row[1]."</td>".
-        "<td>".$row[2]."</td>".
-        "<td>".$row[3]."</td>".
-        "<td>".$row[9]."</td>".
-        "<td>".$row[4]."</td>".
-        "<td>".$row[6]."</td>".
-        "<td>".$row[7]."</td>".
-        "<td>".$row[8]."</td>".
+          "<td>".$row[0]."</td>".
+          "<td>".$row[5]."</td>".
+          "<td>".$row[1]."</td>".
+          "<td>".$row[2]."</td>".
+          "<td>".$row[3]."</td>".
+          "<td>".$row[9]."</td>".
+          "<td>".$row[4]."</td>".
+          "<td>".$row[6]."</td>".
+          "<td>".$row[7]."</td>".
+          "<td>".$row[8]."</td>".
         "</tr>";
 }
 $bottomSql = "SELECT ROUND(SUM(est_run_number), 2), SUM(quantity)
@@ -159,10 +159,10 @@ while($row = mysqli_fetch_array($bottomResult)){
 echo "</table></div><div style='margin-top: 10px;'>RUN INFO<table>";
 echo "<tr>".
        "<td>"."Coating Type"."</td>".
-       "<td>"."Run#"."</td>".
-       "<td>"."Ah/pulses"."</td>".
-       "<td>"."run ID"."</td>".
-       "<td>"."Comments"."</td>".
+       "<td>"."Run#"        ."</td>".
+       "<td>"."Ah/pulses"   ."</td>".
+       "<td>"."run ID"      ."</td>".
+       "<td>"."Comments"    ."</td>".
      "</tr>";
 
 while($row = mysqli_fetch_array($runresult)){

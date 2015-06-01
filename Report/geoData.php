@@ -51,11 +51,12 @@ google.setOnLoadCallback(drawMarkersMap);
 function drawMarkersMap() {
   var data = google.visualization.arrayToDataTable([
     ['City',  'Number of pos', 'Customer'],
-    ['Santa Clara, CA', <?php echo $countCust[0]; ?>, { v:<?php echo $countCust[0]; ?> , f: 'Destiny Tools' } ],
-    ['Jackson, MI', <?php echo $countCust[1]; ?>, { v:<?php echo $countCust[1]; ?>, f: 'Contour Tools' } ],
-    ['Wixom, MI', <?php echo $countCust[2]; ?>, { v:<?php echo $countCust[2]; ?>, f: 'Sterling Edge' } ],
-    ['Cass City, MI', <?php echo $countCust[3]; ?>, { v:<?php echo $countCust[3]; ?>, f: 'Wave Tool LLC' } ],
-    ['Lenexa, KS', <?php echo $countCust[4]; ?>, { v:<?php echo $countCust[4]; ?>, f: 'Kocher & Beck' } ],
+    ['Santa Clara, CA', <?php echo $countCust[0];?>, { v:<?php echo $countCust[0]; ?>, f: 'Destiny Tools' } ],
+    ['Jackson, MI',     <?php echo $countCust[1];?>, { v:<?php echo $countCust[1]; ?>, f: 'Contour Tools' } ],
+    ['Wixom, MI',       <?php echo $countCust[2];?>, { v:<?php echo $countCust[2]; ?>, f: 'Sterling Edge' } ],
+    ['Cass City, MI',   <?php echo $countCust[3];?>, { v:<?php echo $countCust[3]; ?>, f: 'Wave Tool LLC' } ],
+    ['Lenexa, KS',      <?php echo $countCust[4];?>, { v:<?php echo $countCust[4]; ?>, f: 'Kocher & Beck' } ],
+    ['Waterford, MI',   <?php echo $countCust[5];?>, { v:<?php echo $countCust[5]; ?>, f: 'H&M Tool Express  ' } ],
     ]);
 
   var options = {

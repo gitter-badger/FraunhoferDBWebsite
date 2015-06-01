@@ -18,16 +18,18 @@ if($doubleEnd == 'on'){
 	$doubleEnd = 1;
 	$price = $price * 2;
 }
-#convert diameter to string so MySQL doesnt read it as a number.
-//$diameter = (string)$diameter;
-//find the right po_ID to insert into the lineitem table
+// convert diameter to string so MySQL doesnt read it as a number.
+// $diameter = (string)$diameter;
+// find the right po_ID to insert into the lineitem table
 $rightpo_IDsql = "SELECT po_ID FROM pos WHERE po_number = '$po_ID'";
 $po_IDresult = mysqli_query($link, $rightpo_IDsql);
 
 while($row = mysqli_fetch_array($po_IDresult)){
 	$rightPO = $row[0];
 }
-
+/*
+	this calculates the est_run_time depending on size and quantity
+*/
 if($diameter == "1/8"){
 	$est_run_number = $quantity * 0.33;
 	$est_run_number = $est_run_number / 159;

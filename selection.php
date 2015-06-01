@@ -74,7 +74,7 @@
         if($user_sec_lvl >= 4){
           echo
           "<div class='col-md-3 btn-group'>
-          <button type='button' class='btn btn-primary' onclick="."location.href"."='Financial/overall.php'>Financial data</button>
+          <button type='button' class='btn btn-primary' onclick="."location.href"."='Report/reportOverview.php'>Financial data</button>
           </div>";
         }
       ?>
