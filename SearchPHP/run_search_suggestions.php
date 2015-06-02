@@ -9,6 +9,7 @@ $input       = mysqli_real_escape_string($link, $_POST['run_number']);
 $first_date  = mysqli_real_escape_string($link, $_POST['first_date']);
 $last_date   = mysqli_real_escape_string($link, $_POST['last_date']);
 $machine_ID  = mysqli_real_escape_string($link, $_POST['machine_ID']);
+$coating_ID  = mysqli_real_escape_string($link, $_POST['coating_ID']);
 
 // put a wildcard char after the run_number so it displays everything that starts with this string
 $stringInput = $input . '%';
@@ -28,6 +29,9 @@ if(!empty($last_date)){
 }
 if(!empty($machine_ID)){
 	$sql .= "AND machine_ID = '$machine_ID' ";
+}
+if(!empty($coating_ID)){
+	$sql .= "AND coating_ID = '$coating_ID' ";
 }
 $sql .= "GROUP BY r.run_ID ";
 $sql .= "ORDER BY r.run_date DESC;";
@@ -52,24 +56,15 @@ while($row = mysqli_fetch_array($result)){
 	/*
 		This sql is to find the POS linked to the runs found
 	*/
-	$poSql = "SELECT l.po_ID, p.po_number
-			  FROM run r, lineitem l, lineitem_run lir, pos p
+	$poSql = "SELECT l.po_ID, p.po_number, c.customer_name
+			  FROM run r, lineitem l, lineitem_run lir, pos p, customer c
 			  WHERE r.run_ID LIKE '$row[0]'
 			  AND lir.run_ID = r.run_ID
 			  AND l.po_ID = p.po_ID
+			  AND p.customer_ID = c.customer_ID
 			  AND lir.lineitem_ID = l.lineitem_ID
 			  GROUP BY p.po_ID;";
 	$poResult = mysqli_query($link, $poSql);
-
-
-	$toolSql = "SELECT l.tool_ID, lir.number_of_items_in_run, lir.lineitem_run_comment
-				FROM run r, lineitem l, lineitem_run lir
-				WHERE r.run_ID LIKE '$row[0]'
-				AND lir.run_ID = r.run_ID
-				AND lir.lineitem_ID = l.lineitem_ID
-				GROUP BY lir.lineitem_ID;";
-	$toolResult = mysqli_query($link, $toolSql);
-
 
 	echo "<tr class='output'>".
 			"<td><a href='#' data-toggle='modal' data-target='#".$row[0]."'>".$row[1]."</td>".
@@ -85,14 +80,15 @@ while($row = mysqli_fetch_array($result)){
 			        <h4 class='modal-title' id='myModalLabel'>Run number : ".$row[1]."</h4>
 			      </div>
 			      <div class='modal-body'>
-			        <h3>POS linked to this run</h3>";
+			      	<h4>POS in this run</h4>";
 					while($poRow = mysqli_fetch_array($poResult)){
-						echo "<button onclick='generalInfoRedirect(".$poRow[0].")'>".$poRow[1]."</button>";
+						echo "<p style='margin-bottom:5px; border: 1px solid black;'>
+								<p><strong>Customer : </strong>".$poRow[2].
+								"</p><p><strong> PO# : </strong>".$poRow[1]."</p>
+								<button class='btn btn-primary' onclick='trackSheetRedirect(".$poRow[0].")'>Tracksheet</button>
+								<button class='btn btn-success' onclick='generalInfoRedirect(".$poRow[0].")'>General info</button>
+							 </p>";
 					}
-				    echo "<h3>Tools linked to this run</h3>";
-				    while($toolRow = mysqli_fetch_array($toolResult)){
-				   		echo "<p>".$toolRow[0]." : ".$toolRow[1]." : ".$toolRow[2]."</p>";
-				    }
 				    echo "</div>
 			      <div class='modal-footer'>
 			        <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>

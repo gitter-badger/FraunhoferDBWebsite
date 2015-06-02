@@ -50,10 +50,10 @@ while($row = mysqli_fetch_array($secResult)){
     <div class='row well well-lg'>
       <div class='col-md-6'>
         <h2>Search for runs</h2>
-        <p class='lead'>Work on progress.</p>
+        <p class='lead'>Work in progress.</p>
         <div class='input-group col-md-8'>
           <span class="btn-group">
-            <a href='#' class='btn btn-primary btn-lg' type='submit'>Enter</a>
+            <a href='filterRuns.php' class='btn btn-primary btn-lg' type='submit'>Enter</a>
           </span>
         </div>
       </div>

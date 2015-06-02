@@ -67,34 +67,6 @@ if($user_sec_lvl < 2){
         </div>
       </div>
     </div>
-    <div class='row well well-lg'>
-     <div class='col-md-12'>
-      <h2>Generate a packing list</h2>
-      <p> This dropdown shows the 10 most recent pos. If you want to see a packing list click<a href='filterPOS.php'> here </a>.</p>
-      <select name="packingsel" id="packingsel" class='dropdown' onchange="setSessionID()">
-        <option value="">Choose a PO number</option> 
-        <!-- Drop down list of PO numbers with po_ID as the value -->
-        <?php
-        $sql = "SELECT po_ID, po_number
-                FROM pos 
-                ORDER BY receiving_date DESC
-                LIMIT 10;";
-        $result = mysqli_query($link, $sql);
-
-        if (!$result) {
-          die("Database query failed: " . mysqli_error($link));
-        }
-        while($row = mysqli_fetch_array($result)){
-          echo '<option id="'.$row['po_ID'].'" value="'.$row['po_ID'].'">'.$row['po_number'].'</option>';
-        }
-        ?>
-      </select>
-      <span class="btn-group">
-        <a class='btn btn-primary btn-lg' href='../Printouts/packingList.php' target="_blank">Generate packing list</a>
-      </span>
-      <div id='status_text'></div>
-    </div>
-  </div>
 </div>
 </body>
 </html>

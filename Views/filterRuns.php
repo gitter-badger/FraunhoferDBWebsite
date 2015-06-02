@@ -6,8 +6,8 @@ session_start();
 $user = $_SESSION["username"];
 //find his level of security 
 $secsql = "SELECT security_level
-           FROM employee
-           WHERE employee_name = '$user'";
+FROM employee
+WHERE employee_name = '$user'";
 $secResult = mysqli_query($link, $secsql);
 
 while($row = mysqli_fetch_array($secResult)){
@@ -25,39 +25,58 @@ while($row = mysqli_fetch_array($secResult)){
 <body>
   <?php include '../header.php'; ?>
   <div class='container'>
-    <div class='row well well-lg'>
+    <div class='row well well-lg col-md-12'>
       <h4>Enter info to search for a run</h4>
-      <div class='col-md-3'>
-        <p >Input the run number</p>
+      <p class='col-md-3'>
+        <span>From:</span>
+        <input type="date" name="datefirst" id="search_box_date_first" onchange='run_suggestions()'/>
+      </p>
+      <p class='col-md-3'>
+        <span>To:</span>
+        <input type="date" name="datelast" id="search_box_date_last" onchange='run_suggestions()'/>
+      </p>
+      <p class='col-md-6'>
+        <span>Input the run number</span>
         <input type="text" name="run_number" id="search_box_run" class='search_box' onkeyup='run_suggestions()'/>
-      </div>
-      <div class='col-md-3'>
-        <p>Pick a machine</p>
+      </p>
+      <p class='col-md-3'>
+        <span>Pick a machine</span>
         <select id='machine_select' onchange='run_suggestions()'>
           <option value="">All machines: </option> 
           <?php
-              $sql = "SELECT machine_ID, machine_acronym 
-                      FROM machine;";
-              $result = mysqli_query($link, $sql);
-              if (!$result) 
-              {
-                die("Database query failed: " . mysqli_error($link));
-              }
-              while($row = mysqli_fetch_array($result))
-              {
-                echo '<option value="'.$row['machine_ID'].'">'.$row['machine_acronym'].'</option>';
-              }
+            $sql = "SELECT machine_ID, machine_acronym 
+                    FROM machine;";
+            $result = mysqli_query($link, $sql);
+            if (!$result) 
+            {
+              die("Database query failed: " . mysqli_error($link));
+            }
+            while($row = mysqli_fetch_array($result))
+            {
+              echo '<option value="'.$row['machine_ID'].'">'.$row['machine_acronym'].'</option>';
+            }
           ?>
         </select>
-      </div>
-      <div class='col-md-3'>
-        <p>From:</p>
-        <input type="date" name="datefirst" id="search_box_date_first" onchange='run_suggestions()'/>
-      </div>
-      <div class='col-md-3'>
-        <p>To:</p>
-        <input type="date" name="datelast" id="search_box_date_last" onchange='run_suggestions()'/>
-      </div>
+      </p>
+        <p class='col-md-3'>
+        <span>Pick a coating</span>
+        <select id='coating_select' onchange='run_suggestions()'>
+          <option value="">All coatings: </option> 
+          <?php
+            $sql = "SELECT coating_ID, coating_type 
+                    FROM coating;";
+            $result = mysqli_query($link, $sql);
+            if (!$result) 
+            {
+              die("Database query failed: " . mysqli_error($link));
+            }
+            while($row = mysqli_fetch_array($result))
+            {
+              echo '<option value="'.$row['coating_ID'].'">'.$row['coating_type'].'</option>';
+            }
+          ?>
+        </select>
+      </p>
     </div>
     <div id='test'><span></span></div>
     <table id='output'>
