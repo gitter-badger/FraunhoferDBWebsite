@@ -29,7 +29,7 @@ $sql = "SELECT p.po_number, p.receiving_date, c.customer_name,  p.shipping_date,
 $result = mysqli_query($link, $sql);
 
 // finds all the line items for that PO
-$tsql = "SELECT l.line_on_po, l.quantity, l.tool_ID, IF(l.coating_ID IS NULL, 'empty', c.coating_type), l.diameter, l.length, IF(l.double_end = 0, 'NO', 'YES') ,l.price, SUM(ROUND(l.price * l.quantity, 2))
+$tsql = "SELECT l.line_on_po, l.quantity, l.tool_ID, IF(l.coating_ID IS NULL, 'empty', c.coating_type), l.diameter, l.length, IF(l.double_end = 0, 'NO', 'YES') ,l.price, SUM(ROUND(l.price * l.quantity, 2)), ROUND(l.est_run_number, 2)
          FROM lineitem l 
          LEFT JOIN coating c
            ON l.coating_ID = c.coating_ID
@@ -64,6 +64,7 @@ echo    "<tr>
             <td>Coating</td>
             <td>diameter</td>
             <td>length</td>
+            <td>est run#</td>
             <td>double end</td>
             <td>unit price</td>
             <td>total unit price</td>
@@ -76,13 +77,14 @@ while($row = mysqli_fetch_array($tresult)) {
             "<td>" .$row[3]."</td>".
             "<td>" .$row[4]."</td>".
             "<td>" .$row[5]."</td>".
+            "<td>" .$row[9]."</td>".
             "<td>" .$row[6]."</td>".
             "<td>$".$row[7]."</td>".
             "<td>$".$row[8]."</td>".
           "</tr>";
 }
 // Finds the price of all the tools on that po
-$totalPricesql = "SELECT SUM(ROUND(l.price * l.quantity, 2)) 
+$totalPricesql = "SELECT SUM(ROUND(l.price * l.quantity, 2)), SUM(ROUND(l.est_run_number, 2)) 
                   FROM lineitem l, pos p
                   WHERE p.po_ID = '$q'
                   AND l.po_ID = p.po_ID";
@@ -95,12 +97,13 @@ while($row = mysqli_fetch_array($sumresult)){
             "<td>".$row[0]."</td>".
             "<td></td>".
             "<td></td>".
-            "<td></td>".
-            "<td></td>".
             "<td></td>";
 }
 while($frow = mysqli_fetch_array($totalPriceResult)){
-    echo "<td>Total price:</td>".
+    echo "<td></td>".
+         "<td>".$frow[1]."</td>".
+         "<td></td>".
+         "<td>Total price:</td>".
          "<td>$".$frow[0]."</td>".
     "</tr>";
 }

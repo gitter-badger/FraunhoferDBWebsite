@@ -4,6 +4,7 @@ function suggestions(){
     var customer_ID = customer_sel.options[customer_sel.selectedIndex].value;
     var first_date = $('#search_box_date_first').val();
     var last_date = $('#search_box_date_last').val();
+    //var exact_date = $('#search_box_date_last').val();
     $.ajax({
         url : "../SearchPHP/search_suggestions.php",
         type: "POST",
@@ -18,7 +19,6 @@ function suggestions(){
     })
 }   
 function setSessionID(po_ID){
-    console.log(po_ID);
     $.ajax({
         url : "../UpdatePHP/setSessionID.php",
         type: "POST",
@@ -27,4 +27,37 @@ function setSessionID(po_ID){
      {
      }
     })
-}   
+}  
+function run_suggestions(){
+    var run_number = $('#search_box_run').val();
+    var machine_sel = document.getElementById("machine_select");
+    var machine_ID = machine_sel.options[machine_sel.selectedIndex].value;
+    var first_date = $('#search_box_date_first').val();
+    var last_date = $('#search_box_date_last').val();
+    //var exact_date = $('#search_box_date_last').val();
+    $.ajax({
+        url : "../SearchPHP/run_search_suggestions.php",
+        type: "POST",
+        data : {run_number : run_number,
+                machine_ID : machine_ID,
+                first_date : first_date,
+                last_date : last_date},
+     success: function(data,status, xhr)
+     {
+        $( "#output" ).replaceWith(data);
+     }
+    })
+}  
+function generalInfoRedirect(po_ID){
+    $.ajax({
+        url : "../UpdatePHP/setSessionID.php",
+        type: "POST",
+        data : {po_ID : po_ID},
+     success: function(data,status, xhr)
+     {
+         var url = "../Printouts/generalinfo.php";
+         window.open(url, '_blank');
+        //window.location.href = "../Printouts/generalinfo.php";
+     }
+    })
+} 

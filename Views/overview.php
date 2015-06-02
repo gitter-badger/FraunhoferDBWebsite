@@ -48,6 +48,17 @@ while($row = mysqli_fetch_array($secResult)){
       </div>
     </div>
     <div class='row well well-lg'>
+      <div class='col-md-6'>
+        <h2>Search for runs</h2>
+        <p class='lead'>Work on progress.</p>
+        <div class='input-group col-md-8'>
+          <span class="btn-group">
+            <a href='#' class='btn btn-primary btn-lg' type='submit'>Enter</a>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class='row well well-lg'>
       <div class='col-md-12'>
         <h2>Find Existing POS for the company of your choice</h2>
         <p class='lead'>Choose the company to see their active POS Thought of this as a quick look if a customer calls and asks about an old PO. </p>
@@ -103,12 +114,12 @@ while($row = mysqli_fetch_array($secResult)){
           while ($row = mysqli_fetch_array($result)) {
             $rightRow = $row[0];
             echo "<tr>".
-            "<td class='col-md-1'>".$row[0]."</td>".
-            "<td class='col-md-2'>".$row[1]."</td>".
-            "<td class='col-md-2'>".$row[2]."</td>".
-            "<td class='col-md-2'>".$row[3]."</td>".
-            "<td class='col-md-2'>".$row[4]."</td>".
-            "</tr>";
+                    "<td class='col-md-1'>".$row[0]."</td>".
+                    "<td class='col-md-2'>".$row[1]."</td>".
+                    "<td class='col-md-2'>".$row[2]."</td>".
+                    "<td class='col-md-2'>".$row[3]."</td>".
+                    "<td class='col-md-2'>".$row[4]."</td>".
+                 "</tr>";
 
             // first we have to find the right po_ID from the po_Number we get from the user
             $po_IDsql = "SELECT p.po_ID

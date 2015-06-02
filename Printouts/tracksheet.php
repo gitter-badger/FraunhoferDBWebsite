@@ -69,7 +69,7 @@ while($row = mysqli_fetch_array($newResult)){
 }
 // All the info for the lineitems on this PO
 // ordered by what line on the PO they are
-$sql = "SELECT l.line_on_po, l.tool_ID, l.diameter, l.length, IF(l.double_end = 0, 'NO', 'YES'), l.quantity, posr.run_number_on_po, lr.number_of_items_in_run, lr.lineitem_run_comment, ROUND(l.est_run_number, 2)
+$sql = "SELECT l.line_on_po, l.tool_ID, l.diameter, l.length, IF(l.double_end = 0, 'NO', 'YES'), l.quantity, posr.run_number_on_po, lr.number_of_items_in_run, lr.lineitem_run_comment
         FROM lineitem l, lineitem_run lr, pos_run posr, run r
         WHERE l.po_ID = '$q'
         AND posr.po_ID = l.po_ID
@@ -108,10 +108,9 @@ if(!$runresult){
           "<td>ToolID</td>".
           "<td>Dia</td>".
           "<td>Len</td>".
-          "<td>est. run#</td>".
           "<td>DblEnd</td>".  
           "<td>Run#</td>".
-          "<td>#Of items in run</td>".
+          "<td># of items in run</td>".
           "<td>Final inspection</td>".
         "</tr>";
 
@@ -130,31 +129,11 @@ while($row = mysqli_fetch_array($result)) {
           "<td>".$row[1]."</td>".
           "<td>".$row[2]."</td>".
           "<td>".$row[3]."</td>".
-          "<td>".$row[9]."</td>".
           "<td>".$row[4]."</td>".
           "<td>".$row[6]."</td>".
           "<td>".$row[7]."</td>".
           "<td>".$row[8]."</td>".
         "</tr>";
-}
-$bottomSql = "SELECT ROUND(SUM(est_run_number), 2), SUM(quantity)
-              FROM lineitem 
-              WHERE po_ID = '$q';";
-$bottomResult = mysqli_query($link, $bottomSql);
-
-while($row = mysqli_fetch_array($bottomResult)){
-      echo "<tr class='bottomrow'>".
-              "<td>Total: </td>".
-              "<td></td>".
-              "<td></td>".
-              "<td></td>".
-              "<td></td>".
-              "<td>".$row[0]."</td>".
-              "<td></td>".
-              "<td></td>".
-              "<td>".$row[1]."</td>".
-              "<td></td>".
-            "</tr>";
 }
 echo "</table></div><div style='margin-top: 10px;'>RUN INFO<table>";
 echo "<tr>".
