@@ -15,10 +15,12 @@ $coating_ID  = mysqli_real_escape_string($link, $_POST['coating_ID']);
 $stringInput = $input . '%';
 
 // build the basic sql statement
-$sql = "SELECT run_ID, run_number, run_date, run_comment
-	    FROM run r
-	    WHERE 1
-	    AND r.run_number LIKE '$stringInput'";
+$sql = "SELECT r.run_ID, run_number, run_date, run_comment, SUM(lir.number_of_items_in_run), ROUND(SUM(lir.number_of_items_in_run * l.price), 2), ROUND(SUM(lir.number_of_items_in_run * l.price)/SUM(lir.number_of_items_in_run), 2)
+		FROM run r, lineitem_run lir, lineitem l
+		WHERE 1
+		AND r.run_number LIKE '$stringInput'
+		AND r.run_ID = lir.run_ID
+		AND lir.lineitem_ID = l.lineitem_ID ";
 
 // if the user picked any of the filter options they are added here
 if(!empty($first_date)){
@@ -45,6 +47,9 @@ if(!$result){echo mysqli_error($link);}
 		<th>Run number</th>
 		<th>Run date</th>
 		<th>Run comment</th>
+		<th># of tools in run</th>
+		<th>Total $ in run</th>
+		<th>Avg tool cost in run</th>
 	<tr>
 <?php
 /*
@@ -70,6 +75,9 @@ while($row = mysqli_fetch_array($result)){
 			"<td><a href='#' data-toggle='modal' data-target='#".$row[0]."'>".$row[1]."</td>".
 			"<td>".$row[2]."</td>".
 			"<td>".$row[3]."</td>".
+			"<td>".$row[4]."</td>".
+			"<td>$".$row[5]."</td>".
+			"<td>$".$row[6]."</td>".
 		  "</tr>";
 
 	echo "<div class='modal fade' id='".$row[0]."' tabindex='-1' role='dialog' aria-labelledby='".$row[0]."' aria-hidden='true'>

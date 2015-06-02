@@ -347,7 +347,6 @@ function addTool(){
       },
       success: function(data,status, xhr)
       {
-        alert(data);
         lineItem = parseInt(lineItem) + 1;
         $("#status_text").html(data);
         $('#toolID').val('');

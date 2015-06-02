@@ -38,8 +38,7 @@ while($row = mysqli_fetch_array($secResult)){
   <div class='container'>
     <div class='row well well-lg'>
       <div class='col-md-6'>
-        <h2>View Existing POS</h2>
-        <p class='lead'>Here you can filter all our POS</p>
+        <h2>Search for POS</h2>
         <div class='input-group col-md-8'>
           <span class="btn-group">
             <a href='filterPOS.php' class='btn btn-primary btn-lg' type='submit'>Enter</a>
@@ -50,7 +49,6 @@ while($row = mysqli_fetch_array($secResult)){
     <div class='row well well-lg'>
       <div class='col-md-6'>
         <h2>Search for runs</h2>
-        <p class='lead'>Work in progress.</p>
         <div class='input-group col-md-8'>
           <span class="btn-group">
             <a href='filterRuns.php' class='btn btn-primary btn-lg' type='submit'>Enter</a>
