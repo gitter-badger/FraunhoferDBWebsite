@@ -47,12 +47,20 @@ while($row = mysqli_fetch_array($secResult)){
         </select>
       </div>
       <div class='col-md-12'>
+        <div>Pick a customer</div>
+        <select id='group_by_select'>
+          <option value="MONTH">Month</option>
+          <option value="YEAR">Year</option>
+          <option value="WEEK">Week</option>
+        </select>
+      </div>
+      <div class='col-md-12'>
         <div>From:</div>
-        <input type="date" name="datefirst" id="search_box_date_first"/>
+        <input type="date" name="date_from" id="date_from"/>
       </div>
       <div class='col-md-12'>
         <p>To:</p>
-        <input type="date" name="datelast" id="search_box_date_last"/>
+        <input type="date" name="date_to" id="date_to"/>
       </div>
       <div class='col-md-12'>
         <button class='btn btn-primary' onclick='resetFilter();'>Reset</button>

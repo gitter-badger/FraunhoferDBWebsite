@@ -13,7 +13,7 @@ $last_date   = mysqli_real_escape_string($link, $_POST['last_date']);
 $stringInput = $input . '%';
 
 // build the basic sql statement
-$sql = "SELECT p.po_ID, po_number, c.customer_name, receiving_date, SUM(l.quantity), shipping_date, final_price
+$sql = "SELECT p.po_ID, po_number, c.customer_name, receiving_date, SUM(l.quantity), shipping_date, ROUND(SUM(l.price * l.quantity), 2)
 	    FROM pos p, lineitem l, customer c
 	    WHERE 1
 	    AND p.po_number LIKE '$stringInput'
