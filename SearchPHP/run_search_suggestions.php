@@ -33,7 +33,7 @@ if(!empty($machine_ID)){
 	$sql .= "AND machine_ID = '$machine_ID' ";
 }
 if(!empty($coating_ID)){
-	$sql .= "AND coating_ID = '$coating_ID' ";
+	$sql .= "AND r.coating_ID = '$coating_ID' ";
 }
 $sql .= "GROUP BY r.run_ID ";
 $sql .= "ORDER BY r.run_date DESC;";

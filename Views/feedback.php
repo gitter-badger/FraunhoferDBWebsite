@@ -41,7 +41,7 @@ function timerIncrement() {
     <input type="submit" onclick='addFeedback()'>
   </div>
   <div class='col-md-12'>
-    <h2>These are all the comments</h2>
+    <h2>Comments:</h2>
     <?php 
     $sql = "SELECT * FROM Feedback ORDER BY FID DESC";
     $result = mysqli_query($link, $sql);

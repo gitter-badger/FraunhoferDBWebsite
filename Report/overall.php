@@ -21,9 +21,6 @@ if($user_sec_lvl < 2){
 <html>
 	<head>
 		  <link href='../css/bootstrap.min.css' rel='stylesheet'>
-		  <link href='../css/main.css' rel='stylesheet'>
-		  <script type="text/javascript" src='../js/passScript.js'></script>
-		  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 		  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 		  <script src='../js/bootstrap.min.js'></script>
 		<script src="../js/Chart.js/Chart.js"></script>
@@ -34,8 +31,6 @@ if($user_sec_lvl < 2){
 			<h2>$Total for each company</h2>
 			<canvas id="canvas" height="450" width="600"></canvas>
 		</div>
-
-
 	<script>
 	<?php 
 		$bigQuery = "SELECT ROUND(SUM(quantity * price),2), c.customer_name, CONCAT(ROUND(SUM(quantity * price),2), '$')
@@ -66,7 +61,6 @@ if($user_sec_lvl < 2){
 			}
 		]
 	}
-	console.log(myData);
 	window.onload = function(){
 		var ctx = document.getElementById("canvas").getContext("2d");
 		window.myBar = new Chart(ctx).Bar(myData, {

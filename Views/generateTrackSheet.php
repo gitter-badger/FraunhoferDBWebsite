@@ -151,7 +151,7 @@ if($user_sec_lvl < 2){
       <button type='button'  class='btn btn-default' onclick='addRun()'>
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
       </button>
-      <label for='delitem' class='col-xs-offset-8'>Insert Run ID to Delete</label>
+      <label for='delitem' class='col-xs-offset-7'>Insert Run ID to Delete</label>
       <input type="text" placeholder='' id="delitem" name='delitem'/>
       <button type='button' id='del_button' class='btn btn-danger' onclick='delRun(document.getElementById("delitem").value) ; showPORuns()'>
         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
@@ -213,7 +213,7 @@ if($user_sec_lvl < 2){
   <div class="col-xs-12">
     <label for='fInspect' class='col-xs-offset-7'>Add text for final inspection</label>
     <input type="text" id="fInspect" name='fInspect'/>
-    <label for='addShippingDate' class='col-xs-offset-6'>Add Shipping date and a final inspection to this PO</label>
+    <label for='addShippingDate' class='col-xs-offset-5'>Add Shipping date and a final inspection to this PO</label>
     <input type="text" id="addShippingDate" name='addShippingDate' value='<?php echo date("Y-m-d") ?>'/>
     <button type='button' id='addShippingDateButton' class='btn btn-primary' onclick='confirmPO()'>
      <span class="glyphicon glyphicon-send" aria-hidden="true"></span>

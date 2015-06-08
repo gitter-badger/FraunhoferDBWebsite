@@ -153,7 +153,7 @@ $address_line_2 = $addressArray[1].$addressArray[2];
         </table>
       </div>
       <div class='col-xs-12'>
-        <p class='col-xs-3'>Comments: <span class='commentHide'>(if you enter a new comment it replaces the old one)</span></p>
+        <p class='col-xs-3'><span class='commentHide'>Packinglist </span>Comment</p>
         <textarea id='packing_list_comment' rows='2' cols='41'>
           <?php
               $sql = "SELECT packinglist_comment

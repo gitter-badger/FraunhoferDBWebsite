@@ -30,7 +30,6 @@ while($row = mysqli_fetch_array($secResult)){
       <div class='col-md-12'>
         <div>Pick a customer</div>
         <select id='customer_select'>
-          <option value="%">All customers: </option> 
           <?php
           $sql = "SELECT customer_ID, customer_name 
                   FROM customer;";
