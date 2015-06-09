@@ -40,6 +40,7 @@
               <li><a href='filterReport.php'>Table for each company</a></li>
               <li><a href='geoData.php'>Where are our orders coming from</a></li>
               <li><a href='overall.php'>Overall for all customers </a></li>
+              <li><a href='allCharts.php'>Line chart for each customer</a></li>
             </ul>
         </div>";
       }

@@ -82,7 +82,7 @@ $custCount = count($cust_ID_array);
 									  AND po_ID NOT IN (SELECT po_ID
 									  					FROM pos
 									  					WHERE shipping_date IS NULL)
-									  GROUP BY MONTH(shipping_date);";
+									  GROUP BY WEEK(shipping_date);";
 
 							$poResult= mysqli_query($link, $poSql);
 							while($row = mysqli_fetch_array($poResult)){
@@ -106,7 +106,7 @@ $custCount = count($cust_ID_array);
 										  AND po_ID NOT IN (SELECT po_ID
 										  					FROM pos
 										  					WHERE shipping_date IS NULL)
-										  GROUP BY MONTH(shipping_date);";
+										  GROUP BY WEEK(shipping_date);";
 
 								$poResult= mysqli_query($link, $poSql);
 								while($row = mysqli_fetch_array($poResult)){
