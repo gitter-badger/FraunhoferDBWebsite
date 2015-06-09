@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <?php
-    include '../connection.php';
-    session_start();
-  //find the current user
-    $user = $_SESSION["username"];
-  //find his level of security 
-    $secsql = "SELECT security_level
-               FROM employee
-               WHERE employee_name = '$user'";
-    $secResult = mysqli_query($link, $secsql);
+<?php
+include '../connection.php';
+session_start();
+//find the current user
+$user = $_SESSION["username"];
+//find his level of security 
+$secsql = "SELECT security_level
+           FROM employee
+           WHERE employee_name = '$user'";
+$secResult = mysqli_query($link, $secsql);
 
-    while($row = mysqli_fetch_array($secResult)){
-      $user_sec_lvl = $row[0];
-    }
-  ?>
+while($row = mysqli_fetch_array($secResult)){
+  $user_sec_lvl = $row[0];
+}
+if($user_sec_lvl < 4){
+  echo "<a href='../Login/login.php'>Login Page</a></br>";
+  die("You don't have the privlages to view this site.");
+}
+?>
   <title>Fraunhofer CCD</title>
   <link href='../css/bootstrap.min.css' rel='stylesheet'>
   <link href='../css/main.css' rel='stylesheet'>

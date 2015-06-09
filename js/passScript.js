@@ -1312,6 +1312,62 @@ function deleteLineitem(POID){
      }
     })
 }
+function changePOReceivingDate(po_ID){
+    var receiving_date = $('#input_date').val();
+    $.ajax({
+        url : "../UpdatePHP/updatePOReceivingDate.php",
+        type: "POST",
+        data : { po_ID : po_ID,
+                 receiving_date  : receiving_date},
+     success: function(data,status, xhr)
+     {
+        window.location.reload(true);
+     }
+    })
+}
+function changePOInitialInspection(po_ID){
+    var initial_inspection = $('#input_inital_inspect').val();
+    console.log(initial_inspection);
+    $.ajax({
+        url : "../UpdatePHP/updatePOInitialInspection.php",
+        type: "POST",
+        data : { po_ID : po_ID,
+                 initial_inspection  : initial_inspection},
+     success: function(data,status, xhr)
+     {
+        window.location.reload(true);
+     }
+    })
+}
+function changePONumberOfLines(po_ID){
+    var number_of_lines = $('#input_number_of_lines').val();
+    $.ajax({
+        url : "../UpdatePHP/updatePONumberOfLines.php",
+        type: "POST",
+        data : { po_ID : po_ID,
+                 number_of_lines  : number_of_lines},
+     success: function(data,status, xhr)
+     {
+        window.location.reload(true);
+     }
+    })
+}
+function changePOShippingInfo(po_ID){
+    var e             = document.getElementById("shipping_sel");
+    var shipping_info = e.options[e.selectedIndex].value;
+    $.ajax({
+        url : "../UpdatePHP/updatePOShippingInfo.php",
+        type: "POST",
+        data : { po_ID : po_ID,
+                 shipping_info  : shipping_info},
+     success: function(data,status, xhr)
+     {
+        window.location.reload(true);
+     }
+    })
+}
+
+
 
 
 

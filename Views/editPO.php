@@ -30,15 +30,54 @@ while($row = mysqli_fetch_array($secResult)){
         <!-- Getting the po_number from the po_ID -->
         <?php 
         $po_ID = $_SESSION["po_ID"];
-        $sql = "SELECT po_number
+        $sql = "SELECT po_number, receiving_date, initial_inspection, nr_of_lines, shipping_info
                 FROM pos
                 WHERE po_ID = '$po_ID'";
         $result = mysqli_query($link, $sql);
         while($row = mysqli_fetch_array($result)){
           $po_number = $row[0];
+          $receiving_date = $row[1];
+          $initial_inspection = $row[2];
+          $nr_of_lines = $row[3];
+          $shipping_info = $row[4];
         }
         ?>
         <h1><?php echo $po_number; ?></h1>
+        <div class='col-md-12'>
+            <p>
+              <strong>Receiving date : </strong><?php echo $receiving_date; ?>
+            </p>
+            <input type='date' id='input_date'/>
+            <input type='submit' value='Change' onclick='changePOReceivingDate(<?php echo $po_ID;?>)' class='btn btn-primary'/>
+        </div>
+        <div class='col-md-12'>
+            <p>
+              <strong>Initial inspection : </strong><?php echo $initial_inspection; ?>
+            </p>
+            <input type='text' id='input_inital_inspect'/>
+            <input type='submit' value='Change' onclick='changePOInitialInspection(<?php echo $po_ID;?>)' class='btn btn-primary'/>
+        </div>
+        <div class='col-md-12'>
+            <p>
+              <strong>Number of lines on PO : </strong><?php echo $nr_of_lines; ?>
+            </p>
+            <input type='number' id='input_number_of_lines'/>
+            <input type='submit' value='Change' onclick='changePONumberOfLines(<?php echo $po_ID;?>)' class='btn btn-primary'/>
+        </div>
+        <div class='col-md-12'>
+          <p>
+            <strong>Shipping info: </strong><?php echo $shipping_info; ?>
+          </p>
+          <select id='shipping_sel'>
+            <option value='Ground'>Ground</option>
+            <option value='3 day'>3 day</option>
+            <option value='2 day'>2 day</option>
+            <option value='next day'>Next day</option>
+            <option value='fedex'>Fedex</option>
+            <option value='other'>Other</option>
+          </select>
+          <input type='submit' value='Change' onclick='changePOShippingInfo(<?php echo $po_ID;?>)' class='btn btn-primary'/>
+        </div>        
         <h2>Here are the lineitems for this PO</h2>
         <table id="report" class='col-md-12'>
           <tr>
@@ -84,36 +123,36 @@ while($row = mysqli_fetch_array($secResult)){
         <div class='col-md-3'>
           <p>Change the quantity</p>
           <input type='number' id='input_quantity'/>
-          <input type='submit' value='Submit' onclick='changeLineitemQuantity(<?php echo $po_ID;?>)' class='btn btn-primary'/>
+          <input type='submit' value='Change' onclick='changeLineitemQuantity(<?php echo $po_ID;?>)' class='btn btn-primary'/>
         </div>
         <div class='col-md-3'>
           <p>Change the price</p>
           <input type='text' id='input_price'/>
-          <input type='submit' value='Submit' onclick='changeLineitemPrice(<?php echo $po_ID;?>)' class='btn btn-primary'/>
+          <input type='submit' value='Change' onclick='changeLineitemPrice(<?php echo $po_ID;?>)' class='btn btn-primary'/>
         </div>
         <div class='col-md-3'>
           <p >Change the tool ID</p>
           <input type='text' id='input_tool'/>
-          <input type='submit' value='Submit' onclick='changeLineitemTool(<?php echo $po_ID;?>)' class='btn btn-primary'/>
+          <input type='submit' value='Change' onclick='changeLineitemTool(<?php echo $po_ID;?>)' class='btn btn-primary'/>
         </div>
         <div class='col-md-3'>
           <p>Change the diameter</p>
           <input type='text' id='input_diameter'/>
-          <input type='submit' value='Submit' onclick='changeLineitemDiameter(<?php echo $po_ID;?>)' class='btn btn-primary'/>
+          <input type='submit' value='Change' onclick='changeLineitemDiameter(<?php echo $po_ID;?>)' class='btn btn-primary'/>
         </div>
         <div class='col-md-3'>
           <p >Change the length</p>
           <input type='text' id='input_length'/>
-          <input type='submit' value='Submit' onclick='changeLineitemLength(<?php echo $po_ID;?>)' class='btn btn-primary'/>
+          <input type='submit' value='Change' onclick='changeLineitemLength(<?php echo $po_ID;?>)' class='btn btn-primary'/>
         </div>
         <div class='col-md-3'>
           <p >Change double end (Enter 1 to change to double end. Enter 0 to change to single end)</p>
           <input type='text' id='input_end'/>
-          <input type='submit' value='Submit' onclick='changeLineitemDoubleEnd(<?php echo $po_ID;?>)' class='btn btn-primary'/>
+          <input type='submit' value='Change' onclick='changeLineitemDoubleEnd(<?php echo $po_ID;?>)' class='btn btn-primary'/>
         </div>
         <div class='col-md-3'>
           <p>Delete lineitem</p>
-          <input type='submit' value='Submit' onclick='deleteLineitem(<?php echo $po_ID;?>)' class='btn btn-danger'/>
+          <input type='submit' value='Change' onclick='deleteLineitem(<?php echo $po_ID;?>)' class='btn btn-danger'/>
         </div>
       </div>
     </div>
