@@ -37,7 +37,7 @@
       if($user_sec_lvl >= 2){
         echo 
         "<div class='col-md-3 btn-group'>
-            <button type='button' class='btn btn-primary' onclick="."location.href"."='Views/checkin.php'>Check in tools</button>
+            <button type='button' class='btn btn-primary' onclick="."location.href"."='Views/checkin.php'>Tool processing</button>
             <button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-expanded='false'>
               <span class='caret'></span>
               <span class='sr-only'>Toggle Dropdown</span>
@@ -46,8 +46,6 @@
               <li><a href='Views/addNewPO.php'>Add a new PO</a></li>
               <li><a href='Views/addTools2.php'>Add tools to PO</a></li>
               <li><a href='Views/generateTrackSheet.php'>Generate a tracksheet</a></li>
-              <li class='divider'></li>
-              <li><a href='DeletePHP/deletePO.php'>Delete PO</a></li>
             </ul>
         </div>";
       }

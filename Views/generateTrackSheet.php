@@ -24,7 +24,6 @@ if($user_sec_lvl < 2){
   <link href='../css/bootstrap.min.css' rel='stylesheet'>
   <link href='../css/main.css' rel='stylesheet'>
   <script type="text/javascript" src='../js/passScript.js'></script>
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="../js/bootstrap.min.js"></script>
 </head>
@@ -45,28 +44,28 @@ if($user_sec_lvl < 2){
            *  this way the user can easily fix the wrong date.
            */
           $sql = "SELECT po_ID, po_number
-                  FROM pos
-                  ORDER BY receiving_date DESC
-                  LIMIT 12";
+          FROM pos
+          ORDER BY receiving_date DESC
+          LIMIT 12";
           $result = mysqli_query($link, $sql);
           while($row = mysqli_fetch_array($result)){
            echo '<option value="'.$row[0].'">'.$row[1].'</option>';
          } 
          echo "</select></form>";
          ?>
-         <br><div id="txtHint"><b>PO info will be listed here...</b></div>
+         <br><div id="txtHint"><b>PO info will be listed here</b></div>
        </div>
      </div>
      <div class='row well well-lg'>
        <div class='col-xs-12'>
-        <p><strong>The run might already be in the database so here you can quickly add it to this PO. This dropdown shows all runs from the last 3 days</strong></p>
+        <p><strong>Recently added runs</strong></p>
         <select name="runsel" id="runsel" class='dropdown'>
-          <option value="">Choose an run number</option> 
+          <option value="">Choose a run number</option> 
           <?php
           $sql = "SELECT run_ID, run_Number 
-                  FROM run 
-                  ORDER BY run_date DESC
-                  LIMIT 6;";
+          FROM run 
+          ORDER BY run_date DESC
+          LIMIT 6;";
           $result = mysqli_query($link, $sql);
 
           if (!$result) 
@@ -90,11 +89,11 @@ if($user_sec_lvl < 2){
       <p class='col-xs-4'>
         <label for="coatingID" class ='col-xs-3'>Coating</label>
         <select id='coatingID'>
-          <option value="">Select coating type:</option> 
+          <option value="">Coating type:</option> 
           <?php
           $sql = "SELECT coating_ID, coating_type 
-                  FROM coating 
-                  ORDER BY coating_type ASC";
+          FROM coating 
+          ORDER BY coating_type ASC";
           $result = mysqli_query($link, $sql);
           if (!$result) 
           {
@@ -112,8 +111,21 @@ if($user_sec_lvl < 2){
         <input type="text" name="run_number" id="run_number">
       </p>
       <p class='col-xs-4'>
-        <label for="machine_run_number">Run# for machine(1,2,3)</label>
-        <input type=" number" name="machine_run_number" id="machine_run_number">
+        <label for="machine_run_number">Run# for machine today</label>
+        <select id='machine_run_number'>
+          <option value="">Select run number:</option> 
+          <option value='01'>1</option>
+          <option value='02'>2</option>
+          <option value='03'>3</option>
+          <option value='04'>4</option>
+          <option value='05'>5</option>
+          <option value='06'>6</option>
+          <option value='07'>7</option>
+          <option value='08'>8</option>
+          <option value='09'>9</option>
+          <option value='10'>10</option>
+          ?>
+        </select>
       </p>
       <p class='col-xs-4'>
         <label for="ah_pulses">AH/Pulses </label>
@@ -122,7 +134,7 @@ if($user_sec_lvl < 2){
       <p class='col-xs-4'>
         <label for="machineID" class ='col-xs-3'>Machine</label>
         <select id='machineID'>
-          <option value="">Select a machine:</option> 
+          <option value="">Machine:</option> 
           <?php
           $sql = "SELECT machine_ID, machine_acronym 
                   FROM machine";
@@ -157,11 +169,18 @@ if($user_sec_lvl < 2){
         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
       </button>
       <div id="status_text">
-      <table id='txtAddRun'>
-      </table>
+        <table id='txtAddRun'>
+        </table>
+      </div>
     </div>
   </div>
-</div>
+  <div class='row well well-lg'>
+    <div id="displayHelper">
+      <ul class="list-group">
+        <!-- quick view of line items comes here from php -->
+      </ul>
+    </div>
+  </div> 
   <div class='row well well-lg'>
    <div class='col-xs-12'>
     <p>Asign runs to tools by using the right line item from the general information sheet.</p>
@@ -198,17 +217,6 @@ if($user_sec_lvl < 2){
     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
   </button>
 </div>
-<div class='row well well-lg'>
-  <label for='poHelper' class='col-xs-offset-8'>Click button to see the tools on this PO</label>
-  <button type='button' id='poHelperBtn' class='btn btn-primary' onclick='displayHelper()'>
-    <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
-  </button>
-  <div id="displayHelper">
-    <ul class="list-group">
-      <!-- quick view of line items comes here from php -->
-    </ul>
-  </div>
-</div> 
 <div class='row well well-lg'>
   <div class="col-xs-12">
     <label for='fInspect' class='col-xs-offset-7'>Add text for final inspection</label>

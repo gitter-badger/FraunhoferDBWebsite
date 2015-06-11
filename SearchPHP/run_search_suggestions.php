@@ -15,30 +15,42 @@ $coating_ID  = mysqli_real_escape_string($link, $_POST['coating_ID']);
 $stringInput = $input . '%';
 
 // build the basic sql statement
-$sql = "SELECT r.run_ID, run_number, run_date, run_comment, SUM(lir.number_of_items_in_run), ROUND(SUM(lir.number_of_items_in_run * l.price), 2), ROUND(SUM(lir.number_of_items_in_run * l.price)/SUM(lir.number_of_items_in_run), 2)
+$sql = "SELECT r.run_ID, run_number, run_date, run_comment, SUM(lir.number_of_items_in_run), ROUND(SUM(lir.number_of_items_in_run * l.price), 2), ROUND(SUM(lir.number_of_items_in_run * l.price)/SUM(lir.number_of_items_in_run), 2), ROUND(SUM(lir.number_of_items_in_run * l.price), 2) / COUNT(DISTINCT(r.run_ID))
 		FROM run r, lineitem_run lir, lineitem l
 		WHERE 1
 		AND r.run_number LIKE '$stringInput'
 		AND r.run_ID = lir.run_ID
 		AND lir.lineitem_ID = l.lineitem_ID ";
+$averageSql = "SELECT ROUND(SUM(lir.number_of_items_in_run * l.price) / COUNT(DISTINCT(r.run_ID)), 2), ROUND(SUM(lir.number_of_items_in_run * l.price)/SUM(lir.number_of_items_in_run), 2), SUM(lir.number_of_items_in_run)
+			   FROM run r, lineitem_run lir, lineitem l
+			   WHERE 1
+			   AND r.run_number LIKE '$stringInput'
+			   AND r.run_ID = lir.run_ID
+			   AND lir.lineitem_ID = l.lineitem_ID ";
 
 // if the user picked any of the filter options they are added here
 if(!empty($first_date)){
 	$sql .= "AND run_date >= '$first_date' ";
+	$averageSql .= "AND run_date >= '$first_date' ";
 }
 if(!empty($last_date)){
 	$sql .= "AND run_date <= '$last_date' ";
+	$averageSql .= "AND run_date <= '$last_date' ";
 }
 if(!empty($machine_ID)){
 	$sql .= "AND machine_ID = '$machine_ID' ";
+	$averageSql .= "AND machine_ID = '$machine_ID' ";
 }
 if(!empty($coating_ID)){
 	$sql .= "AND r.coating_ID = '$coating_ID' ";
+	$averageSql .= "AND r.coating_ID = '$coating_ID' ";
 }
 $sql .= "GROUP BY r.run_ID ";
 $sql .= "ORDER BY r.run_date DESC;";
 $result = mysqli_query($link, $sql);
+$averageResult = mysqli_query($link, $averageSql);
 
+if(!$result){echo mysqli_error($link);}
 if(!$result){echo mysqli_error($link);}
 
 ?>
@@ -61,7 +73,7 @@ while($row = mysqli_fetch_array($result)){
 	/*
 		This sql is to find the POS linked to the runs found
 	*/
-	$poSql = "SELECT l.po_ID, p.po_number, c.customer_name
+	$poSql = "SELECT l.po_ID, p.po_number, c.customer_name, SUM(lir.number_of_items_in_run)
 			  FROM run r, lineitem l, lineitem_run lir, pos p, customer c
 			  WHERE r.run_ID LIKE '$row[0]'
 			  AND lir.run_ID = r.run_ID
@@ -92,6 +104,7 @@ while($row = mysqli_fetch_array($result)){
 					while($poRow = mysqli_fetch_array($poResult)){
 						echo "<p style='margin-bottom:5px; border: 1px solid black;'>
 								<p><strong>Customer : </strong>".$poRow[2].
+								"<p><strong>Number of tools : </strong>".$poRow[3].
 								"</p><p><strong> PO# : </strong>".$poRow[1]."</p>
 								<button class='btn btn-primary' onclick='trackSheetRedirect(".$poRow[0].")'>Tracksheet</button>
 								<button class='btn btn-success' onclick='generalInfoRedirect(".$poRow[0].")'>General info</button>
@@ -105,5 +118,14 @@ while($row = mysqli_fetch_array($result)){
 			  </div>
 		   </div>";
 }
+$row = mysqli_fetch_array($averageResult);
+echo "<tr>
+		<td>Average for selection</td>
+		<td></td>
+		<td></td>
+		<td>".$row[2]."</td>
+		<td>".$row[0]."</td>
+		<td>".$row[1]."</td>
+	</tr>";
 echo "</table>";
 ?>

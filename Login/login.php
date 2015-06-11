@@ -33,7 +33,6 @@ $(".dropdown-menu").on('click', 'li a', function(){
 
 <div class="container">
     <div class="form-signin">
-      <h2 class="form-signin-heading">Please sign in</h2>
       <label for="userID" class="sr-only">Employee ID</label>
       <input type="number" id="userID" class="form-control" placeholder="Employee ID" required autofocus>
       <label for="password" class="sr-only">Password</label>
@@ -42,7 +41,7 @@ $(".dropdown-menu").on('click', 'li a', function(){
     </div>
     <?php
     $sql = "SELECT employee_name, employee_ID
-    FROM employee";
+            FROM employee";
     $result = mysqli_query($link, $sql);
     while($row = mysqli_fetch_array($result)){
       echo "<span>".$row[0]." ID: ".$row[1]."</span></br>";

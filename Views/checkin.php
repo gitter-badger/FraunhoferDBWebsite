@@ -21,12 +21,12 @@ if($user_sec_lvl < 2){
 ?>
 <html>
 <head>
-  <script type="text/javascript" src='../js/passScript.js'></script>
-  <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
-  <script src='../js/bootstrap.min.js'></script>
-  <title>Fraunhofer CCD</title>
   <link href='../css/bootstrap.min.css' rel='stylesheet'>
   <link href='../css/main.css' rel='stylesheet'>
+  <script type="text/javascript" src='../js/passScript.js'></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src='../js/bootstrap.min.js'></script>
+  <title>Fraunhofer CCD</title>
 </head>
 <body>
   <?php include '../header.php'; ?>
@@ -34,7 +34,6 @@ if($user_sec_lvl < 2){
     <div class='row well well-lg'>
       <div class='col-md-6'>
         <h2>Add a new PO</h2>
-        <p class='lead'>Click add a new PO</p>
         <div class='btn-group'>
           <a href='addNewPO.php' class='btn btn-primary btn-lg' >
             Add new PO!
@@ -48,7 +47,6 @@ if($user_sec_lvl < 2){
     <div class='row well well-lg'>
       <div class='col-md-6'>
         <h2>Add tools to existing PO</h2>
-        <p class='lead'>Here you can add Tools to existing POS</p>
         <div class='input-group col-md-8'>
           <span class="btn-group">
             <a href='addTools2.php' class='btn btn-primary btn-lg' type='submit'>Enter</a>

@@ -21,7 +21,6 @@ if($user_sec_lvl < 4){
 <html>
 	<head>
 		  <link href='../css/bootstrap.min.css' rel='stylesheet'>
-		  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 		  <script src='../js/bootstrap.min.js'></script>
 		<script src="../js/Chart.js/Chart.js"></script>
 	</head>
@@ -33,7 +32,8 @@ if($user_sec_lvl < 4){
 		</div>
 	<script>
 	<?php 
-		$bigQuery = "SELECT ROUND(SUM(quantity * price),2), c.customer_name, CONCAT(ROUND(SUM(quantity * price),2), '$')
+		//get Sum and customer name for each company
+		$bigQuery = "SELECT ROUND(SUM(quantity * price),2), c.customer_name
 					 FROM lineitem l, pos p, customer c
 					 WHERE l.po_ID = p.po_ID
 					 AND p.customer_ID = c.customer_ID
@@ -45,7 +45,7 @@ if($user_sec_lvl < 4){
 					while($row = mysqli_fetch_array($labels)){
 							echo '"'.$row[1].'",';
 						}
-				  ?>],
+				  ?>],// list of companies
 		datasets : [
 			{
 				fillColor : "rgba(151,187,205,0.5)",
@@ -57,7 +57,7 @@ if($user_sec_lvl < 4){
 							while($row = mysqli_fetch_array($data)){
 								echo $row[0].",";
 							}
-					   ?>]
+					   ?>]//sum for $ for each company
 			}
 		]
 	}

@@ -30,44 +30,41 @@ while($row = mysqli_fetch_array($secResult)){
     <div class='container'>
         <div class='row well well-lg'>
             <div class='col-md-12'>
-              <p>This is the add new Customer view</br>The only required field is the company name but please fill the other ones out if we have that information </p>
-              <form id='customerForm' onsubmit="return false">
-                <p class='col-md-6'>
-                    <label for="cName" class='col-md-3' required>Company Name: </label>
-                    <input type="text" name="cName" id="cName">
-                </p>
-                <p class='col-md-6'>
-                    <label for="cAddress" class ='col-md-3'>Company Address: </label>
-                    <input type="text" name="cAddress" id="cAddress">
-                </p>
-                <p class='col-md-6'>
-                    <label for="cContact" class ='col-md-3'>Contact Name: </label>
-                    <input type="text" name="cContact" id="cContact">
-                </p>
-                <p class='col-md-6'>
-                    <label for="cEmail" class='col-md-3'>Company Email: </label>
-                    <input type="rDate" name='cEmail' id='cEmail' >
-                </p>
-                <p class='col-md-6'>
-                    <label for="cPhone" class='col-md-3'>Company Phone: </label>
-                    <input type="text" name="cPhone" id="cPhone">
-                </p>
-                <p class='col-md-6'>
-                    <label for="cFax" class='col-md-3'>Company Fax: </label>
-                    <input type="text" name='cFax' id='cFax'>
-                </p>
-                <p class='col-md-6'>
-                    <label for="cNotes" class='col-md-3'>Notes </label>
-                    <textarea form='customerForm' name='cNotes' id='cNotes' cols='35'></textarea>
-                </p>
-                <input type="submit" value="Add customer to Database" onclick='addCustomer()'>
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-
-            </form>
+                <h5>Add new customer</h5>
+                <form id='customerForm' onsubmit="return false">
+                    <p class='col-md-6'>
+                        <label for="cName" class='col-md-3' required>Company Name: </label>
+                        <input type="text" name="cName" id="cName">
+                    </p>
+                    <p class='col-md-6'>
+                        <label for="cAddress" class ='col-md-3'>Company Address: </label>
+                        <input type="text" name="cAddress" id="cAddress">
+                    </p>
+                    <p class='col-md-6'>
+                        <label for="cContact" class ='col-md-3'>Contact Name: </label>
+                        <input type="text" name="cContact" id="cContact">
+                    </p>
+                    <p class='col-md-6'>
+                        <label for="cEmail" class='col-md-3'>Company Email: </label>
+                        <input type="rDate" name='cEmail' id='cEmail' >
+                    </p>
+                    <p class='col-md-6'>
+                        <label for="cPhone" class='col-md-3'>Company Phone: </label>
+                        <input type="text" name="cPhone" id="cPhone">
+                    </p>
+                    <p class='col-md-6'>
+                        <label for="cFax" class='col-md-3'>Company Fax: </label>
+                        <input type="text" name='cFax' id='cFax'>
+                    </p>
+                    <p class='col-md-6'>
+                        <label for="cNotes" class='col-md-3'>Notes </label>
+                        <textarea form='customerForm' name='cNotes' id='cNotes' cols='35'></textarea>
+                    </p>
+                    <input type="submit" value="Add customer to Database" onclick='addCustomer()'>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-
 </body>
 </html>
 

@@ -21,7 +21,6 @@ if($user_sec_lvl < 4){
 <html>
 	<head>
 		  <link href='../css/bootstrap.min.css' rel='stylesheet'>
-		  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 		  <script src='../js/bootstrap.min.js'></script>
 		<script src="../js/Chart.js/Chart.js"></script>
 	</head>

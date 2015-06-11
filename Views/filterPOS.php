@@ -19,20 +19,20 @@ while($row = mysqli_fetch_array($secResult)){
   <title>Fraunhofer CCD</title>
   <link href='../css/bootstrap.min.css' rel='stylesheet'>
   <!-- <link href='../css/main.css' rel='stylesheet'> -->
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script type="text/javascript" src='../js/searchScript.js'></script>
 </head>
 <body>
   <?php include '../header.php'; ?>
   <div class='container'>
     <div class='row well well-lg'>
-      <h4>Input whatever info to filter the POS</h4>
+      <h4>Input info to filter the POS</h4>
       <div class='col-md-3'>
         <p >Input the PO number</p>
         <input type="text" name="po_number" id="search_box_PO" class='search_box' onkeyup='suggestions()'/>
       </div>
       <div class='col-md-3'>
-        <p>Pick a customer</p>
+        <p>Customer : </p>
         <select id='customer_select' onchange='suggestions()'>
           <option value="">All customers: </option> 
           <?php
@@ -51,11 +51,11 @@ while($row = mysqli_fetch_array($secResult)){
         </select>
       </div>
       <div class='col-md-3'>
-        <p>From:</p>
+        <p>Receiving date from:</p>
         <input type="date" name="datefirst" id="search_box_date_first" onchange='suggestions()'/>
       </div>
       <div class='col-md-3'>
-        <p>To:</p>
+        <p>Receiving date to:</p>
         <input type="date" name="datelast" id="search_box_date_last" onchange='suggestions()'/>
       </div>
     </div>

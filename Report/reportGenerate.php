@@ -20,6 +20,8 @@ while($row = mysqli_fetch_array($custResult)){
 /*
 	Query that fetches most of the info needed.
 	We do not want to include POS that have not been shipped.
+	The date type can be MONTH, YEAR or WEEK and the query 
+	is grouped by that.
 */
 $poSql = "SELECT ".$date_type."(shipping_date), count(p.po_ID), ROUND(AVG(final_price), 2), ROUND(AVG(TOTAL_WEEKDAYS(shipping_date, receiving_date)), 2), ROUND(SUM(p.final_price), 2)
 		  FROM pos p, customer c
@@ -87,28 +89,10 @@ while($row = mysqli_fetch_array($poResult)){
 	echo "<td>$".$row[2]."</td>";// AVG po price
 	echo "<td>".$row[3]."</td>";// AVG turn around time
 	echo "<td>".$linearray[$lineItterate]."</td>";// Number of tools
-	$lineItterate = $lineItterate + 1;
 	echo "<td>$".$row[4]."</td>";// Total price
 	echo "<td>$".round($avgToolPrice, 2)."</td>";// Average tool price
+	$lineItterate = $lineItterate + 1;
 }
-/*
-$bottomSql = "SELECT count(p.po_ID), ROUND(AVG(final_price), 2), AVG(ROUND(TOTAL_WEEKDAYS(shipping_date, receiving_date), 2)), ROUND(SUM(p.final_price), 2) 
-			  FROM pos p, customer c
-			  WHERE p.customer_ID = c.customer_ID
-			  AND c.customer_ID = '$customer'
-			  AND po_ID NOT IN (SELECT po_ID
-			  				  	FROM pos
-			                  WHERE shipping_date IS NULL);";
-$bottomResult = mysqli_query($link, $bottomSql);
-while($row = mysqli_fetch_array($bottomResult)){
-	echo "<tr>".
-			"<td>Total : </td>".
-			"<td>".$row[0]."</td>".
-			"<td>".$row[1]."</td>".
-			"<td>".$row[2]."</td>".
-			"<td>".$row[3]."</td>".
-		  "</tr>";
-}*/
 ?>
 	</table>
 </div>

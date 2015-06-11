@@ -6,8 +6,8 @@ session_start();
 $user = $_SESSION["username"];
 //find his level of security 
 $secsql = "SELECT security_level
-FROM employee
-WHERE employee_name = '$user'";
+           FROM employee
+           WHERE employee_name = '$user'";
 $secResult = mysqli_query($link, $secsql);
 
 while($row = mysqli_fetch_array($secResult)){
@@ -18,8 +18,7 @@ while($row = mysqli_fetch_array($secResult)){
 <head>
   <title>Fraunhofer CCD</title>
   <link href='../css/bootstrap.min.css' rel='stylesheet'>
-  <!-- <link href='../css/main.css' rel='stylesheet'> -->
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script type="text/javascript" src='../js/searchScript.js'></script>
 </head>
 <body>
@@ -27,6 +26,8 @@ while($row = mysqli_fetch_array($secResult)){
   <div class='container'>
     <div class='row well well-lg col-md-12'>
       <h4>Enter info to search for a run</h4>
+      <p>Use '_' to represent a single character or use '%' to represent a string of characters</p>
+      <p>K215_____1 would for example find all first runs of the day for 2015 on K2</p>
       <p class='col-md-3'>
         <span>From:</span>
         <input type="date" name="datefirst" id="search_box_date_first" onchange='run_suggestions()'/>
@@ -36,11 +37,11 @@ while($row = mysqli_fetch_array($secResult)){
         <input type="date" name="datelast" id="search_box_date_last" onchange='run_suggestions()'/>
       </p>
       <p class='col-md-6'>
-        <span>Input the run number</span>
+        <span>Run number:</span>
         <input type="text" name="run_number" id="search_box_run" class='search_box' onkeyup='run_suggestions()'/>
       </p>
       <p class='col-md-3'>
-        <span>Pick a machine</span>
+        <span>Machine</span>
         <select id='machine_select' onchange='run_suggestions()'>
           <option value="">All machines: </option> 
           <?php
@@ -59,7 +60,7 @@ while($row = mysqli_fetch_array($secResult)){
         </select>
       </p>
         <p class='col-md-3'>
-        <span>Pick a coating</span>
+        <span>Coating</span>
         <select id='coating_select' onchange='run_suggestions()'>
           <option value="">All coatings: </option> 
           <?php

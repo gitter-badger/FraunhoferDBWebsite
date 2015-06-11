@@ -20,12 +20,12 @@ if($user_sec_lvl < 2){
 ?>
 <html>
 <head>
-  <title>Fraunhofer CCD</title>
   <link href='../css/bootstrap.min.css' rel='stylesheet'>
   <link href='../css/main.css' rel='stylesheet'>
   <script type="text/javascript" src='../js/passScript.js'></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src='../js/bootstrap.min.js'></script>
+  <title>Fraunhofer CCD</title>
 </head>
 <body>
   <?php
@@ -52,7 +52,7 @@ if($user_sec_lvl < 2){
       <p class='col-xs-4'>
         <label for="coatingID" class ='col-xs-3'>Coating</label>
         <select id='coatingID'>
-          <option value="">Select coating type:</option> 
+          <option value="">Coating type:</option> 
           <?php
           $sql = "SELECT coating_ID, coating_type 
                   FROM coating 
@@ -74,8 +74,21 @@ if($user_sec_lvl < 2){
         <input type="text" name="run_number" id="run_number">
       </p>
       <p class='col-xs-4'>
-        <label for="machine_run_number">Run# for machine(1,2,3)</label>
-        <input type=" number" name="machine_run_number" id="machine_run_number">
+        <label for="machine_run_number">Run# for machine today</label>
+        <select id='machine_run_number'>
+          <option value="">Select run number:</option> 
+          <option value='01'>1</option>
+          <option value='02'>2</option>
+          <option value='03'>3</option>
+          <option value='04'>4</option>
+          <option value='05'>5</option>
+          <option value='06'>6</option>
+          <option value='07'>7</option>
+          <option value='08'>8</option>
+          <option value='09'>9</option>
+          <option value='10'>10</option>
+          ?>
+        </select>
       </p>
       <p class='col-xs-4'>
         <label for="ah_pulses">AH/Pulses </label>
@@ -84,7 +97,7 @@ if($user_sec_lvl < 2){
       <p class='col-xs-4'>
         <label for="machineID" class ='col-xs-3'>Machine</label>
         <select id='machineID'>
-          <option value="">Select a machine:</option> 
+          <option value="">Machine:</option> 
           <?php
           $sql = "SELECT machine_ID, machine_acronym FROM machine";
           $result = mysqli_query($link, $sql);
@@ -122,7 +135,13 @@ if($user_sec_lvl < 2){
       </table>
     </div>
   </div>
-
+  <div class='row well well-lg'>
+    <div id="displayHelper">
+      <ul class="list-group">
+        <!-- quick view of line items comes here from php -->
+      </ul>
+    </div>
+  </div> 
   <div class='row well well-lg'>
    <div class='col-xs-12'>
     <p>Asign runs to tools by using the right line item from the general information sheet.</p>
@@ -160,18 +179,6 @@ if($user_sec_lvl < 2){
     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
   </button>
 </div>
-
-<div class='row well well-lg'>
-  <label for='poHelper' class='col-xs-offset-7'>Click button to see the tools on this PO</label>
-  <button type='button' id='poHelperBtn' class='btn btn-primary' onclick='displayHelper()'>
-    <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
-  </button>
-  <div id="displayHelper">
-    <ul class="list-group">
-      <!-- quick view of line items comes here from php -->
-    </ul>
-  </div>
-</div> 
 <div class='row well well-lg'>
   <div class="col-xs-12">
     <label for='fInspect' class='col-xs-offset-7'>Add text for final inspection</label>
@@ -186,5 +193,10 @@ if($user_sec_lvl < 2){
  </div>
 </div>
 <div id='runTools'></div>
+<script>
+$( document ).ready(function() {
+  displayHelper();
+});
+</script>
 </body>
 </html>

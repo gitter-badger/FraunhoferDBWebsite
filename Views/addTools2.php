@@ -25,7 +25,6 @@ if($user_sec_lvl < 2){
   <link href='../css/main.css' rel='stylesheet'>
   <link href='../css/tabs.css' rel='stylesheet'>
   <script type="text/javascript" src='../js/passScript.js'></script>
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src='../js/bootstrap.min.js'></script>
 </head>
@@ -49,7 +48,7 @@ while($row = mysqli_fetch_array($result)){
 ?>
 <input type="hidden" id='mostRecentPo_ID' value="<?php echo $po_ID; ?>" />
 <div class='col-xs-12'>
-  <span>The latest inserted po is : <span><strong><?php echo $_SESSION["po_number"];?></strong></span> <button onclick='showTools(document.getElementById("mostRecentPo_ID").value)'>click</button> if you want to use this one.</span>
+  <span>Most recently added PO : <span><strong><?php echo $_SESSION["po_number"];?></strong></span> <button onclick='showTools(document.getElementById("mostRecentPo_ID").value)'>click</button> to use this one.</span>
 </div>
 </div>
 <div class='row well well-lg'>
@@ -71,7 +70,7 @@ while($row = mysqli_fetch_array($result)){
        ?>
      </select>
    </form>
-   <br><div id="txtHint"><b>PO info will be listed here...</b></div>
+   <br><div id="txtHint"><b>PO info will be listed here</b></div>
  </div>
 </div>
 <div class='row well well-lg'>
@@ -84,7 +83,6 @@ while($row = mysqli_fetch_array($result)){
     <!-- Tab panes -->
     <div class="tab-content">
       <div role="tabpanel" class="tab-pane active" id="normal">
-       <p>Add new tools and they will appear on the line below.</p>
        <div class='col-xs-4'>
         <label for="lineItem">Item number: </label>
         <input type="number" name="lineItem" id="lineItem">
@@ -166,7 +164,6 @@ while($row = mysqli_fetch_array($result)){
     </div>
     <!---_______________________________________ -->
     <div role="tabpanel" class="tab-pane" id="odd">
-     <p>Add new tools and they will appear on the line below.</p>
      <div class='col-xs-4'>
       <label for="lineItemOdd">Item number: </label>
       <input type="number" name="lineItemOdd" id="lineItemOdd">

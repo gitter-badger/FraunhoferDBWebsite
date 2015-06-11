@@ -26,27 +26,6 @@ function checkPass()
         message.innerHTML = "Passwords Do Not Match!"
     }
 }  
-function showUser(str) {
-    if (str == "") {
-        document.getElementById("txtHint").innerHTML = "";
-        return;
-    } else { 
-        if (window.XMLHttpRequest) {
-            // code for IE7+, Firefox, Chrome, Opera, Safari
-            xmlhttp = new XMLHttpRequest();
-        } else {
-            // code for IE6, IE5
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.onreadystatechange = function() {
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
-            }
-        }
-        xmlhttp.open("GET","../SelectPHP/getPos.php?q="+str,true);
-        xmlhttp.send();
-    }
-}
 function addOldRun(){
      var POID    = document.getElementById('POID').innerHTML;
      //this fetches the dropdownlist 
@@ -140,6 +119,7 @@ function showTools(str) {
         }
     }
     setSessionIDPrint(str);
+    displayHelper();
     xmlhttp.open("GET","../SelectPHP/getPosForToolMenu.php?q="+str,true);
     xmlhttp.send();
 
@@ -306,11 +286,9 @@ function generatePrice(){
     })
  }
 function displayHelper(){
-    var POID     = document.getElementById('POID').innerHTML;
      $.ajax({
         url : "../SelectPHP/displayHelper.php",
         type: "GET",
-        data : {POID     : POID},
          success: function(data,status, xhr)
          {
             $("#displayHelper").html(data);
@@ -512,78 +490,6 @@ function delPO(){
         }
     })
 }
-function searchPO() {
-    // getting the value that user typed
-    var searchString    = $("#search_box_PO").val();
-    // forming the queryString
-    var data            = 'search='+ searchString;
-    //console.log(searchString);
-    
-    // if searchString is not empty
-    if(searchString) {
-        // ajax call
-        $.ajax({
-            type: "POST",
-            url: "../SearchPHP/do_search.php",
-            data: data,
-            beforeSend: function(html) { // this happens before actual call
-                $("#results").html(''); 
-                $("#searchresults").show();
-                $(".word").html(searchString);
-            },
-           success: function(html){ // this happens after we get results
-            $("#results").show();
-            $("#results").append(html);
-        }
-    })  
-    }
-    return false;
-}
-function searchPOCompany() {
-    var searchString    = $("#search_box_company").val();
-    var data            = 'search='+ searchString;
-    if(searchString) {
-        $.ajax({
-            type: "POST",
-            url: "../SearchPHP/do_search_company.php",
-            data: data,
-            beforeSend: function(html) { 
-                $("#results").html(''); 
-                $("#searchresults").show();
-                $(".word").html(searchString);
-            },
-           success: function(html){ 
-            $("#results").show();
-            $("#results").append(html);
-        }
-    })  
-    }
-    return false;
-}
-
-function searchPOEmployee() {
-    var searchString = $("#search_box_employee").val();
-    var data         = 'search='+ searchString;
-    // console.log(searchString);
-    if(searchString) {
-        $.ajax({
-            type: "POST",
-            url: "../SearchPHP/do_search_employee.php",
-            data: data,
-            beforeSend: function(html) {
-                $("#results").html('');
-                $("#searchresults").show();
-                $(".word").html(searchString);
-            },
-            success: function(html){
-                $("#results").show();
-                $("#results").append(html);
-        }
-    })  
-    }
-    return false;
-}
-
 function changeCustomerAddress(){
     var CID   = $('#input_CID').val();     
     var cAddress = $('#input_address').val();     
@@ -602,7 +508,6 @@ function changeCustomerAddress(){
         }
     })
 }
-
 function changeCustomerPhoneNumber(){
     var CID   = $('#input_CID').val();     
     var cPhone = $('#input_phonenumber').val();     
@@ -622,7 +527,6 @@ function changeCustomerPhoneNumber(){
         }
     })
  }
-
 function changeCustomerEmail(){
     //get the form values
     var CID   = $('#input_CID').val();     
@@ -644,7 +548,6 @@ function changeCustomerEmail(){
         }
     })
 }
-
 function changeCustomerFax(){
     //get the form values
     var CID   = $('#input_CID').val();     
@@ -670,7 +573,6 @@ function changeCustomerFax(){
         }
     })
 }
-
 function changeCustomerNotes(){
     var CID   = $('#input_CID').val();     
     var cNotes = $('#input_notes').val();
@@ -716,11 +618,12 @@ function changeCustomerContact(){
     })
 }
 function deleteCustomer(){
-    var CID   = $('#input_CID').val();     
+    var customer_ID = $('#input_CID').val();     
+    console.log(customer_ID);
     $.ajax({
         url : "../DeletePHP/deleteCustomer.php",
         type: "POST",
-        data : {CID : CID},
+        data : {customer_ID : customer_ID},
         success: function(data,status, xhr)
         {
             window.location.reload(true);
@@ -831,13 +734,8 @@ function confirmPO(){
                     addShipDateToPO(POID, fInspect, date);
                 }
             }else{
-                var r = confirm("This PO looks good to me. Save the shipping date by clicking OK");
-                if(r == true)
-                {
-                    addShipDateToPO(POID, fInspect, date);
-                }
+                addShipDateToPO(POID, fInspect, date);
             }
-
         }
     })
 }

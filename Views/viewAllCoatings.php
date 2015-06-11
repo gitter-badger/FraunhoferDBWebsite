@@ -19,7 +19,7 @@ while($row = mysqli_fetch_array($secResult)){
   <title>Fraunhofer CCD</title>
   <link href='../css/bootstrap.min.css' rel='stylesheet'>
   <link href='../css/main.css' rel='stylesheet'>
-  <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src='../js/bootstrap.min.js'></script>
   <script type="text/javascript" src='../js/passScript.js'></script>
 </head>
@@ -28,7 +28,7 @@ while($row = mysqli_fetch_array($secResult)){
   <div class='container'>
     <div class='row well well-lg'>
       <div class='col-md-12'>
-        <h2>Here is a list of all our Coatings</h2>
+        <h2>Coatings</h2>
         <table id="report" class='col-md-12'>
           <tr>
             <th>Machine ID</th>
@@ -60,9 +60,9 @@ while($row = mysqli_fetch_array($secResult)){
       echo"
         <div class='row well well-lg'>
           <div class='col-md-12'>
-            <h2>Enter Coating ID to insert or change some values in the table. The coating ID can not be changed!</h2>
+            <h3>Enter Coating ID to insert or change some values in the table. The coating ID can not be changed!</h3>
             <div class='col-md-3'>
-              <h3 >Enter the Coating ID Number</h3>
+              <h4>Enter the Coating ID Number</h4>
               <input type='number' id='input_coating_ID' /></br>
             </div>
             <div class='col-md-3'>

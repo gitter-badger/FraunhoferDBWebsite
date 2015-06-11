@@ -19,7 +19,7 @@ while($row = mysqli_fetch_array($secResult)){
   <title>Fraunhofer CCD</title>
   <link href='../css/bootstrap.min.css' rel='stylesheet'>
   <link href='../css/main.css' rel='stylesheet'>
-  <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script type="text/javascript" src='../js/passScript.js'></script>
 </head>
 <body>
@@ -78,7 +78,7 @@ while($row = mysqli_fetch_array($secResult)){
           </select>
           <input type='submit' value='Change' onclick='changePOShippingInfo(<?php echo $po_ID;?>)' class='btn btn-primary'/>
         </div>        
-        <h2>Here are the lineitems for this PO</h2>
+        <h4>Lineitems</h4>
         <table id="report" class='col-md-12'>
           <tr>
             <th>Line on PO</th>
@@ -117,7 +117,7 @@ while($row = mysqli_fetch_array($secResult)){
       <div class='col-md-12'>
         <h2>Enter the line number to edit.</h2>
         <div class='col-md-3'>
-          <h4>Enter the line on the po you want to change</h4>
+          <h4>Enter the line on the PO you want to change</h4>
           <input type='number' id='line' /></br>
         </div>
         <div class='col-md-3'>

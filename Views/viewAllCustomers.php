@@ -19,7 +19,7 @@ while($row = mysqli_fetch_array($secResult)){
   <title>Fraunhofer CCD</title>
   <link href='../css/bootstrap.min.css' rel='stylesheet'>
   <link href='../css/main.css' rel='stylesheet'>
-  <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script type="text/javascript" src='../js/passScript.js'></script>
 </head>
 <body>
@@ -27,7 +27,7 @@ while($row = mysqli_fetch_array($secResult)){
   <div class='container'>
     <div class='row well well-lg'>
       <div class='col-md-12'>
-        <h2>Here is a list of all our Customers</h2>
+        <h2>Customers</h2>
         <table id="report" class='col-md-12'>
           <tr>
             <th>Customer ID</th>
@@ -70,9 +70,9 @@ if($user_sec_lvl >=3)
   echo"
     <div class='row well well-lg'>
       <div class='col-md-12'>
-        <h2>Enter Customer ID to change the value in some field of the Customer. The customer ID can not be changed!</h2>
+        <h3>Enter customer ID to change the value in some field of the customer. The customer ID can not be changed!</h3>
         <div class='col-md-3'>
-          <h3 >Enter the Customer ID Number</h3>
+          <h4>Enter the Customer ID Number</h4>
           <input type='number' id='input_CID' /></br>
         </div>
         <div class='col-md-3'>

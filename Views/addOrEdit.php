@@ -20,13 +20,13 @@ if($user_sec_lvl < 2){
 ?>
 <html>
 <head>
-  <script type="text/javascript" src='../js/passScript.js'></script>
-  <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
-  <script src='../js/bootstrap.min.js'></script>
-  <title>Fraunhofer CCD</title>
   <link href='../css/bootstrap.min.css' rel='stylesheet'>
   <link href='../css/main.css' rel='stylesheet'>
+  <script type="text/javascript" src='../js/passScript.js'></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src='../js/bootstrap.min.js'></script>
 </head>
+  <title>Fraunhofer CCD</title>
 <body>
   <?php include '../header.php'; ?>
   <div class='container'>

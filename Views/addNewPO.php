@@ -25,7 +25,7 @@ if($user_sec_lvl < 2){
   <link href='../css/bootstrap.min.css' rel='stylesheet'>
   <link href='../css/main.css' rel='stylesheet'>
   <script type="text/javascript" src='../js/passScript.js'></script>
-  <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src='../js/bootstrap.min.js'></script>
 </head>
 <body>
@@ -33,7 +33,7 @@ if($user_sec_lvl < 2){
   <div class='container'>
     <div class='row well well-lg'>
       <div class='col-md-12'>
-        <p>This is the add new po view</p>
+        <h5>Add new PO</h5>
         <p class='col-md-6'>
           <label for="POID" class='col-md-3'>POID:</label>
           <input type="text" name="POID" id="POID">
@@ -41,7 +41,7 @@ if($user_sec_lvl < 2){
         <p class='col-md-6'>
           <label for="CID" class ='col-md-3'>Company:</label>
           <select id='CID'>
-            <option value="">Select a company:</option> 
+            <option value="">Company:</option> 
             <?php
             $sql = "SELECT customer_ID, customer_name 
                     FROM customer";
@@ -59,7 +59,7 @@ if($user_sec_lvl < 2){
         <p class='col-md-6'>
           <label for="employeeId" class ='col-md-3'>Employee:</label>
           <select id='employeeId'>
-            <option value="">Select a employee:</option> 
+            <option value="">Employee:</option> 
             <?php
             $sql = "SELECT employee_ID, employee_name 
             FROM employee";

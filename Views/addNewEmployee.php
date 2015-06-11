@@ -19,7 +19,7 @@ while($row = mysqli_fetch_array($secResult)){
   <title>Fraunhofer CCD</title>
   <link href='../css/bootstrap.min.css' rel='stylesheet'>
   <script type="text/javascript" src='../js/passScript.js'></script>   
-  <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src='../js/bootstrap.min.js'></script>
 </head>
 <body>
@@ -27,8 +27,7 @@ while($row = mysqli_fetch_array($secResult)){
   <div class='container'>
     <div class='row well well-lg'>
       <div class='col-md-12'>
-        <h2>Dont use your real password!!!!!</h2>
-        <p>This is the add new Employee view</p>
+        <h5>Add new employee</h5>
         <form onsubmit='return false'>
           <p class='col-md-6'>
             <label for="eName">Employee name: </label>

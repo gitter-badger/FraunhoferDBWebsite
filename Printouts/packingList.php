@@ -65,7 +65,6 @@ $address_line_2 = $addressArray[1].$addressArray[2];
   <title>Fraunhofer CCD</title>
   <link href='../css/bootstrap.min.css' rel='stylesheet'>
   <link href='../css/print.css' rel='stylesheet'>
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
   <script type="text/javascript" src='../js/passScript.js'></script>
 </head>
 <body>
@@ -95,7 +94,7 @@ $address_line_2 = $addressArray[1].$addressArray[2];
           <span class="col-xs-12 col-xs-offset-2">Fraunhofer USA</span>
           <span class="col-xs-12 col-xs-offset-2">Center for Coatings and Diamond Technologies</span>
           <span class='col-xs-12'></br></span>
-          <span class="col-xs-12 col-xs-offset-2">1449 Engineering Reasearch Court</span>
+          <span class="col-xs-12 col-xs-offset-2">1449 Engineering Research Court</span>
           <span class="col-xs-12 col-xs-offset-2">Michigan State University</span>
           <span class="col-xs-12 col-xs-offset-2">East Lansing, MI, 48824</span>
           <span class="col-xs-12 col-xs-offset-2"></br></span>

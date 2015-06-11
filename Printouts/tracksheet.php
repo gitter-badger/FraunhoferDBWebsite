@@ -5,7 +5,6 @@
   <link href='../css/bootstrap.min.css' rel='stylesheet'>
   <!-- <link href='../css/main.css' rel='stylesheet'> -->
   <link href='../css/print.css' rel='stylesheet'>
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
   <script type="text/javascript" src='../js/searchScript.js'></script>
 </head>
 <body>

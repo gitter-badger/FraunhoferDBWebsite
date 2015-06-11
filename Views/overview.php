@@ -56,34 +56,9 @@ while($row = mysqli_fetch_array($secResult)){
         </div>
       </div>
     </div>
-    <div class='row well well-lg'>
-      <div class='col-md-12'>
-        <h2>Find Existing POS for the company of your choice</h2>
-        <p class='lead'>Choose the company to see their active POS Thought of this as a quick look if a customer calls and asks about an old PO. </p>
-        <form>
-         <select name="POS" onchange="showUser(this.value)">
-          <option value="">Select a company:</option> 
-          <?php
-            $sql = "SELECT customer_ID, customer_name FROM customer";
-            $result = mysqli_query($link, $sql);
-            
-            if (!$result) {
-              die("Database query failed: " . mysqli_error($link));
-            }
-            while($row = mysqli_fetch_array($result)){
-              echo '<option value="'.$row['customer_ID'].'">'.$row['customer_name'].'</option>';
-          }
-          ?>
-        </select>
-      </form>
-      <br>
-      <div id="txtHint"><b>PO info will be listed here...</b></div>
-    </div>
-  </div>
   <div class='row well well-lg'>
     <div class='col-md-12'>
-      <h2>All active POS</h2>
-      <p class='lead'>These are all our active POS at the moment.(that have not been shipped)</p>
+      <h2>POS that have not been shipped</h2>
       <table id="report">
         <tr>
           <th class='col-md-1'>PO number</th>
@@ -131,11 +106,13 @@ while($row = mysqli_fetch_array($secResult)){
         /*
             query that shows the information about line items on the clicked po
         */
-            $toolSql = "SELECT l.line_on_po, l.tool_ID, l.quantity, l.price, ROUND(l.price * l.quantity, 2) 
-                        FROM lineitem l, pos p
+            $toolSql = "SELECT l.line_on_po, l.tool_ID, l.quantity, l.price, ROUND(l.price * l.quantity, 2), c.coating_type
+                        FROM lineitem l, pos p, coating c
                         WHERE l.po_ID = '$po_ID'
+                        AND l.coating_ID = c.coating_ID
                         GROUP BY l.lineitem_ID
-                        ORDER BY l.line_on_po;";
+                        ORDER BY l.line_on_po;
+                        ";
             $toolResult = mysqli_query($link, $toolSql);
 
             if (!$toolResult) {
@@ -145,8 +122,9 @@ while($row = mysqli_fetch_array($secResult)){
             "<td colspan='7'>";
             while ($second = mysqli_fetch_array($toolResult)){
              echo "<div class='col-md-2'> Item: ".$second[0]."</div>".
-             "<div class='col-md-3'> TID : ".$second[1]."</div>".
+             "<div class='col-md-2'> TID : ".$second[1]."</div>".
              "<div class='col-md-2'> Quantity : ".$second[2]."</div>".
+             "<div class='col-md-2'> Coating : ".$second[5]."</div>".
              "<div class='col-md-2'> Unit Price : ".$second[3]."</div>".
              "<div class='col-md-2'> Total price : ".$second[4]."</div>";
            }

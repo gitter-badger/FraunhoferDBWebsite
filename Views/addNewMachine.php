@@ -19,7 +19,7 @@ while($row = mysqli_fetch_array($secResult)){
   <title>Fraunhofer CCD</title>
   <link href='../css/bootstrap.min.css' rel='stylesheet'>
   <script type="text/javascript" src='../js/passScript.js'></script>
-  <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src='../js/bootstrap.min.js'></script>
 </head>
 <body>
@@ -27,14 +27,15 @@ while($row = mysqli_fetch_array($secResult)){
   <div class='container'>
     <div class='row well well-lg'>
       <div class='col-md-12'>
-        <p>This is the add new machine View</p>
+        <h5>Add new machine</h5>
         <p class='col-md-6'>
           <label for="mname">Machine Name: </label>
           <input type="text" name="mname" id="mname">
         </p>
         <p class='col-md-6'>
-          <label for="macro">Short Version(acronym): </label>
+          <label for="macro">Acronym</label>
           <input type="text" name='macro' id='macro'>
+          Fx. K2
         </p>
         <input class='col-md-offset-1'type="button" value="Add Machine to Database" onclick='addNewMachine()'>
       </div>

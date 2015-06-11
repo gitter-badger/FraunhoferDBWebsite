@@ -22,7 +22,6 @@ if($user_sec_lvl < 4){
 <head>
   <link href='../css/bootstrap.min.css' rel='stylesheet'>
   <link href='../css/main.css' rel='stylesheet'>
-  <script type="text/javascript" src='../js/passScript.js'></script>
   <script type='text/javascript' src='https://www.google.com/jsapi'></script>
   <script src='../js/bootstrap.min.js'></script>
 
