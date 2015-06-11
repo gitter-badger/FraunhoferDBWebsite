@@ -4,12 +4,11 @@ include '../connection.php';
 
 $po_number = mysqli_real_escape_string($link, $_POST['POID']);
 $date 	   = mysqli_real_escape_string($link, $_POST['date']);
-$fInspect  = mysqli_real_escape_string($link, $_POST['fInspect']);
-// if the date or inspection comment is empty we dont insert it to the DB
+// if the date is empty we dont insert it to the DB
 
 
-if($date == "" OR $fInspect == ""){ 
-	echo "Error. Empty date or inspection comment";
+if($date == ""){ 
+	echo "Error. Empty date";
 }
 else{
 // getting the right po_ID from the po_number
@@ -24,7 +23,9 @@ while($row = mysqli_fetch_array($po_IDresult)){
 // the following code is to check if we have coated all the tools. The user
 // decides if he wants to continue if there are missing tools
 
-$quantitySql = "SELECT SUM(quantity) FROM lineitem WHERE po_ID = '$po_ID';";
+$quantitySql = "SELECT SUM(quantity) 
+				FROM lineitem 
+				WHERE po_ID = '$po_ID';";
 $quantityResult = mysqli_query($link, $quantitySql);
 
 $coatedToolsSql = "SELECT SUM(number_of_items_in_run)

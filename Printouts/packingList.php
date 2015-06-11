@@ -74,8 +74,19 @@ $address_line_2 = $addressArray[1].$addressArray[2];
       <img src="../images/fraunhoferlogo.jpg" alt="Fraunhofer Logo" style="float:left; width:220px; height:auto; margin-top:10px;"/>
     </div>
     <div>
+      <div class='col-xs-12 commentHide'>
+        <!-- <button class='btn btn-primary' onclick='storePackingList(<?php echo $_SESSION['po_ID']; ?>)'>Store packing list</button> -->
+        <div class='row well well-lg'>
+            <label for='addShippingDate' class='col-xs-offset-5'>Provide Shipping date and a comment for the packing list</label>
+            <input type="text" id="addShippingDate" name='addShippingDate' value='<?php echo date("Y-m-d") ?>'/>
+            <button type='button' id='addShippingDateButton' class='btn btn-primary' onclick='confirmPO()'>
+             <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+           </button>
+           <a class='col-xs-offset-9' href='../Printouts/trackSheet.php' target="_blank">View tracksheet for this PO</a>
+           <a class='col-xs-offset-9' href='../Printouts/packingList.php' target="_blank">View packinglist for this PO</a>
+        </div>
+      </div>
       <div class="col-xs-12"> 
-        <div class='col-xs-12'>
           <h5>Packing list </h5>
         </div>
         <div>
@@ -152,9 +163,7 @@ $address_line_2 = $addressArray[1].$addressArray[2];
         </table>
       </div>
       <div class='col-xs-12'>
-        <p class='col-xs-3'><span class='commentHide'>Packinglist </span>Comment</p>
-        <textarea id='packing_list_comment' rows='2' cols='41'>
-          <?php
+            <?php
               $sql = "SELECT packinglist_comment
                       FROM packinglist
                       WHERE po_ID = '$_SESSION[po_ID]';";
@@ -165,15 +174,11 @@ $address_line_2 = $addressArray[1].$addressArray[2];
               while($row = mysqli_fetch_array($result)){
                   $comment = $row[0];
               }
-              echo $comment;
           ?>
-        </textarea>
-      </div>
-      <div class='col-xs-offset-5 commentHide'>
-        <button class='btn btn-primary' onclick='storePackingList(<?php echo $_SESSION['po_ID']; ?>)'>Store packing list</button>
+        <p class='col-xs-3'><span class='commentHide'>Packinglist </span>Comment</p>
+        <textarea id='packing_list_comment' rows='2' cols='41'><?php echo $comment; ?></textarea>
       </div>
     </div>
-  </div>
 </body>
 </html>
 

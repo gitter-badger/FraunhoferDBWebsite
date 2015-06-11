@@ -709,7 +709,6 @@ function addLineItemToRun(){
 */
 function confirmPO(){
    var POID     = document.getElementById('POID').innerHTML;
-   var fInspect = $('#fInspect').val();
    var date     = $('#addShippingDate').val();
   $.ajax({
     url : "../InsertPHP/confirmTrackSheet.php",

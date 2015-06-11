@@ -18,7 +18,7 @@ include '../connection.php';
 $q = $_SESSION["po_ID"];
 
 // all the basic info for the header of the printout. TOTAL_WEEKDAYS is a function that calculates the turn around time without weekends
-$topsql ="SELECT p.po_number, p.receiving_date, c.customer_name, p.shipping_date, TOTAL_WEEKDAYS(shipping_date, receiving_date), e.employee_name, p.initial_inspection, p.final_inspection
+$topsql ="SELECT p.po_number, p.receiving_date, c.customer_name, p.shipping_date, TOTAL_WEEKDAYS(shipping_date, receiving_date), e.employee_name, p.initial_inspection
           FROM customer c, pos p, employee e, employee_pos w
           WHERE c.customer_ID = p.customer_ID
           AND p.po_ID = '$q'
@@ -63,8 +63,7 @@ while($row = mysqli_fetch_array($countresult)){
 $newResult = mysqli_query($link, $topsql);
 while($row = mysqli_fetch_array($newResult)){
 
-    echo "<div class='col-xs-12'><div class='col-xs-4'><strong>Initial inspection :  </strong>" .$row[6]."</div>".
-         "<div class='col-xs-4'style='margin-bottom:10px;'><strong>Final inspection : </strong>".$row[7]."</div></div>";
+    echo "<div class='col-xs-12'><div class='col-xs-4'><strong>Initial inspection :  </strong>" .$row[6]."</div>";
 }
 // All the info for the lineitems on this PO
 // ordered by what line on the PO they are

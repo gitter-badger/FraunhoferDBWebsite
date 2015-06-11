@@ -55,7 +55,7 @@ function drawMarkersMap() {
     ['Wixom, MI',       <?php echo $countCust[2];?>, { v:<?php echo $countCust[2]; ?>, f: 'Sterling Edge' } ],
     ['Cass City, MI',   <?php echo $countCust[3];?>, { v:<?php echo $countCust[3]; ?>, f: 'Wave Tool LLC' } ],
     ['Lenexa, KS',      <?php echo $countCust[4];?>, { v:<?php echo $countCust[4]; ?>, f: 'Kocher & Beck' } ],
-    ['Waterford, MI',   <?php echo $countCust[5];?>, { v:<?php echo $countCust[5]; ?>, f: 'H&M Tool Express  ' } ],
+    ['Waterford, MI',   <?php echo $countCust[5];?>, { v:<?php echo $countCust[5]; ?>, f: 'H&M Tool Express' } ],
     ]);
 
   var options = {
