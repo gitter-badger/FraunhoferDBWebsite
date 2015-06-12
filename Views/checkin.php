@@ -65,6 +65,17 @@ if($user_sec_lvl < 2){
         </div>
       </div>
     </div>
+     <div class='row well well-lg'>
+      <div class='col-md-6'>
+        <h2>Generate a packing list for your PO</h2>
+        <p class='lead'></p>
+        <div class='input-group col-md-8'>
+          <span class="btn-group">
+            <a href='../printouts/packinglist.php' class='btn btn-primary btn-lg' type='submit'>Enter</a>
+          </span>
+        </div>
+      </div>
+    </div>
 </div>
 </body>
 </html>

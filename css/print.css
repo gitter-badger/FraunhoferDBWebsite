@@ -27,10 +27,11 @@ hr {
 #tableDiv{
     padding-bottom:30px;
 }
-/*
-.packingTable{
-    border:none;
-}*/
+.table_input{
+    width:4em;
+    background: transparent;
+    text-align: right;
+}
 @media print {
 
 .bottomrow{
@@ -63,7 +64,6 @@ table, td, th {
     border: 1px solid black;
     padding: 0px;
     font-size: x-small;
-
 }
 ul, img {
   page-break-inside: avoid;
@@ -82,5 +82,10 @@ textarea {
     border: none; 
     resize:none;
 }
-
+.table_input{
+    border: 0px;
+    width:4em;
+    background: transparent;
+    text-align: right;
+}
 }

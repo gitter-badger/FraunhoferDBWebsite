@@ -73,6 +73,14 @@ $sql = "INSERT INTO lineitem_run VALUES('$lineitem_ID', '$run_ID','$number_of_to
 
 $resultSql = mysqli_query($link, $sql);
 
+// also update the quantity_on_packinglist in the lineitem table
+
+$packinglistSql = "UPDATE lineitem
+				   SET quantity_on_packinglist = quantity_on_packinglist + $number_of_tools
+				   WHERE lineitem_ID = $lineitem_ID;";
+
+$packinglistResult = mysqli_query($link, $packinglistSql);
+
 #if fail let user know what went wrong
 if (!$resultSql) {
     $message  = 'Invalid result query: ' . mysqli_error($link) . "\n";

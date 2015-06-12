@@ -1,21 +1,14 @@
 <?php
 include '../connection.php';
 // Escape user inputs for security
+session_start();
+$po_ID   = $_SESSION["po_ID"];
+$date    = mysqli_real_escape_string($link, $_POST['date']);
+$comment = mysqli_real_escape_string($link, $_POST['comment']);
+var_dump($date);
+var_dump($comment);
+var_dump($po_ID);
 
-$po_number = mysqli_real_escape_string($link, $_POST['POID']);
-$date 	   = mysqli_real_escape_string($link, $_POST['date']);
-$fInspect  = mysqli_real_escape_string($link, $_POST['fInspect']);
-
-
-// getting the right po_ID from the po_number
-$po_IDsql = "SELECT p.po_ID
-             FROM   pos p
-             WHERE p.po_number = '$po_number';";
-$po_IDresult = mysqli_query($link, $po_IDsql);
-
-while($row = mysqli_fetch_array($po_IDresult)){
-    $po_ID = $row[0];
-}
 // find the overall price of the PO
 $sumSql = "SELECT round(sum(l.price * l.quantity),2)
 		   FROM lineitem l
@@ -28,7 +21,7 @@ while($row = mysqli_fetch_array($sumResult)){
 // sets the sql safe update off so you can update tables.
 $sql1 = "SET SQL_SAFE_UPDATES=0;";
 $sql2 ="UPDATE pos SET shipping_date = '$date' WHERE po_ID = '$po_ID'";
-$sql3 ="UPDATE pos SET final_inspection = '$fInspect' WHERE po_ID = '$po_ID'";
+$sql3 ="UPDATE pos SET final_inspection = '$comment' WHERE po_ID = '$po_ID'";
 $sql4 ="UPDATE pos SET final_price = '$finalPrice' WHERE po_ID = '$po_ID'";
 // turns the safe update feature back on
 $sql5 = "SET SQL_SAFE_UPDATES=1;";

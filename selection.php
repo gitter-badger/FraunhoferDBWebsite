@@ -46,6 +46,7 @@
               <li><a href='Views/addNewPO.php'>Add a new PO</a></li>
               <li><a href='Views/addTools2.php'>Add tools to PO</a></li>
               <li><a href='Views/generateTrackSheet.php'>Generate a tracksheet</a></li>
+              <li><a href='printouts/packinglist.php'>Generate a packing list</a></li>
             </ul>
         </div>";
       }

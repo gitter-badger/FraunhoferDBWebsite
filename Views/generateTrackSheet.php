@@ -36,13 +36,6 @@ if($user_sec_lvl < 2){
       <form><select name='POS' onchange='showTools(this.value)'>
         <option value''>Select a PO#: </option>
         <?php 
-          /*
-           *  dropdown list for po numbers
-           *  We pick all the pos that have shipping date not set
-           *  but we also want to get all the POS that have had invalid 
-           *  dates inserted to them. invalid dates show up as 0000-00-00
-           *  this way the user can easily fix the wrong date.
-           */
           $sql = "SELECT po_ID, po_number
           FROM pos
           ORDER BY receiving_date DESC
@@ -216,19 +209,6 @@ if($user_sec_lvl < 2){
   <button type='button' id='delRunToolButton' class='btn btn-danger' onclick='delRunTool(document.getElementById("delRunTool").value, document.getElementById("delRunToolRun").value) ; showRunTools()'>
     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
   </button>
-</div>
-<div class='row well well-lg'>
-  <div class="col-xs-12">
-    <label for='fInspect' class='col-xs-offset-7'>Add text for final inspection</label>
-    <input type="text" id="fInspect" name='fInspect'/>
-    <label for='addShippingDate' class='col-xs-offset-5'>Add Shipping date and a final inspection to this PO</label>
-    <input type="text" id="addShippingDate" name='addShippingDate' value='<?php echo date("Y-m-d") ?>'/>
-    <button type='button' id='addShippingDateButton' class='btn btn-primary' onclick='confirmPO()'>
-     <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
-   </button>
-   <a class='col-xs-offset-9' href='../Printouts/trackSheet.php' target="_blank">View tracksheet for this PO</a>
-   <a class='col-xs-offset-9' href='../Printouts/packingList.php' target="_blank">View packinglist for this PO</a>
- </div>
 </div>
 <div id='runTools'></div>
 
