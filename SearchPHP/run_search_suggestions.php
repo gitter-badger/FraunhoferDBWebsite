@@ -18,17 +18,19 @@ $stringInput = $input . '%';
 $sql = "SELECT r.run_ID, run_number, run_date, run_comment, SUM(lir.number_of_items_in_run), ROUND(SUM(lir.number_of_items_in_run * l.price), 2), ROUND(SUM(lir.number_of_items_in_run * l.price)/SUM(lir.number_of_items_in_run), 2), ROUND(SUM(lir.number_of_items_in_run * l.price), 2) / COUNT(DISTINCT(r.run_ID))
 		FROM run r, lineitem_run lir, lineitem l
 		WHERE 1
-		AND r.run_number LIKE '$stringInput'
 		AND r.run_ID = lir.run_ID
 		AND lir.lineitem_ID = l.lineitem_ID ";
 $averageSql = "SELECT ROUND(SUM(lir.number_of_items_in_run * l.price) / COUNT(DISTINCT(r.run_ID)), 2), ROUND(SUM(lir.number_of_items_in_run * l.price)/SUM(lir.number_of_items_in_run), 2), SUM(lir.number_of_items_in_run)
 			   FROM run r, lineitem_run lir, lineitem l
 			   WHERE 1
-			   AND r.run_number LIKE '$stringInput'
 			   AND r.run_ID = lir.run_ID
 			   AND lir.lineitem_ID = l.lineitem_ID ";
 
 // if the user picked any of the filter options they are added here
+if(!empty($stringInput)){
+	$sql .= "AND r.run_number LIKE '$stringInput' ";
+	$averageSql .= "AND r.run_number LIKE '$stringInput' ";
+}
 if(!empty($first_date)){
 	$sql .= "AND run_date >= '$first_date' ";
 	$averageSql .= "AND run_date >= '$first_date' ";

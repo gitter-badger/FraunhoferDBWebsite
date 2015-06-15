@@ -30,7 +30,6 @@ $(".dropdown-menu").on('click', 'li a', function(){
 
 </head>
 <body>
-
 <div class="container">
     <div class="form-signin">
       <label for="userID" class="sr-only">Employee ID</label>

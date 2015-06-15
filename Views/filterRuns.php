@@ -26,8 +26,8 @@ while($row = mysqli_fetch_array($secResult)){
   <div class='container'>
     <div class='row well well-lg col-md-12'>
       <h4>Enter info to search for a run</h4>
-      <p>Use '_' to represent a single character or use '%' to represent a string of characters</p>
-      <p>K215_____1 would for example find all first runs of the day for 2015 on K2</p>
+      <!-- <p>Use '_' to represent a single character or use '%' to represent a string of characters</p> -->
+      <!-- <p>K215_____1 would for example find all first runs of the day for 2015 on K2</p> -->
       <p class='col-md-3'>
         <span>From:</span>
         <input type="date" name="datefirst" id="search_box_date_first" onchange='run_suggestions()'/>

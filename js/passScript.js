@@ -464,6 +464,7 @@ function delRunTool(lineitem, run_number){
             success: function(data,status, xhr)
             {
              showPORuns();
+             console.log(data);
              $("#status_text").html(data);
          }
      })
@@ -1273,7 +1274,19 @@ function setSessionIDAndRefresh(){
         },
     })
 }
-
+function updatePackinglistQuantity(lineitem_ID, quantity){
+    $.ajax({
+        url : "../UpdatePHP/updatePackinglistQuantity.php",
+        type: "POST",
+        data : {
+            lineitem_ID : lineitem_ID,
+            quantity : quantity,
+        },
+        success: function(data,status, xhr)
+        {
+        },
+    })
+}
 
 
 

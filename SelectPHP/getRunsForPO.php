@@ -67,7 +67,7 @@ while($row = mysqli_fetch_array($result)){
                     <h3>Add or edit run comment</h3>
                     <p>This is the current comment</p>
                     <textarea  class='new_comment'>".$row[5]."</textarea>
-                    <button type='button' class='btn btn-success comment_button' onclick='updateRunComment(".$row[0].")'>Save changes</button>
+                    <button type='button' class='btn btn-success comment_button' data-dismiss='modal' onclick='updateRunComment(".$row[0].")'>Save changes</button>
                     <button type='button' class='btn btn-default' onclick='showPOTools()' data-dismiss='modal'>Close</button>
                   </div>
                   <div class='modal-footer'>

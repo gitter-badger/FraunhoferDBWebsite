@@ -5,9 +5,7 @@ session_start();
 $po_ID   = $_SESSION["po_ID"];
 $date    = mysqli_real_escape_string($link, $_POST['date']);
 $comment = mysqli_real_escape_string($link, $_POST['comment']);
-var_dump($date);
-var_dump($comment);
-var_dump($po_ID);
+
 
 // find the overall price of the PO
 $sumSql = "SELECT round(sum(l.price * l.quantity),2)

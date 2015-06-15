@@ -27,7 +27,7 @@ while($row = mysqli_fetch_array($po_IDresult)){
   $po_number = $row[0];
 }
 // query that gets all the data for the packing list table
-$sql = "SELECT l.tool_ID, SUM(lir.number_of_items_in_run), l.quantity, c.coating_type, l.quantity_on_packinglist
+$sql = "SELECT l.tool_ID, SUM(lir.number_of_items_in_run), l.quantity, c.coating_type, l.quantity_on_packinglist, l.lineitem_ID
         FROM lineitem l, lineitem_run lir, coating c, run r
         WHERE l.po_ID = '$po_ID'
         AND l.lineitem_ID = lir.lineitem_ID
@@ -92,16 +92,16 @@ while($row = mysqli_fetch_array($result)){
             <option value''>Select a PO#: </option>
             <?php 
             $sql = "SELECT po_ID, po_number
-                    FROM pos
-                    ORDER BY receiving_date DESC
-                    LIMIT 12";
+            FROM pos
+            ORDER BY receiving_date DESC
+            LIMIT 12";
             $result = mysqli_query($link, $sql);
             while($row = mysqli_fetch_array($result)){
              echo '<option value="'.$row[0].'">'.$row[1].'</option>';
            } 
            ?>
-          </select>
-        </form>
+         </select>
+       </form>
        <div class='col-xs-12' style='padding:0;'>              
          <label for='addShippingDate'>Set a packing list comment</label>
        </br>
@@ -110,15 +110,17 @@ while($row = mysqli_fetch_array($result)){
      <div class='col-xs-12' style='padding:0;'>
       <label>Set shipping date</label>
     </br>
-       <input type="text" id="addShippingDate" name='addShippingDate' value='<?php echo date("Y-m-d") ?>'/>
-     </div>
-     <button type='button' id='addShippingDateButton' class='btn btn-primary' onclick='confirmPO()'>
-         <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
-       </button>
-     <p>Press ctrl+p to print out the packing list</p>
-   </div>
- </div>
- <div class="col-xs-12">
+    <input type="text" id="addShippingDate" name='addShippingDate' value='<?php echo date("Y-m-d") ?>'/>
+  </div>
+  <label>Click to store shipping date and comment</label>
+  </br>
+  <button type='button' id='addShippingDateButton' class='btn btn-primary' onclick='confirmPO()'>
+    <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
+  </button>
+  <p>Press ctrl+p to print out the packing list</p>
+</div>
+</div>
+<div class="col-xs-12">
   <img src="../images/iso.jpg" alt="ISO logo" style="float:right; width:70px; height:auto; margin-top:10px;"/>
   <img src="../images/fraunhoferlogo.jpg" alt="Fraunhofer Logo" style="float:left; width:220px; height:auto; margin-top:10px;"/>
 </div>
@@ -179,6 +181,7 @@ while($row = mysqli_fetch_array($result)){
 <div class="col-xs-12" id="tableDiv">
   <table class="packingTable col-xs-12">
     <tr class="packingTable"> 
+      <th class="packingTable commentHide hidden">Lineitem_ID</th>
       <th class="packingTable">Tool type</th>
       <th class="packingTable">Number of tools</th>
       <th class="packingTable">Coating type</th>
@@ -192,8 +195,9 @@ while($row = mysqli_fetch_array($result)){
         $row[1] = $row[2];
       }
       echo "<tr class='packingTable'>".
+      "<td class='packingTable commentHide hidden'>".$row[5]."</td>".
       "<td class='packingTable'>".$row[0]."</td>".
-      "<td class='packingTable'><input type='text' class='table_input' value='".$row[4]."'/>/".$row[2]."</td>".
+      "<td class='packingTable'><input type='text' class='table_input' value='".$row[4]."'/>/".$row[2]." <input type='button' style='text-align: right;' class='btn btn-success commentHide saveButton' value='Save'></input></td>".
       "<td class='packingTable'>".$row[3]."</td>";
     }
     ?>
@@ -216,6 +220,17 @@ while($row = mysqli_fetch_array($result)){
   <p id='' rows='2' cols='41'><?php echo $comment; ?></p>
 </div>
 </div>
+<script>
+$('.saveButton').click(function () {                          
+    // the quantity in the input field
+    var quantity = $(this).prev('input').val();
+    // the lineitem_ID in the hidden field of the table
+    var lineitem_ID = $(this).closest('td').prev().prev().html();
+    updatePackinglistQuantity(lineitem_ID, quantity);
+    $(this).val("Saved!");
+
+});
+</script>
 </body>
 </html>
 
