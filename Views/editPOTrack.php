@@ -178,6 +178,11 @@ if($user_sec_lvl < 2){
   <button type='button' id='delRunToolButton' class='btn btn-danger' onclick='delRunTool(document.getElementById("delRunTool").value, document.getElementById("delRunToolRun").value) ; showRunTools()'>
     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
   </button>
+    <div class='col-xs-offset-9'>
+    <p>
+      <a href='../printouts/packinglist.php'>Go to packing list for this PO</a>
+    </p>
+  </div>
 </div>
 <div id='runTools'></div>
 <script>

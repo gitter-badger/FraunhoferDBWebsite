@@ -65,17 +65,18 @@ while($row = mysqli_fetch_array($secResult)){
           <th class='col-md-2'>Company Name</th>
           <th class='col-md-2'>Receiving date</th>
           <th class='col-md-2'>Initial inspection</th>
-          <th class='col-md-2'>Number of Lines</th>
+          <th class='col-md-2'>Est run #</th>
         </tr>
         <?php
           /*
               query that shows a list of POS, and some info about them, that have not been shipped yet
               if clicked will display a list of the line items on that PO
           */
-          $sql = "SELECT p.po_number, c.customer_name, p.receiving_date, p.initial_inspection, p.nr_of_lines 
-                  FROM pos p, customer c 
-                  WHERE p.customer_ID= c.customer_ID 
+          $sql = "SELECT p.po_number, c.customer_name, p.receiving_date, p.initial_inspection, ROUND(SUM(l.est_run_number), 2)
+                  FROM pos p, customer c, lineitem l
+                  WHERE p.customer_ID = c.customer_ID 
                   AND (p.shipping_date > DATE(NOW()) OR p.shipping_date IS null)
+                  AND l.po_ID = p.po_ID
                   GROUP BY p.po_ID
                   ORDER BY p.receiving_date";
 

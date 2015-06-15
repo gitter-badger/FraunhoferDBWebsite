@@ -63,8 +63,8 @@ $address_line_2 = $addressArray[1].$addressArray[2];
 
 // query to find the right comment for this po
 $sql = "SELECT final_inspection
-FROM pos
-WHERE po_ID = '$_SESSION[po_ID]';";
+        FROM pos
+        WHERE po_ID = '$_SESSION[po_ID]';";
 $result = mysqli_query($link, $sql);
 if(!$result){
   mysqli_error($link);
@@ -92,13 +92,13 @@ while($row = mysqli_fetch_array($result)){
             <option value''>Select a PO#: </option>
             <?php 
             $sql = "SELECT po_ID, po_number
-            FROM pos
-            ORDER BY receiving_date DESC
-            LIMIT 12";
+                    FROM pos
+                    ORDER BY receiving_date DESC
+                    LIMIT 12";
             $result = mysqli_query($link, $sql);
             while($row = mysqli_fetch_array($result)){
-             echo '<option value="'.$row[0].'">'.$row[1].'</option>';
-           } 
+                echo '<option value="'.$row[0].'">'.$row[1].'</option>';
+            }  
            ?>
          </select>
        </form>
@@ -197,7 +197,7 @@ while($row = mysqli_fetch_array($result)){
       echo "<tr class='packingTable'>".
       "<td class='packingTable commentHide hidden'>".$row[5]."</td>".
       "<td class='packingTable'>".$row[0]."</td>".
-      "<td class='packingTable'><input type='text' class='table_input' value='".$row[4]."'/>/".$row[2]." <input type='button' style='text-align: right;' class='btn btn-success commentHide saveButton' value='Save'></input></td>".
+      "<td class='packingTable'><input type='text' class='table_input' value='".$row[4]."'/>/".$row[2]." <input type='button' style='text-align: right;' class='btn btn-success commentHide saveButton' value='Save changes'></input></td>".
       "<td class='packingTable'>".$row[3]."</td>";
     }
     ?>
@@ -227,9 +227,17 @@ $('.saveButton').click(function () {
     // the lineitem_ID in the hidden field of the table
     var lineitem_ID = $(this).closest('td').prev().prev().html();
     updatePackinglistQuantity(lineitem_ID, quantity);
-    $(this).val("Saved!");
-
+    $(this).val("Changes saved!");
 });
+</script>
+
+<script>
+// makes the dropdown show the selected PO even after refresh
+$( document ).ready(function() {
+    var po_ID = <?php echo $po_ID; ?>;
+    console.log(po_ID);
+    $("#packingsel").val(po_ID);    
+    });
 </script>
 </body>
 </html>
