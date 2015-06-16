@@ -24,8 +24,6 @@ table, td, th {
 hr {
     border: 1px solid black;
     width: 97%;
-    margin-top: 25px;
-    margin-bottom: 25px;
 }
 #tableDiv{
     padding-bottom:30px;
@@ -34,6 +32,18 @@ hr {
     width:4em;
     background: transparent;
     text-align: right;
+}
+#bottomDiv{
+    margin-bottom: 15px;
+}
+.comments{
+    font-size: medium;
+}
+#bigSlash{
+    font-size: x-large;
+}
+#addShippingDate{
+    margin-bottom: 10px;
 }
 @media print {
 

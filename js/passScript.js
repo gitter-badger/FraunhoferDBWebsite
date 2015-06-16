@@ -704,35 +704,67 @@ function addRun(){
     Adds a final comment
     and a shipping date to the chosen PO
     */
-    function confirmPO(){
-     var date     = $('#addShippingDate').val();
-     var comment  = $('#packing_list_comment').val();
-     $.ajax({
+function confirmPO(){
+    var date     = $('#addShippingDate').val();
+    var comment  = $('#packing_list_comment').val();
+    $.ajax({
         url : "../InsertPHP/confirmTrackSheet.php",
         type: "POST",
         data : {date : date},
         success: function(data,status, xhr)
         {
             if(data.indexOf("Error") > -1){
-             alert(data);
-         } else if(data.indexOf("missing") > -1){
-            var r = confirm(data);
-            if(r == true)
-            {
+                alert(data);
+            } else if(data.indexOf("missing") > -1){
+                var r = confirm(data);
+                if(r == true)
+                {
+                    addShipDateToPO(comment, date);
+                }
+            }else if(data.indexOf("assigned") > -1){
+                var r = confirm(data);
+                if(r == true)
+                {
+                    addShipDateToPO(comment, date);
+                }
+            }else{
                 addShipDateToPO(comment, date);
             }
-        }else if(data.indexOf("assigned") > -1){
-            var r = confirm(data);
-            if(r == true)
-            {
-                addShipDateToPO(comment, date);
-            }
-        }else{
-            addShipDateToPO(comment, date);
         }
-    }
-})
+    })
  }
+
+ function saveAndPrint(){
+    var date     = $('#addShippingDate').val();
+    var comment  = $('#packing_list_comment').val();
+    $.ajax({
+        url : "../InsertPHP/confirmTrackSheet.php",
+        type: "POST",
+        data : {date : date},
+        success: function(data,status, xhr)
+        {
+            if(data.indexOf("Error") > -1){
+                alert(data);
+            } else if(data.indexOf("missing") > -1){
+                var r = confirm(data);
+                if(r == true){
+                    addShipDateToPO(comment, date);
+                    window.print();
+                }
+            }else if(data.indexOf("assigned") > -1){
+                var r = confirm(data);
+                if(r == true){
+                    addShipDateToPO(comment, date);
+                    window.print();
+                }
+            }else{
+                addShipDateToPO(comment, date);
+                window.print();
+            }
+        }
+    })
+ }
+
  function addShipDateToPO (comment, date){
   $.ajax({
     url : "../InsertPHP/insertShipDateToPO.php",

@@ -6,8 +6,8 @@ session_start();
 $user = $_SESSION["username"];
 //find his level of security 
 $secsql = "SELECT security_level
-FROM employee
-WHERE employee_name = '$user'";
+           FROM employee
+           WHERE employee_name = '$user'";
 $secResult = mysqli_query($link, $secsql);
 
 while($row = mysqli_fetch_array($secResult)){
@@ -78,13 +78,14 @@ while($row = mysqli_fetch_array($result)){
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
       <li role="presentation" class="active"><a href="#normal" aria-controls="home" role="tab" data-toggle="tab">Round Tools</a></li>
+      <li role="presentation"><a href="#inserts" aria-controls="inserts" role="tab" data-toggle="tab">Insert tools</a></li>
       <li role="presentation"><a href="#odd" aria-controls="odd" role="tab" data-toggle="tab">Odd shaped tools</a></li>
     </ul>
     <!-- Tab panes -->
     <div class="tab-content">
       <div role="tabpanel" class="tab-pane active" id="normal">
        <div class='col-xs-4'>
-        <label for="lineItem">Item number: </label>
+        <label for="lineItem">Line on PO: </label>
         <input type="number" name="lineItem" id="lineItem">
       </div>
       <div class='col-xs-4'>
@@ -129,8 +130,8 @@ while($row = mysqli_fetch_array($result)){
           <option value="">Select coating type:</option> 
           <?php
           $sql = "SELECT coating_ID, coating_type 
-                  FROM coating 
-                  ORDER BY coating_type ASC";
+          FROM coating 
+          ORDER BY coating_type ASC";
           $result = mysqli_query($link, $sql);
           if (!$result) 
           {
@@ -162,10 +163,55 @@ while($row = mysqli_fetch_array($result)){
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
       </button>
     </div>
+    <!-- ======================================= -->
+    <div role="tabpanel" class="tab-pane" id="inserts">
+     <div class='col-xs-4'>
+      <label for="lineItemOdd">inserts number: </label>
+      <input type="number" name="lineItemOdd" id="lineItemOdd">
+    </div>
+    <div class='col-xs-4'>
+      <label for="toolIDOdd">Tool ID Number: </label>
+      <input type="text" name="toolIDOdd" id="tidOdd">
+    </div>
+    <div class='col-xs-4'>
+      <label for="coatingIDOdd" class ='col-xs-3'>Coating</label>
+      <select id='coating_sel_odd' onchange='generatePrice()' onfocus='generatePrice()'>
+        <option value="">Select coating type:</option> 
+        <?php
+            $sql = "SELECT coating_ID, coating_type 
+                    FROM coating 
+                    ORDER BY coating_type ASC";
+            $result = mysqli_query($link, $sql);
+            if (!$result) 
+            {
+              die("Database query failed: " . mysqli_error($link));
+            }
+            while($row = mysqli_fetch_array($result))
+            {
+              echo '<option value="'.$row['coating_ID'].'">'.$row['coating_type'].'</option>';
+            }
+        ?>
+      </select>
+    </div>
+    <div class='col-xs-4'>
+      <label for="quantityOdd">Quantity: </label>
+      <input type=" number" name="quantityOdd" id="quantityOdd">
+    </div>
+    <div class='col-xs-4' id='pricediv'>
+      <label for="priceOdd">Unit Price: </label>
+      <input name="priceOdd" id='priceOdd' value=''></input>
+    </div>
+    <button type='button'  class='btn btn-default col-xs-offset-10' onclick='showPOTools()'>
+      <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+    </button>
+    <button type='button'  class='btn btn-default' onclick='addTool()'>
+      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    </button>
+  </div>
     <!---_______________________________________ -->
     <div role="tabpanel" class="tab-pane" id="odd">
      <div class='col-xs-4'>
-      <label for="lineItemOdd">Item number: </label>
+      <label for="lineItemOdd">Line on PO: </label>
       <input type="number" name="lineItemOdd" id="lineItemOdd">
     </div>
     <div class='col-xs-4'>
@@ -180,8 +226,8 @@ while($row = mysqli_fetch_array($result)){
         <option value="">Select coating type:</option> 
         <?php
         $sql = "SELECT coating_ID, coating_type 
-                FROM coating 
-                ORDER BY coating_type ASC";
+        FROM coating 
+        ORDER BY coating_type ASC";
         $result = mysqli_query($link, $sql);
         if (!$result) 
         {

@@ -6,10 +6,10 @@ session_start();
 $user = $_SESSION["username"];
 $po_ID = $_SESSION["po_ID"];
 //find his level of security 
-$secsql = "SELECT sec_lvl
+$secSql = "SELECT sec_lvl
            FROM Employees
            WHERE ename = '$user'";
-$secResult = mysqli_query($link, $secsql);
+$secResult = mysqli_query($link, $secSql);
 
 while($row = mysqli_fetch_array($secResult)){
   $user_sec_lvl = $row[0];
@@ -27,7 +27,7 @@ while($row = mysqli_fetch_array($po_IDresult)){
   $po_number = $row[0];
 }
 // query that gets all the data for the packing list table
-$sql = "SELECT l.tool_ID, SUM(lir.number_of_items_in_run), l.quantity, c.coating_type, l.quantity_on_packinglist, l.lineitem_ID
+$sql = "SELECT l.tool_ID, l.quantity, c.coating_type, l.quantity_on_packinglist, l.lineitem_ID
         FROM lineitem l, lineitem_run lir, coating c, run r
         WHERE l.po_ID = '$po_ID'
         AND l.lineitem_ID = lir.lineitem_ID
@@ -46,13 +46,13 @@ $customerSql = "SELECT c.customer_name, c.customer_address, c.customer_phone, c.
                 AND p.po_ID = '$po_ID';";
 $customerResult = mysqli_query($link, $customerSql);
 if(!$customerResult){
-  mysqli_error($link);
+    mysqli_error($link);
 }
 while($row = mysqli_fetch_array($customerResult)){
-  $customer_name    = $row[0];
-  $customer_address = $row[1];
-  $customer_phone   = $row[2];
-  $customer_fax     = $row[3];
+    $customer_name    = $row[0];
+    $customer_address = $row[1];
+    $customer_phone   = $row[2];
+    $customer_fax     = $row[3];
 }
 
 // Split the address to two parts so we can print it in two lines.
@@ -64,13 +64,13 @@ $address_line_2 = $addressArray[1].$addressArray[2];
 // query to find the right comment for this po
 $sql = "SELECT final_inspection
         FROM pos
-        WHERE po_ID = '$_SESSION[po_ID]';";
+        WHERE po_ID = '$po_ID';";
 $result = mysqli_query($link, $sql);
 if(!$result){
   mysqli_error($link);
 }
 while($row = mysqli_fetch_array($result)){
-  $comment = $row[0];
+    $comment = $row[0];
 }
 ?>
 <html>
@@ -93,7 +93,7 @@ while($row = mysqli_fetch_array($result)){
             <?php 
             $sql = "SELECT po_ID, po_number
                     FROM pos
-                    ORDER BY receiving_date DESC
+                    ORDER BY receiving_date DESC, po_ID DESC
                     LIMIT 12";
             $result = mysqli_query($link, $sql);
             while($row = mysqli_fetch_array($result)){
@@ -112,16 +112,17 @@ while($row = mysqli_fetch_array($result)){
     </br>
     <input type="text" id="addShippingDate" name='addShippingDate' value='<?php echo date("Y-m-d") ?>'/>
   </div>
-  <label>Click to store shipping date and comment</label>
   </br>
   <button type='button' id='addShippingDateButton' class='btn btn-primary' onclick='confirmPO()'>
-    <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
+    Save
+  </button> 
+  <button type='button' class='btn btn-primary' onclick='saveAndPrint()'>
+    Print
   </button>
-  <p>Press ctrl+p to print out the packing list</p>
 </div>
 </div>
 <div class="col-xs-12">
-  <img src="../images/iso.jpg" alt="ISO logo" style="float:right; width:70px; height:auto; margin-top:10px;"/>
+  <img src="../images/iso.jpg" alt="ISO logo" style="float:right; width:110px; height:auto; margin-top:10px;"/>
   <img src="../images/fraunhoferlogo.jpg" alt="Fraunhofer Logo" style="float:left; width:220px; height:auto; margin-top:10px;"/>
 </div>
 <div>
@@ -140,7 +141,7 @@ while($row = mysqli_fetch_array($result)){
   <span class="col-xs-12">Ph. <?php echo $customer_phone;?></span>
   <span class="col-xs-12">Fax <?php echo $customer_fax;?></span>
 </div>
-<div class="col-xs-6">
+<div class="col-xs-6" id="bottomDiv">
   <span class="col-xs-12 col-xs-offset-2">Fraunhofer USA</span>
   <span class="col-xs-12 col-xs-offset-2">Center for Coatings and Diamond Technologies</span>
   <span class='col-xs-12'></br></span>
@@ -154,7 +155,8 @@ while($row = mysqli_fetch_array($result)){
   <span class="col-xs-12 col-xs-offset-2">Email: lhaubold@fraunhofer.org</span>
 </div>
 </div>
-<div class='col-xs-12'>
+
+<div>
   <hr>
 </div>
 <div class="col-xs-12" id='aboveTable'>
@@ -195,10 +197,10 @@ while($row = mysqli_fetch_array($result)){
         $row[1] = $row[2];
       }
       echo "<tr class='packingTable'>".
-      "<td class='packingTable commentHide hidden'>".$row[5]."</td>".
+      "<td class='packingTable commentHide hidden'>".$row[4]."</td>".
       "<td class='packingTable'>".$row[0]."</td>".
-      "<td class='packingTable'><input type='text' class='table_input' value='".$row[4]."'/>/".$row[2]." <input type='button' style='text-align: right;' class='btn btn-success commentHide saveButton' value='Save changes'></input></td>".
-      "<td class='packingTable'>".$row[3]."</td>";
+      "<td class='packingTable'><input type='text' class='table_input' value='".$row[3]."'/>/".$row[1]." <input type='button' style='text-align: right;' class='btn btn-success commentHide saveButton' value='Save changes'></input></td>".
+      "<td class='packingTable'>".$row[2]."</td>";
     }
     ?>
   </table>
@@ -207,7 +209,7 @@ while($row = mysqli_fetch_array($result)){
   <?php
   $sql = "SELECT final_inspection
           FROM pos
-          WHERE po_ID = '$_SESSION[po_ID]';";
+          WHERE po_ID = '$po_ID';";
   $result = mysqli_query($link, $sql);
   if(!$result){
     mysqli_error($link);
@@ -216,8 +218,8 @@ while($row = mysqli_fetch_array($result)){
     $comment = $row[0];
   }
   ?>
-  <p class='col-xs-3'>Comment</p>
-  <p id='' rows='2' cols='41'><?php echo $comment; ?></p>
+  <p class='col-xs-3 comments'>Comment</p>
+  <p class='comments'><?php echo $comment; ?></p>
 </div>
 </div>
 <script>
@@ -230,6 +232,7 @@ $('.saveButton').click(function () {
     $(this).val("Changes saved!");
 });
 </script>
+
 
 <script>
 // makes the dropdown show the selected PO even after refresh
