@@ -10,26 +10,32 @@ $first_date  = mysqli_real_escape_string($link, $_POST['first_date']);
 $last_date   = mysqli_real_escape_string($link, $_POST['last_date']);
 $machine_ID  = mysqli_real_escape_string($link, $_POST['machine_ID']);
 $coating_ID  = mysqli_real_escape_string($link, $_POST['coating_ID']);
+$ah_pulses   = mysqli_real_escape_string($link, $_POST['ah_pulses']);
 
 // put a wildcard char after the run_number so it displays everything that starts with this string
 $stringInput = $input . '%';
+$stringAhPulses = $ah_pulses . '%';
 
 // build the basic sql statement
-$sql = "SELECT r.run_ID, run_number, run_date, run_comment, SUM(lir.number_of_items_in_run), ROUND(SUM(lir.number_of_items_in_run * l.price), 2), ROUND(SUM(lir.number_of_items_in_run * l.price)/SUM(lir.number_of_items_in_run), 2), ROUND(SUM(lir.number_of_items_in_run * l.price), 2) / COUNT(DISTINCT(r.run_ID))
+$sql = "SELECT r.run_ID, run_number, run_date, run_comment, ah_pulses, SUM(lir.number_of_items_in_run), ROUND(SUM(lir.number_of_items_in_run * l.price), 2), ROUND(SUM(lir.number_of_items_in_run * l.price)/SUM(lir.number_of_items_in_run), 2), ROUND(SUM(lir.number_of_items_in_run * l.price), 2) / COUNT(DISTINCT(r.run_ID))
 		FROM run r, lineitem_run lir, lineitem l
 		WHERE 1
 		AND r.run_ID = lir.run_ID
 		AND lir.lineitem_ID = l.lineitem_ID ";
-$averageSql = "SELECT ROUND(SUM(lir.number_of_items_in_run * l.price) / COUNT(DISTINCT(r.run_ID)), 2), ROUND(SUM(lir.number_of_items_in_run * l.price)/SUM(lir.number_of_items_in_run), 2), SUM(lir.number_of_items_in_run)
+$averageSql = "SELECT ROUND(SUM(lir.number_of_items_in_run * l.price) / COUNT(DISTINCT(r.run_ID)), 2), ROUND(SUM(lir.number_of_items_in_run * l.price)/SUM(lir.number_of_items_in_run), 2), ROUND(SUM(lir.number_of_items_in_run) / COUNT(DISTINCT(r.run_ID)),2)
 			   FROM run r, lineitem_run lir, lineitem l
 			   WHERE 1
 			   AND r.run_ID = lir.run_ID
 			   AND lir.lineitem_ID = l.lineitem_ID ";
 
 // if the user picked any of the filter options they are added here
-if(!empty($stringInput)){
+if(!empty($input)){
 	$sql .= "AND r.run_number LIKE '$stringInput' ";
 	$averageSql .= "AND r.run_number LIKE '$stringInput' ";
+}
+if(!empty($ah_pulses)){
+	$sql .= "AND r.ah_pulses LIKE '$stringAhPulses' ";
+	$averageSql .= "AND r.ah_pulses LIKE '$stringAhPulses' ";
 }
 if(!empty($first_date)){
 	$sql .= "AND run_date >= '$first_date' ";
@@ -57,10 +63,13 @@ if(!$result){echo mysqli_error($link);}
 
 ?>
 <table id='output' class='table table-striped table-bordered'>
+	<col width="130">
+	<col width="130">
 	<tr>
 		<th>Run number</th>
 		<th>Run date</th>
 		<th>Run comment</th>
+		<th>Ah/Pulses</th>
 		<th># of tools in run</th>
 		<th>Total $ in run</th>
 		<th>Avg tool cost in run</th>
@@ -90,8 +99,9 @@ while($row = mysqli_fetch_array($result)){
 			"<td>".$row[2]."</td>".
 			"<td>".$row[3]."</td>".
 			"<td>".$row[4]."</td>".
-			"<td>$".$row[5]."</td>".
+			"<td>".$row[5]."</td>".
 			"<td>$".$row[6]."</td>".
+			"<td>$".$row[7]."</td>".
 		  "</tr>";
 
 	echo "<div class='modal fade' id='".$row[0]."' tabindex='-1' role='dialog' aria-labelledby='".$row[0]."' aria-hidden='true'>
@@ -123,6 +133,7 @@ while($row = mysqli_fetch_array($result)){
 $row = mysqli_fetch_array($averageResult);
 echo "<tr>
 		<td>Average for selection</td>
+		<td></td>
 		<td></td>
 		<td></td>
 		<td>".$row[2]."</td>

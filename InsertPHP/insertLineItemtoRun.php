@@ -5,7 +5,8 @@
 	a final comment for the line item and the number of tools in that run.
 */
 include '../connection.php';
-$po_ID 			  = mysqli_real_escape_string($link, $_POST['POID']);
+session_start();
+$po_ID = $_SESSION['po_ID'];
 $line_on_po   	  = mysqli_real_escape_string($link, $_POST['lineItem']);
 $number_of_tools  = mysqli_real_escape_string($link, $_POST['number_of_tools']);
 $run_number 	  = mysqli_real_escape_string($link, $_POST['runNumber']);
@@ -24,28 +25,12 @@ if($run_number == 'e' || $run_number == 'E'){ $run_number_int = 5;}
 if($run_number == 'f' || $run_number == 'F'){ $run_number_int = 6;}
 
 if($run_number == 'g' || $run_number == 'G'){ $run_number_int = 7;}
-/*
-	TODO:
-		1. Get the line_on_po, run_number and the po_number
-		2. Find the right po_ID from the po_number
-		3. Find the lineitem_ID that has this po_ID and this line_on_po
-		4. Find the run_ID from the run_number
-*/
 
-//	Find the right po_id from the po_number from the user
-$po_IDsql = "SELECT p.po_ID
-             FROM   pos p
-             WHERE p.po_number = '$po_ID';";
-$po_IDresult = mysqli_query($link, $po_IDsql);
-
-while($row = mysqli_fetch_array($po_IDresult)){
-    $POID = $row[0];
-}
 // Find the right lineitem by querying the database
 // Find the lineitem that has the right po_ID and the right line_on_po
 $lineitemSql = "SELECT lineitem_ID
 				FROM lineitem
-				WHERE po_ID = '$POID'
+				WHERE po_ID = '$po_ID'
 				AND line_on_po = '$line_on_po'";
 $lineitemResult = mysqli_query($link, $lineitemSql);
 while($row = mysqli_fetch_array($lineitemResult)){
@@ -62,7 +47,7 @@ if (!$lineitemResult) {
 $runIDsql = "SELECT run_ID
 			 FROM pos_run posr
 			 WHERE run_number_on_po = '$run_number_int'
-			 AND po_ID = '$POID';";
+			 AND po_ID = '$po_ID';";
 
 $runIDresult = mysqli_query($link, $runIDsql);
 while($row = mysqli_fetch_array($runIDresult)){

@@ -6,7 +6,9 @@
 	We do this by calling a procedure in MySQL called check_run found in the procedures.sql file
 */
 include '../connection.php';
-$POID 				= mysqli_real_escape_string($link, $_POST['POID']);
+session_start();
+$po_ID = $_SESSION['po_ID'];
+
 $runDate  			= mysqli_real_escape_string($link, $_POST['runDate']);
 $rCoating 			= mysqli_real_escape_string($link, $_POST['rCoating']);
 $machine_run_number = mysqli_real_escape_string($link, $_POST['machine_run_number']);
@@ -30,17 +32,11 @@ if($run_on_this_po == 'f' || $run_on_this_po == 'F'){ $run_on_this_po_int = 6;}
 
 if($run_on_this_po == 'g' || $run_on_this_po == 'G'){ $run_on_this_po_int = 7;}
 
-// find the right po id from the po number
-$po_IDsql = "SELECT p.po_ID
-             FROM   pos p
-             WHERE p.po_number = '$POID';";
-$po_IDresult = mysqli_query($link, $po_IDsql);
 
-while($row = mysqli_fetch_array($po_IDresult)){
-    $POID = $row[0];
-}
 // this query gets the machine acronym to generate the right run number
-$machineSql = "SELECT machine_acronym FROM machine WHERE machine_ID = '$machine'";
+$machineSql = "SELECT machine_acronym 
+			   FROM machine 
+			   WHERE machine_ID = '$machine'";
 $machineResult = mysqli_query($link, $machineSql);
 
 while($row = mysqli_fetch_array($machineResult)){
@@ -49,7 +45,7 @@ while($row = mysqli_fetch_array($machineResult)){
 
 $runDate = str_replace("-","",$runDate);
 // concatting machine acronym the right chars from the date and the run number for that machine on that date. 
-$RID = $machineAcro.$runDate[2].$runDate[3].$runDate[4].$runDate[5].$runDate[6].$runDate[7].$machine_run_number;
+$run_number = $machineAcro.$runDate[2].$runDate[3].$runDate[4].$runDate[5].$runDate[6].$runDate[7].$machine_run_number;
 
 
 // Setting the variables in mysql. Might be an easier way to do this but this works.
@@ -63,7 +59,7 @@ $set_run_number_on_po_result = mysqli_query($link, $set_run_number_on_po);
 $set_run_number_for_machine = "SET @run_number_for_machine = '$machine_run_number';";
 $set_run_number_for_machine_result = mysqli_query($link, $set_run_number_for_machine);
 
-$set_run_number = "SET @run_number = '$RID';";
+$set_run_number = "SET @run_number = '$run_number';";
 $set_run_number_result = mysqli_query($link, $set_run_number);
 
 $set_ah_pulses = "SET @ah_pulses = '$ah_pulses';";
@@ -72,7 +68,7 @@ $set_ah_pulses_result = mysqli_query($link, $set_ah_pulses);
 $set_run_comments = "SET @run_comment = '$rcomments';";
 $set_run_comments_result = mysqli_query($link, $set_run_comments);
 
-$set_po_ID = "SET @po_ID = '$POID';";
+$set_po_ID = "SET @po_ID = '$po_ID';";
 $set_po_ID_result = mysqli_query($link, $set_po_ID);
 
 $set_coating_ID = "SET @coating_ID = '$rCoating';";

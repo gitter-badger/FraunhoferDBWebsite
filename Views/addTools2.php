@@ -48,7 +48,7 @@ while($row = mysqli_fetch_array($result)){
 ?>
 <input type="hidden" id='mostRecentPo_ID' value="<?php echo $po_ID; ?>" />
 <div class='col-xs-12'>
-  <span>Most recently added PO : <span><strong><?php echo $_SESSION["po_number"];?></strong></span> <button onclick='showTools(document.getElementById("mostRecentPo_ID").value)'>click</button> to use this one.</span>
+  <span>Most recently added PO is<button class='btn btn-md btn-link' onclick='showTools(document.getElementById("mostRecentPo_ID").value)'><?php echo $_SESSION["po_number"];?></button></span>
 </div>
 </div>
 <div class='row well well-lg'>
@@ -76,7 +76,7 @@ while($row = mysqli_fetch_array($result)){
 <div class='row well well-lg'>
   <div role="tabpanel">
     <!-- Nav tabs -->
-    <ul class="nav nav-tabs" role="tablist">
+    <ul class="nav nav-tabs tablist" role="tablist">
       <li role="presentation" class="active"><a href="#normal" aria-controls="home" role="tab" data-toggle="tab">Round Tools</a></li>
       <li role="presentation"><a href="#inserts" aria-controls="inserts" role="tab" data-toggle="tab">Insert tools</a></li>
       <li role="presentation"><a href="#odd" aria-controls="odd" role="tab" data-toggle="tab">Odd shaped tools</a></li>
@@ -91,6 +91,30 @@ while($row = mysqli_fetch_array($result)){
       <div class='col-xs-4'>
         <label for="toolID">Tool ID Number: </label>
         <input type="text" name="toolID" id="tid">
+      </div>
+      <div class='col-xs-4'>
+        <label for="quantity">Quantity: </label>
+        <input type=" number" name="quantity" id="quantity">
+      </div>
+      <div class='col-xs-4'>
+        <label for="coatingID">Coating</label>
+        <select id='coating_sel' onchange='generatePrice()' onfocus='generatePrice()'>
+          <option value="">Select coating type:</option> 
+          <?php
+          $sql = "SELECT coating_ID, coating_type 
+                  FROM coating 
+                  ORDER BY coating_type ASC";
+          $result = mysqli_query($link, $sql);
+          if (!$result) 
+          {
+            die("Database query failed: " . mysqli_error($link));
+          }
+          while($row = mysqli_fetch_array($result))
+          {
+            echo '<option value="'.$row['coating_ID'].'">'.$row['coating_type'].'</option>';
+          }
+          ?>
+        </select>
       </div>
       <div class='col-xs-4'id='changediameter'>
         <label for="diameter">Diameter: </label>
@@ -123,38 +147,12 @@ while($row = mysqli_fetch_array($result)){
         </select>
       </div>
       <div class='col-xs-4'>
-        <label for="coatingID" class ='col-xs-3'>
-          Coating
-        </label>
-        <select id='coating_sel' onchange='generatePrice()' onfocus='generatePrice()'>
-          <option value="">Select coating type:</option> 
-          <?php
-          $sql = "SELECT coating_ID, coating_type 
-          FROM coating 
-          ORDER BY coating_type ASC";
-          $result = mysqli_query($link, $sql);
-          if (!$result) 
-          {
-            die("Database query failed: " . mysqli_error($link));
-          }
-          while($row = mysqli_fetch_array($result))
-          {
-            echo '<option value="'.$row['coating_ID'].'">'.$row['coating_type'].'</option>';
-          }
-          ?>
-        </select>
-      </div>
-      <div class='col-xs-4'>
-        <label for="quantity">Quantity: </label>
-        <input type=" number" name="quantity" id="quantity">
+        <label for="dblEnd">Double ended? </label>
+        <input type="checkbox" name="dlbEnd" id="dblEnd">
       </div>
       <div class='col-xs-4' id='pricediv'>
         <label for="price">Unit Price: </label>
         <input name="price" id='price' value=''></input>
-      </div>
-      <div class='col-xs-4'>
-        <label for="dblEnd">Double ended? </label>
-        <input type="checkbox" name="dlbEnd" id="dblEnd">
       </div>
       <button type='button'  class='btn btn-default col-xs-offset-10' onclick='showPOTools()'>
         <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
@@ -166,16 +164,20 @@ while($row = mysqli_fetch_array($result)){
     <!-- ======================================= -->
     <div role="tabpanel" class="tab-pane" id="inserts">
      <div class='col-xs-4'>
-      <label for="lineItemOdd">inserts number: </label>
-      <input type="number" name="lineItemOdd" id="lineItemOdd">
+      <label for="lineItemInsert">Line on PO </label>
+      <input type="number" name="lineItemInsert" id="lineItemInsert">
     </div>
     <div class='col-xs-4'>
-      <label for="toolIDOdd">Tool ID Number: </label>
-      <input type="text" name="toolIDOdd" id="tidOdd">
+      <label for="toolIDInsert">Tool ID Number: </label>
+      <input type="text" name="toolIDInsert" id="toolIDInsert">
     </div>
     <div class='col-xs-4'>
-      <label for="coatingIDOdd" class ='col-xs-3'>Coating</label>
-      <select id='coating_sel_odd' onchange='generatePrice()' onfocus='generatePrice()'>
+      <label for="quantityInsert">Quantity: </label>
+      <input type=" number" name="quantityInsert" id="quantityInsert">
+    </div>
+    <div class='col-xs-4'>
+      <label for="coatingIDInsert">Coating</label>
+      <select id='coating_sel_insert' onchange='generatePrice()' onfocus='generatePrice()'>
         <option value="">Select coating type:</option> 
         <?php
             $sql = "SELECT coating_ID, coating_type 
@@ -193,18 +195,31 @@ while($row = mysqli_fetch_array($result)){
         ?>
       </select>
     </div>
-    <div class='col-xs-4'>
-      <label for="quantityOdd">Quantity: </label>
-      <input type=" number" name="quantityOdd" id="quantityOdd">
-    </div>
+      <div class='col-xs-4'>
+        <label for="IC">IC: </label>
+        <!-- TODO : calculate prices using this value -->
+        <select id="diameterInsert" name="IC">
+          <option value="0">N/A</option>
+          <option value="1/8">1/8</option>
+          <option value="3/16">3/16</option>
+          <option value="1/4">1/4</option>
+          <option value="3/8">3/8</option>
+          <option value="1/2">1/2</option>
+          <option value="5/8">5/8</option>
+          <option value="3/4">3/4</option>
+          <option value="1">1</option>
+          <option value="1 1/4">1 1/4</option>
+          <option value="1 3/8">1 3/8</option>
+        </select>
+      </div>
     <div class='col-xs-4' id='pricediv'>
-      <label for="priceOdd">Unit Price: </label>
-      <input name="priceOdd" id='priceOdd' value=''></input>
+      <label for="priceInsert">Unit Price: </label>
+      <input name="priceInsert" id='priceInsert' value=''></input>
     </div>
     <button type='button'  class='btn btn-default col-xs-offset-10' onclick='showPOTools()'>
       <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
     </button>
-    <button type='button'  class='btn btn-default' onclick='addTool()'>
+    <button type='button'  class='btn btn-default' onclick='addToolInsert()'>
       <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
     </button>
   </div>
@@ -216,12 +231,14 @@ while($row = mysqli_fetch_array($result)){
     </div>
     <div class='col-xs-4'>
       <label for="toolIDOdd">Tool ID Number: </label>
-      <input type="text" name="toolIDOdd" id="tidOdd">
+      <input type="text" name="toolIDOdd" id="toolIDOdd">
     </div>
     <div class='col-xs-4'>
-      <label for="coatingIDOdd" class ='col-xs-3'>
-        Coating
-      </label>
+      <label for="quantityOdd">Quantity: </label>
+      <input type=" number" name="quantityOdd" id="quantityOdd">
+    </div>
+    <div class='col-xs-4'>
+      <label for="coatingIDInsert">Coating</label>
       <select id='coating_sel_odd' onchange='generatePrice()' onfocus='generatePrice()'>
         <option value="">Select coating type:</option> 
         <?php
@@ -241,16 +258,12 @@ while($row = mysqli_fetch_array($result)){
       </select>
     </div>
     <div class='col-xs-4'>
-      <label for="quantityOdd">Quantity: </label>
-      <input type=" number" name="quantityOdd" id="quantityOdd">
+      <label for="dblEndOdd">Double ended? </label>
+      <input type="checkbox" name="dblEndOdd" id="dblEndOdd">
     </div>
     <div class='col-xs-4' id='pricediv'>
       <label for="priceOdd">Unit Price: </label>
       <input name="priceOdd" id='priceOdd' value=''></input>
-    </div>
-    <div class='col-xs-4'>
-      <label for="dblEndOdd">Double ended? </label>
-      <input type="checkbox" name="dblEndOdd" id="dblEndOdd">
     </div>
     <button type='button'  class='btn btn-default col-xs-offset-10' onclick='showPOTools()'>
       <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
