@@ -61,7 +61,7 @@ echo    "<tr>
             <td>Quantity</td>  
             <td>ToolID</td>
             <td>Coating</td>
-            <td>diameter</td>
+            <td>dia / IC</td>
             <td>length</td>
             <td>est run#</td>
             <td>double end</td>

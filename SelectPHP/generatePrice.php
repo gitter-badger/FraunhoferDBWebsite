@@ -8,14 +8,14 @@
 */
 
 include '../connection.php';
-
-$POID      = mysqli_real_escape_string($link, $_POST['POID']);
+session_start();
+$po_ID = $_SESSION["po_ID"];
 $diameter  = mysqli_real_escape_string($link, $_POST['diameter']);
 $length	   = mysqli_real_escape_string($link, $_POST['length']);
 
 $sql ="SELECT DISTINCT p.amount
 	   FROM price p, pos po
-	   WHERE po.po_number = '$POID'
+	   WHERE po.po_ID = '$po_ID'
 	   AND po.customer_ID = p.customer_ID
 	   AND p.diameter = '$diameter'
 	   AND p.length = '$length'";

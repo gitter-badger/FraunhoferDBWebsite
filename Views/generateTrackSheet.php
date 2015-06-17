@@ -149,7 +149,6 @@ if($user_sec_lvl < 2){
         <label for="rcomments">Comments </label>
         <input type="text" name="rcomments" id="rcomments">
       </p>
-      <div id="status_text"></div>
       <button type='button'  class='btn btn-default col-xs-offset-10' onclick='showPORuns()'>
         <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
       </button>
@@ -161,9 +160,7 @@ if($user_sec_lvl < 2){
       <button type='button' id='del_button' class='btn btn-danger' onclick='delRun(document.getElementById("delitem").value) ; showPORuns()'>
         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
       </button>
-      <div id="status_text">
-        <table id='txtAddRun'>
-        </table>
+      <div id="txtAddRun">
       </div>
     </div>
   </div>
@@ -199,8 +196,8 @@ if($user_sec_lvl < 2){
     <button type='button'  class='btn btn-default' onclick='addLineItemToRun()'>
       <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
     </button>
-    <table id ='txtAddToolToRun'>
-    </table>
+    <div id ='txtAddToolToRun'>
+    </div>
     <div id="status_text2"></div>
   </div>
   <label for='delRunTool' class='col-xs-offset-6'>Insert line# and run#</label>

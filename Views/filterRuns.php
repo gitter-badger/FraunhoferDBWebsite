@@ -36,6 +36,11 @@ while($row = mysqli_fetch_array($secResult)){
         <span>To:</span>
         <input type="date" name="datelast" id="search_box_date_last" onchange='run_suggestions()'/>
       </p>
+      <p class='col-md-3'>
+        <span>AH/Pulses:</span>
+        <input type="text" name="ah/pulses" id="search_box_ah" onkeyup='run_suggestions()'/>
+      </p>
+
       <p class='col-md-6'>
         <span>Run number:</span>
         <input type="text" name="run_number" id="search_box_run" class='search_box' onkeyup='run_suggestions()'/>

@@ -10,7 +10,9 @@
 */
 include '../connection.php';
  
-$po_ID      = mysqli_real_escape_string($link, $_POST['POID']);
+session_start();
+
+$po_ID = $_SESSION["po_ID"];
 $line_on_po = mysqli_real_escape_string($link, $_POST['lineitem']);
 $run_number = mysqli_real_escape_string($link, $_POST['run_number']);
 

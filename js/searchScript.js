@@ -36,6 +36,7 @@ function run_suggestions(){
     var coating_ID = coating_sel.options[coating_sel.selectedIndex].value;
     var first_date = $('#search_box_date_first').val();
     var last_date = $('#search_box_date_last').val();
+    var ah_pulses = $('#search_box_ah').val();
     //var exact_date = $('#search_box_date_last').val();
     $.ajax({
         url : "../SearchPHP/run_search_suggestions.php",
@@ -43,8 +44,9 @@ function run_suggestions(){
         data : {run_number : run_number,
                 machine_ID : machine_ID,
                 coating_ID : coating_ID,
+                ah_pulses  : ah_pulses,
                 first_date : first_date,
-                last_date : last_date},
+                last_date  : last_date},
      success: function(data,status, xhr)
      {
         $( "#output" ).replaceWith(data);

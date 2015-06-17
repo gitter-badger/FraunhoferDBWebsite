@@ -1,19 +1,9 @@
 <?php
 include '../connection.php';
-
-$po_ID      = mysqli_real_escape_string($link, $_POST['POID']);
+session_start();
+$po_ID = $_SESSION["po_ID"];
 $line_item = mysqli_real_escape_string($link, $_POST['line']);
 
-// first we have to find the right po_ID from the po_Number we get from the user
-$po_IDsql = "SELECT l.po_ID
-             FROM lineitem l, pos p
-             WHERE p.po_number = '$po_ID'
-             AND l.po_ID = p.po_ID;";
-$po_IDresult = mysqli_query($link, $po_IDsql);
-
-while($row = mysqli_fetch_array($po_IDresult)){
-    $po_ID = $row[0];
-}
 // Find the right lineitem_ID
 
 $lineitemSql = "SELECT lineitem_ID
